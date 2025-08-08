@@ -1,7 +1,7 @@
 from tqdm import tqdm
 import numpy as np
 import torch
-import colletions
+import collections
 import random
 
 # 经验回放池
@@ -85,8 +85,8 @@ def train_off_policy_agent(env,agent,num_episodes,replay_buffer,minimal_size,bat
                         agent_update(transition_dict)
                     return_list.append(episode_return)
                     # tqdm
-                    if (i_episode + 1) % 10 == 0 :# 每10次输出tqdm
-                    pbar.set_postfix({'episode':'%d' % (num_episodes/10 * i + i_episode+1), 'return':'%.3f' % np.mean(return_list[-10:])})
+                    if (i_episode+1) % 10 == 0:
+                        pbar.set_postfix({'episode': '%d' % (num_episodes/10 * i + i_episode+1), 'return': '%.3f' % np.mean(return_list[-10:])})
                     pbar.update(1)
     return return_list
                     
