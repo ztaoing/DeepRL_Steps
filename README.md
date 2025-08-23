@@ -1,6 +1,6 @@
 ## 强化学习笔记
 
-* BASIC            【鱼书】深度学习入门-强化学习 课件及笔记
+* BASIC            【鱼书】深度学习入门-强化学习 [课件及笔记](./BASIC)
 * DRL              【王树森】深度强化学习 课件及笔记
 
 * 李宏毅-强化学习-PPO 【[视频地址](https://www.bilibili.com/video/BV18r421j7S4?spm_id_from=333.788.videopod.episodes&vd_source=f397e73b314ac775b2d6145b41327fa0) 】
