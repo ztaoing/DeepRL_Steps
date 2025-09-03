@@ -15,3 +15,6 @@ spm_id_from=333.1387.favlist.content.click)
 * joyrl  [入门强化学习的代码生态](https://datawhalechina.github.io/joyrl-book/#/)
 * easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
 * notes-on-reinforcement-learning   [在线阅读地址](https://newfacade.github.io/notes-on-reinforcement-learning/01-intro.html#)
+
+## 神经网络
+* http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
