@@ -5,7 +5,7 @@
 3. 李宏毅-强化学习-PPO 【[视频地址](https://www.bilibili.com/video/BV18r421j7S4?spm_id_from=333.788.videopod.episodes&vd_source=f397e73b314ac775b2d6145b41327fa0) 】
 4. 李宏毅-强化学习-2025【[视频地址](https://www.bilibili.com/video/BV15hw9euExZ/?spm_id_from=333.337.search-card.all.click&vd_source=f397e73b314ac775b2d6145b41327fa0)】
 5. easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
-6. Mathematical-RL  【赵世钰】强化学习的数学原理   [视频地址](https://www.bilibili.com/video/BV1sd4y167NS/?）
+6. Mathematical-RL  [【赵世钰】强化学习的数学原理](https://www.bilibili.com/video/BV1sd4y167NS/?）
 
 ## 强化学习-代码实现
 
