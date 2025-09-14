@@ -18,3 +18,4 @@
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
 * https://github.com/changyeyu/LLM-RL-Visualized  图解大模型算法
+* https://www.rethink.fun  大模型核心技术和应用
