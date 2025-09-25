@@ -19,3 +19,6 @@
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
 * https://github.com/changyeyu/LLM-RL-Visualized  图解大模型算法
 * https://www.rethink.fun  大模型核心技术和应用
+
+## 分布式
+* Ray-利用Ray进行大模型的数据处理、训练、推理和部署 
