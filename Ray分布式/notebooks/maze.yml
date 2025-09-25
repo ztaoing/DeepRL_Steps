@@ -1,0 +1,6 @@
+maze_env:
+    env: maze_gym_env.GymEnvironment
+    run: DQN
+    checkpoint_freq: 1
+    stop:
+        timesteps_total: 10000
