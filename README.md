@@ -16,6 +16,9 @@
 * notes-on-reinforcement-learning   [在线阅读地址](https://newfacade.github.io/notes-on-reinforcement-learning/01-intro.html#)
 ## RLHF 
 * PPO-max [复旦大学](https://github.com/OpenLMLab/MOSS-RLHF)
+* deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
+
+
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
 * https://github.com/changyeyu/LLM-RL-Visualized  图解大模型算法
