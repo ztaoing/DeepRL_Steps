@@ -14,6 +14,7 @@
 * joyrl  [入门强化学习的代码生态](https://datawhalechina.github.io/joyrl-book/#/)
 * easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
 * notes-on-reinforcement-learning   [在线阅读地址](https://newfacade.github.io/notes-on-reinforcement-learning/01-intro.html#)
+* 强化学习算法实现 [DRL-code-pytorch](https://github.com/Lizhi-sjtu/DRL-code-pytorch)
 ## RLHF 
 * PPO-max [复旦大学](https://github.com/OpenLMLab/MOSS-RLHF)
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
