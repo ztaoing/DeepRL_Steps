@@ -14,7 +14,8 @@
 * joyrl  [入门强化学习的代码生态](https://datawhalechina.github.io/joyrl-book/#/)
 * easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
 * notes-on-reinforcement-learning   [在线阅读地址](https://newfacade.github.io/notes-on-reinforcement-learning/01-intro.html#)
-
+## RLHF 
+* PPO-max [复旦大学](https://github.com/OpenLMLab/MOSS-RLHF)
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
 * https://github.com/changyeyu/LLM-RL-Visualized  图解大模型算法
