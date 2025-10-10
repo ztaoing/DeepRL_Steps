@@ -17,6 +17,7 @@
 * 强化学习算法实现 [DRL-code-pytorch](https://github.com/Lizhi-sjtu/DRL-code-pytorch)
 ## 强化学习框架
 * trl  [trl](https://github.com/willccbb/trl)
+* verl [verl](https://github.com/volcengine/verl)
 ## RLHF 
 * PPO-max [复旦大学](https://github.com/OpenLMLab/MOSS-RLHF)
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
