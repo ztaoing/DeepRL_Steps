@@ -386,6 +386,7 @@ class GRPOTrainer(Trainer):
                 reward_funcs[i] = AutoModelForSequenceClassification.from_pretrained(
                     reward_func, num_labels=1, **model_init_kwargs  
                 )
+        # 奖励函数
         self.reward_funcs = reward_funcs 
 
         # 奖励权重 Reward weights
@@ -773,7 +774,7 @@ class GRPOTrainer(Trainer):
                 unwrapped_model.unmerge_adapter()
                 # 解绑适配器以恢复模型的原始状态。必须在加载权重后完成，以确保它们对应于合并的状态。
     @profiling_decorator
-    def _prepare_inputs( # 准备输入 
+    def _prepare_inputs( # 用于在训练和评估过程中准备输入数据
         self, inputs: dict[str, Union[torch.Tensor, Any]]
     ) -> dict[str, Union[torch.Tensor, Any]]: 
         mode = "eval" if self.control.should_evaluate else "train"  
@@ -794,23 +795,38 @@ class GRPOTrainer(Trainer):
             inputs = self._generate_and_score_completions(inputs) # 生成并评分完成的数据
         return inputs
 
+    # ---------- 生成并评分完成的数据 ----------
+    # 这个方法在训练和评估过程中被调用，主要用于生成模型的输出（完成）并计算这些输出的奖励（rewards）
+    '''
+            "prompt_ids": prompt_ids,   # 模型的输入
+            "prompt_mask": prompt_mask,   # 输入的掩码：指示哪些 token 是有效的，在计算损失和评分时，只有有效 token 被考虑。
+            "completion_ids": completion_ids,   # 模型输出的预测的 token IDs
+            "completion_mask": completion_mask,   # 掩码
+            "old_per_token_logps": old_per_token_logps,   # 旧的每个token的对数概率
+            "ref_per_token_logps": ref_per_token_logps,   # 这些是对数概率是基于参考模型计算的。参考模型通常是一个预训练模型，用于提供基准性能。
+            "advantages": advantages,   # 优势
+    '''
     def _generate_and_score_completions( # 生成并评分完成的数据
         self, inputs: dict[str, Union[torch.Tensor, Any]] 
     ) -> dict[str, Union[torch.Tensor, Any]]:
+
+
         device = self.accelerator.device
+        # 从输入中提取提示（prompts）
         prompts = [x["prompt"] for x in inputs]
         prompts_text = [
             maybe_apply_chat_template(example, self.processing_class)["prompt"] # 应用chat模板
             for example in inputs
         ]
-        prompt_inputs = self.processing_class( # 处理输入
+        prompt_inputs = self.processing_class( # 处理提示文本，生成输入张量
             prompts_text,
             return_tensors="pt",
             padding=True,
             padding_side="left",
             add_special_tokens=False,
         )
-        prompt_inputs = super()._prepare_inputs(prompt_inputs) # 准备输入
+        prompt_inputs = super()._prepare_inputs(prompt_inputs) # 准备输入数据
+
         prompt_ids, prompt_mask = (
             prompt_inputs["input_ids"],
             prompt_inputs["attention_mask"],
@@ -821,6 +837,7 @@ class GRPOTrainer(Trainer):
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
 
         # Generate completions using either vLLM or regular generation 使用vLLM或常规生成生成完成
+        # 如果使用 vLLM，收集所有提示并在主进程中生成完成，然后将完成广播到所有进程
         if self.args.use_vllm:
             # First, have main process load weights if needed 首先，如果需要，主进程加载权重
             if self.state.global_step != self._last_loaded_step:
@@ -866,7 +883,7 @@ class GRPOTrainer(Trainer):
             ) # 填充完成，并将它们与提示连接起来
             prompt_completion_ids = torch.cat([prompt_ids, completion_ids], dim=1) # 将提示和完成连接起来
         else:
-            # Regular generation path 常规生成路径
+            # 如果不使用 vLLM，使用常规生成路径生成完成
             with unwrap_model_for_generation( # 解包模型，确保模型在生成过程中使用正确的设备
                 self.model, self.accelerator
             ) as unwrapped_model:
@@ -881,7 +898,7 @@ class GRPOTrainer(Trainer):
             prompt_ids = prompt_completion_ids[:, :prompt_length]
             completion_ids = prompt_completion_ids[:, prompt_length:]
 
-        # Mask everything after the first EOS token 屏蔽所有在第一个EOS token之后的token
+        # 屏蔽所有在第一个EOS token之后的token
         is_eos = completion_ids == self.processing_class.eos_token_id
         eos_idx = torch.full( # 创建一个全0的张量，用于存储EOS token的索引
             (is_eos.size(0),), is_eos.size(1), dtype=torch.long, device=device
@@ -892,7 +909,7 @@ class GRPOTrainer(Trainer):
         )
         completion_mask = (sequence_indices <= eos_idx.unsqueeze(1)).int() # 创建一个完成掩码，用于存储完成掩码
 
-        # Concatenate prompt_mask with completion_mask for logit computation 将prompt_mask和completion_mask连接起来，用于计算logits
+        # 将prompt_mask和completion_mask连接起来，用于计算logits
         attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)  # (B, P+C)
 
         logits_to_keep = completion_ids.size(
@@ -903,12 +920,15 @@ class GRPOTrainer(Trainer):
             # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's  
             # 当使用num_iterations == 1时，old_per_token_logps == per_token_logps，所以我们可以跳过它的计算，并使用per_token_logps.detach()代替。
             # computation here, and use per_token_logps.detach() instead.
+           
+            # 计算每个 token 的对数概率，用于计算KL散度
             if self.num_iterations > 1: #   如果迭代次数大于1
                 old_per_token_logps = self._get_per_token_logps( # 获取每个token的对数概率
                     self.model, prompt_completion_ids, attention_mask, logits_to_keep #  使用模型获取每个token的对数概率
                 )
             else:
                 old_per_token_logps = None # 如果迭代次数等于1，则设置为None
+
 
             if self.beta == 0.0:
                 ref_per_token_logps = None # 如果beta等于0，则设置为None
@@ -928,7 +948,7 @@ class GRPOTrainer(Trainer):
                         logits_to_keep, # 连接提示和完成
                     )
 
-        # Decode the generated completions 解码生成的完成
+        #  解码: 生成的completions
         completions_text = self.processing_class.batch_decode(
             completion_ids, skip_special_tokens=True
         )
@@ -944,25 +964,30 @@ class GRPOTrainer(Trainer):
         else:
             completions = completions_text
 
+        # 计算每个奖励函数的输出
         rewards_per_func = torch.zeros(
             len(prompts), len(self.reward_funcs), device=device
         )
         for i, (reward_func, reward_processing_class) in enumerate(
             zip(self.reward_funcs, self.reward_processing_classes)
-        ):
+        ): # 遍历每个奖励函数和奖励处理类
             if isinstance(
                 reward_func, nn.Module
-            ):  # Module instead of PretrainedModel for compat with compiled models
+            ):  # Module instead of PretrainedModel for compat with compiled models     
+                # 如果输入是对话式的，则将提示和完成转换为对话格式
                 if is_conversational(inputs[0]):
                     messages = [
                         {"messages": p + c} for p, c in zip(prompts, completions)
                     ]
+                    # 将提示和完成转换为文本
                     texts = [
                         apply_chat_template(x, reward_processing_class)["text"]
                         for x in messages
                     ]
                 else:
+                    # 如果输入不是对话式的，则将提示和完成转换为文本
                     texts = [p + c for p, c in zip(prompts, completions)]
+                # 处理奖励输入
                 reward_inputs = reward_processing_class(
                     texts,
                     return_tensors="pt",
@@ -971,53 +996,62 @@ class GRPOTrainer(Trainer):
                     add_special_tokens=False,
                 )
                 reward_inputs = super()._prepare_inputs(reward_inputs)
-                with torch.inference_mode():
+                with torch.inference_mode(): # 使用推理模式，确保模型在推理过程中使用正确的设备
                     rewards_per_func[:, i] = reward_func(**reward_inputs).logits[
                         :, 0
                     ]  # Shape (B*G,)
+                    # 计算每个奖励函数的奖励
             else:
-                # Repeat all input columns (but "prompt" and "completion") to match the number of generations
+                # Repeat all input columns (but "prompt" and "completion") to match the number of generations 
+                # 重复所有输入列（但 "prompt" 和 "completion"）以匹配生成数量
                 keys = [key for key in inputs[0] if key not in ["prompt", "completion"]]
                 reward_kwargs = {
+                    # 创建奖励函数输入字典: 将提示和完成转换为文本
                     key: [example[key] for example in inputs] for key in keys
                 }
                 output_reward_func = reward_func(
-                    prompts=prompts, completions=completions, **reward_kwargs
+                    # 创建奖励函数输入字典: 将提示和完成转换为文本
+                    prompts=prompts, 
+                    completions=completions, 
+                    **reward_kwargs
                 )
+                # 计算每个奖励函数的奖励
                 rewards_per_func[:, i] = torch.tensor(
+                    # 将奖励转换为张量
                     output_reward_func, dtype=torch.float32, device=device
                 )
 
-        # Gather the reward per function: this part is crucial, because the rewards are normalized per group and the
-        # completions may be distributed across processes
-        rewards_per_func = gather(rewards_per_func)
+        # Gather the reward per function: this part is crucial, because the rewards are normalized per group and the completions may be distributed across processes    
+        # 收集每个奖励函数的奖励：这一部分至关重要，因为奖励是按组归一化的，并且完成可能分布在不同的进程中
+        rewards_per_func = gather(rewards_per_func) 
 
-        # Apply weights to each reward function's output and sum
+        # 为每个奖励函数应用权重并求和
         rewards = (rewards_per_func * self.reward_weights.to(device).unsqueeze(0)).sum(
             dim=1
         )
 
-        # Compute grouped-wise rewards
+        # 计算每个奖励函数的平均值和标准差
         mean_grouped_rewards = rewards.view(-1, self.num_generations).mean(dim=1)
         std_grouped_rewards = rewards.view(-1, self.num_generations).std(dim=1)
 
-        # Normalize the rewards to compute the advantages
+        # 归一化奖励，计算优势
         mean_grouped_rewards = mean_grouped_rewards.repeat_interleave(
             self.num_generations, dim=0
         )
         std_grouped_rewards = std_grouped_rewards.repeat_interleave(
             self.num_generations, dim=0
         )
+        # 计算优势  (r - mean) / (std + 1e-4)
         advantages = (rewards - mean_grouped_rewards) / (std_grouped_rewards + 1e-4)
 
-        # Slice to keep only the local part of the data
+        # 切片，保留本地数据
         process_slice = slice(
             self.accelerator.process_index * len(prompts),
             (self.accelerator.process_index + 1) * len(prompts),
         )
         advantages = advantages[process_slice]
 
-        # Log the metrics
+        # 记录指标
         mode = "eval" if self.control.should_evaluate else "train"
 
         completion_length = (
@@ -1077,13 +1111,13 @@ class GRPOTrainer(Trainer):
                     wandb.log({"completions": wandb.Table(dataframe=df)})
 
         return {
-            "prompt_ids": prompt_ids,
-            "prompt_mask": prompt_mask,
-            "completion_ids": completion_ids,
-            "completion_mask": completion_mask,
-            "old_per_token_logps": old_per_token_logps,
-            "ref_per_token_logps": ref_per_token_logps,
-            "advantages": advantages,
+            "prompt_ids": prompt_ids,   # 模型的输入
+            "prompt_mask": prompt_mask,   # 输入的掩码：指示哪些 token 是有效的，在计算损失和评分时，只有有效 token 被考虑。
+            "completion_ids": completion_ids,   # 模型输出的预测的 token IDs
+            "completion_mask": completion_mask,   # 掩码
+            "old_per_token_logps": old_per_token_logps,   # 旧的每个token的对数概率
+            "ref_per_token_logps": ref_per_token_logps,   # 这些是对数概率是基于参考模型计算的。参考模型通常是一个预训练模型，用于提供基准性能。
+            "advantages": advantages,   # 优势
         }
 
 
@@ -1096,7 +1130,6 @@ class GRPOTrainer(Trainer):
             raise ValueError("The GRPOTrainer does not support returning outputs")
         # Compute the per-token log probabilities for the model 计算模型每个token的对数概率
         # ---------- 1. 准备输入数据 ----------
-        # ---------- 准备输入数据 ----------
         prompt_ids, prompt_mask = inputs["prompt_ids"], inputs["prompt_mask"]
         completion_ids, completion_mask = (
             inputs["completion_ids"],
@@ -1117,6 +1150,7 @@ class GRPOTrainer(Trainer):
         # Compute the KL divergence between the model and the reference model 计算模型和参考模型之间的KL散度
         if self.beta != 0.0: # 如果beta不等于0，则计算KL散度
             ref_per_token_logps = inputs["ref_per_token_logps"]
+            # ---------- 3.1 计算KL散度 ----------  
             per_token_kl = (
                 torch.exp(ref_per_token_logps - per_token_logps)
                 - (ref_per_token_logps - per_token_logps)
@@ -1124,7 +1158,7 @@ class GRPOTrainer(Trainer):
             )
 
         # ---------- 4. 计算损失 ----------  
-        advantages = inputs["advantages"] # 获取优势
+        advantages = inputs["advantages"] # 获取优势    
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead. 当使用num_iterations == 1时，old_per_token_logps == per_token_logps，所以我们可以跳过它的计算，并使用per_token_logps.detach()代替。
         old_per_token_logps = (
@@ -1132,13 +1166,24 @@ class GRPOTrainer(Trainer):
             if self.num_iterations > 1 #    如果迭代次数大于1
             else per_token_logps.detach() #  否则使用每个token的对数概率
         )
-        coef_1 = torch.exp(per_token_logps - old_per_token_logps) #  计算系数1
+        # 原始概率比:
+        coef_1 = torch.exp(per_token_logps - old_per_token_logps) 
+        # 限制在1 +/- epsilon之间，防止数值不稳定。
         coef_2 = torch.clamp(coef_1, 1 - self.epsilon, 1 + self.epsilon) # 计算系数2
+
         per_token_loss1 = coef_1 * advantages.unsqueeze(1) # 计算损失1
         per_token_loss2 = coef_2 * advantages.unsqueeze(1) # 计算损失2
-        per_token_loss = -torch.min(per_token_loss1, per_token_loss2) # 计算损失
-        if self.beta != 0.0: # 如果beta不等于0，则计算KL散度
-            per_token_loss = per_token_loss + self.beta * per_token_kl # 计算损失
+        # 取负值，因为优化器通常最小化损失，而这里我们希望最大化奖励。
+        per_token_loss = -torch.min(per_token_loss1, per_token_loss2) 
+
+        if self.beta != 0.0: 
+            # 添加KL散度损失，平衡奖励和KL散度。
+            # 这里，我们通过将KL散度损失乘以一个权重（beta）来平衡奖励和KL散度。
+            # 权重越大，KL散度损失对总损失的影响越大。
+            # 这意味着，当KL散度损失较大时，优化器会更多地关注KL散度损失，而不是奖励。
+            # 反之，当KL散度损失较小时，优化器会更多地关注奖励。
+            # 最终计算的损失
+            per_token_loss = per_token_loss + self.beta * per_token_kl 
         loss = (per_token_loss * completion_mask).sum() / completion_mask.sum()
 
         # ---------- 5. 记录指标 ----------  
@@ -1146,6 +1191,8 @@ class GRPOTrainer(Trainer):
 
         if self.beta != 0.0: # 如果beta不等于0，则计算KL散度
             mean_kl = (
+                # completion_mask ：一个掩码张量，用于指示哪些 token 是有效的。它的形状与 per_token_kl 相同，
+                # 确保只计算有效 token 的 KL 散度。
                 (per_token_kl * completion_mask).sum(dim=1) / completion_mask.sum(dim=1)
             ).mean()
             self._metrics[mode]["kl"].append(
@@ -1159,6 +1206,7 @@ class GRPOTrainer(Trainer):
         )
         return loss
 
+    # prediction_step -> _prepare_inputs -> compute_loss -> log
     def prediction_step( # 预测步骤
         self,
         model,
@@ -1166,10 +1214,12 @@ class GRPOTrainer(Trainer):
         prediction_loss_only,
         ignore_keys: Optional[list[str]] = None,
     ):
+        # 在预测和评估阶段，我们需要准备输入数据，以便在计算损失时使用。
         inputs = self._prepare_inputs(inputs)
         with torch.no_grad():
             with self.compute_loss_context_manager():
                 loss = self.compute_loss(model, inputs)
+                # detach()：从计算图中分离损失张量，使其不再需要梯度。这在预测和评估阶段是必要的，因为不需要对损失进行反向传播。
             loss = loss.mean().detach()
         return loss, None, None
 

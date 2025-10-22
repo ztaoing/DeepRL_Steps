@@ -43,50 +43,50 @@ class GRPOScriptArguments(ScriptArguments):
 
 
 def main(script_args, training_args, model_args):
-    # Load a pretrained model
-    model = AutoModelForCausalLM.from_pretrained(
+    # Load a pretrained model 加载模型
+    model = AutoModelForCausalLM.from_pretrained( # 加载模型
         model_args.model_name_or_path, trust_remote_code=model_args.trust_remote_code
     )
-    tokenizer = AutoTokenizer.from_pretrained(
+    tokenizer = AutoTokenizer.from_pretrained( # 加载tokenizer
         model_args.model_name_or_path, trust_remote_code=model_args.trust_remote_code
     )
-    reward_model = AutoModelForSequenceClassification.from_pretrained(
-        script_args.reward_model_name_or_path, trust_remote_code=model_args.trust_remote_code, num_labels=1
+    reward_model = AutoModelForSequenceClassification.from_pretrained( # 加载奖励模型
+        script_args.reward_model_name_or_path, trust_remote_code=model_args.trust_remote_code, num_labels=1 # 加载奖励模型
     )
 
-    # Load the dataset
-    dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
+    # Load the dataset 加载数据集
+    dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config) # 加载数据集
 
-    # Initialize the GRPO trainer
-    trainer = GRPOTrainer(
+    # Initialize the GRPO trainer 初始化GRPO训练器
+    trainer = GRPOTrainer( # 初始化GRPO训练器   model=model, reward_funcs=reward_model, args=training_args, train_dataset=dataset[script_args.dataset_train_split], eval_dataset=dataset[script_args.dataset_test_split] if training_args.eval_strategy != "no" else None, processing_class=tokenizer, peft_config=get_peft_config(model_args)
         model=model,
         reward_funcs=reward_model,
-        args=training_args,
-        train_dataset=dataset[script_args.dataset_train_split],
-        eval_dataset=dataset[script_args.dataset_test_split] if training_args.eval_strategy != "no" else None,
-        processing_class=tokenizer,
-        peft_config=get_peft_config(model_args),
+        args=training_args, # 训练参数
+        train_dataset=dataset[script_args.dataset_train_split], # 训练数据集
+        eval_dataset=dataset[script_args.dataset_test_split] if training_args.eval_strategy != "no" else None, # 验证数据集
+        processing_class=tokenizer, # 处理类
+        peft_config=get_peft_config(model_args), # 加载PEFT配置
     )
 
     # Train and push the model to the Hub
-    trainer.train()
+    trainer.train() # 训练模型
 
     # Save and push to hub
-    trainer.save_model(training_args.output_dir)
-    if training_args.push_to_hub:
-        trainer.push_to_hub(dataset_name=script_args.dataset_name)
+    trainer.save_model(training_args.output_dir) # 保存模型
+    if training_args.push_to_hub: # 如果需要推送到Hub
+        trainer.push_to_hub(dataset_name=script_args.dataset_name) # 推送到Hub
 
 
-def make_parser(subparsers: argparse._SubParsersAction = None):
-    dataclass_types = (GRPOScriptArguments, GRPOConfig, ModelConfig)
-    if subparsers is not None:
-        parser = subparsers.add_parser("grpo", help="Run the GRPO training script", dataclass_types=dataclass_types)
-    else:
-        parser = TrlParser(dataclass_types)
+def make_parser(subparsers: argparse._SubParsersAction = None): # 创建解析器
+    dataclass_types = (GRPOScriptArguments, GRPOConfig, ModelConfig) #   数据类类型
+    if subparsers is not None: # 如果子解析器不为空
+        parser = subparsers.add_parser("grpo", help="Run the GRPO training script", dataclass_types=dataclass_types) # 添加解析器
+    else: # 如果子解析器为空
+        parser = TrlParser(dataclass_types) # 创建解析器
     return parser
 
 
 if __name__ == "__main__":
-    parser = make_parser()
+    parser = make_parser() # 创建解析器
     script_args, training_args, model_args = parser.parse_args_and_config()
     main(script_args, training_args, model_args)

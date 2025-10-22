@@ -61,7 +61,8 @@ def main():
         print_env()
 
     elif args.command == "grpo":
-        # Get the default args for the launch command
+        # ---------- GRPO训练 ----------
+        # Get the default args for the launch command 获取默认参数
         grpo_training_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scripts", "grpo.py")
         args = launch_command_parser().parse_args([grpo_training_script])
 
