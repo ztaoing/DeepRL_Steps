@@ -370,14 +370,14 @@ class PPOTrainer(Trainer):
         vf_clipfrac_stats = torch.zeros(stats_shape, device=device)
         entropy_stats = torch.zeros(stats_shape, device=device)
         ratio_stats = torch.zeros(stats_shape, device=device)
-        model.train()
+        model.train()  # 设置模型为训练模式
 
-        # trainer state initialization
+        # trainer state initialization 初始化训练状态
         self.state.global_step = 0
         self.state.episode = 0
         self.state.max_steps = args.num_total_batches * args.num_mini_batches
         self.state.num_train_epochs = args.total_episodes / self.train_dataset_len
-        # Compute absolute values for logging, eval, and save if given as ratio
+        # Compute absolute values for logging, eval, and save if given as ratio 计算绝对值，用于日志，评估和保存
         if args.logging_steps is not None:
             if args.logging_steps < 1:
                 self.state.logging_steps = math.ceil(self.state.max_steps * args.logging_steps)
@@ -400,10 +400,10 @@ class PPOTrainer(Trainer):
             self.deepspeed = self.model
             self.model_wrapped = self.model
 
-        for update in range(1, args.num_total_batches + 1):
+        for update in range(1, args.num_total_batches + 1): # 遍历每个批次
             self.state.episode += 1 * args.batch_size
             data = next(iter_dataloader)
-            with torch.no_grad():
+            with torch.no_grad(): # 使用推理模式，确保模型在推理过程中使用正确的设备
                 queries = data["input_ids"].to(device)
                 context_length = queries.shape[1]
                 responses = []
@@ -424,21 +424,24 @@ class PPOTrainer(Trainer):
                         generation_config,
                     )
 
-                for i in range(0, queries.shape[0], args.local_rollout_forward_batch_size):
-                    query = queries[i : i + args.local_rollout_forward_batch_size]
-                    query_response = query_responses[i : i + args.local_rollout_forward_batch_size]
+                for i in range(0, queries.shape[0], args.local_rollout_forward_batch_size): # 遍历每个批次
+                    query = queries[i : i + args.local_rollout_forward_batch_size] # 获取query: 输入的token ids
+                    query_response = query_responses[i : i + args.local_rollout_forward_batch_size]     
                     response = query_response[:, context_length:]
+                    # 获取logits: 模型输出的logits
                     logits = logitss[i : i + args.local_rollout_forward_batch_size]
                     logprob = selective_log_softmax(logits, response)
-                    del logits
-                    torch.cuda.empty_cache()
+                    del logits  # 删除logits，释放内存
+                    torch.cuda.empty_cache()  # 清空缓存
 
                     if ref_policy is None:
-                        with self.null_ref_context():
+                        with self.null_ref_context(): # 使用空参考模型，确保模型在推理过程中使用正确的设备
                             ref_output = forward(model.policy, query_response, processing_class.pad_token_id)
-                    else:
+                    else: # 使用参考模型，确保模型在推理过程中使用正确的设备
                         ref_output = forward(ref_policy, query_response, processing_class.pad_token_id)
+
                     ref_logits = ref_output.logits[:, context_length - 1 : -1]
+                    # 计算参考模型的logits: 模型输出的logits
                     ref_logits /= args.temperature + 1e-7
                     ref_logprob = selective_log_softmax(ref_logits, response)
                     del ref_output, ref_logits
