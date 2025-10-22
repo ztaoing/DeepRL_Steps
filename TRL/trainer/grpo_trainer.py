@@ -1095,7 +1095,8 @@ class GRPOTrainer(Trainer):
         if return_outputs:
             raise ValueError("The GRPOTrainer does not support returning outputs")
         # Compute the per-token log probabilities for the model 计算模型每个token的对数概率
-
+        # ---------- 1. 准备输入数据 ----------
+        # ---------- 准备输入数据 ----------
         prompt_ids, prompt_mask = inputs["prompt_ids"], inputs["prompt_mask"]
         completion_ids, completion_mask = (
             inputs["completion_ids"],
@@ -1107,12 +1108,14 @@ class GRPOTrainer(Trainer):
             1
         )  # we only need to compute the logits for the completion tokens 我们只需要计算完成token的logits
 
+        # ---------- 2. 计算模型每个token的对数概率 ----------  
         per_token_logps = self._get_per_token_logps(
             model, input_ids, attention_mask, logits_to_keep
         )
 
+        # ---------- 3. 计算模型和参考模型之间的KL散度 ----------  
         # Compute the KL divergence between the model and the reference model 计算模型和参考模型之间的KL散度
-        if self.beta != 0.0:
+        if self.beta != 0.0: # 如果beta不等于0，则计算KL散度
             ref_per_token_logps = inputs["ref_per_token_logps"]
             per_token_kl = (
                 torch.exp(ref_per_token_logps - per_token_logps)
@@ -1120,7 +1123,7 @@ class GRPOTrainer(Trainer):
                 - 1
             )
 
-        # Compute the loss 计算损失
+        # ---------- 4. 计算损失 ----------  
         advantages = inputs["advantages"] # 获取优势
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead. 当使用num_iterations == 1时，old_per_token_logps == per_token_logps，所以我们可以跳过它的计算，并使用per_token_logps.detach()代替。
@@ -1138,10 +1141,10 @@ class GRPOTrainer(Trainer):
             per_token_loss = per_token_loss + self.beta * per_token_kl # 计算损失
         loss = (per_token_loss * completion_mask).sum() / completion_mask.sum()
 
-        # Log the metrics
+        # ---------- 5. 记录指标 ----------  
         mode = "eval" if self.control.should_evaluate else "train"
 
-        if self.beta != 0.0:
+        if self.beta != 0.0: # 如果beta不等于0，则计算KL散度
             mean_kl = (
                 (per_token_kl * completion_mask).sum(dim=1) / completion_mask.sum(dim=1)
             ).mean()
