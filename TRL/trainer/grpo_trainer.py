@@ -378,17 +378,17 @@ class GRPOTrainer(Trainer):
                 model.config._name_or_path, padding_side="left"
             )
 
-        # Reward functions
-        if not isinstance(reward_funcs, list):
+        # 奖励函数 Reward functions
+        if not isinstance(reward_funcs, list): # 检查 reward_funcs 是否是一个列表。如果不是列表，将其转换为包含单个元素的列表。这确保了后续的处理逻辑可以统一处理单个奖励函数和多个奖励函数的情况。
             reward_funcs = [reward_funcs]
-        for i, reward_func in enumerate(reward_funcs):
-            if isinstance(reward_func, str):
+        for i, reward_func in enumerate(reward_funcs): # 遍历 reward_funcs 列表，同时获取每个奖励函数的索引 i 和值 reward_func。
+            if isinstance(reward_func, str): # 检查当前的奖励函数是否是一个字符串。如果是字符串，表示它是一个模型 ID。
                 reward_funcs[i] = AutoModelForSequenceClassification.from_pretrained(
-                    reward_func, num_labels=1, **model_init_kwargs
+                    reward_func, num_labels=1, **model_init_kwargs  
                 )
-        self.reward_funcs = reward_funcs
+        self.reward_funcs = reward_funcs 
 
-        # Reward weights
+        # 奖励权重 Reward weights
         if args.reward_weights is not None:
             if len(args.reward_weights) != len(reward_funcs):
                 raise ValueError(
@@ -399,7 +399,7 @@ class GRPOTrainer(Trainer):
         else:
             self.reward_weights = torch.ones(len(reward_funcs), dtype=torch.float32)
 
-        # Reward processing class
+        # 奖励处理类 Reward processing class
         if reward_processing_classes is None:
             reward_processing_classes = [None] * len(reward_funcs)
         elif not isinstance(reward_processing_classes, list):
@@ -411,10 +411,10 @@ class GRPOTrainer(Trainer):
                 )
 
         for i, (reward_processing_class, reward_func) in enumerate(
-            zip(reward_processing_classes, reward_funcs)
+            zip(reward_processing_classes, reward_funcs) 
         ):
-            if isinstance(reward_func, PreTrainedModel):
-                if reward_processing_class is None:
+            if isinstance(reward_func, PreTrainedModel): 
+                if reward_processing_class is None: 
                     reward_processing_class = AutoTokenizer.from_pretrained(
                         reward_func.config._name_or_path
                     )
@@ -423,45 +423,47 @@ class GRPOTrainer(Trainer):
                         reward_processing_class.eos_token
                     )
                 # The reward model computes the reward for the latest non-padded token in the input sequence.
-                # So it's important to set the pad token ID to the padding token ID of the processing class.
+                # So it's important to set the pad token ID to the padding token ID of the processing class. 
                 reward_func.config.pad_token_id = reward_processing_class.pad_token_id
-                reward_processing_classes[i] = reward_processing_class
+                reward_processing_classes[i] = reward_processing_class 
         self.reward_processing_classes = reward_processing_classes
 
-        # Data collator
-        def data_collator(features):  # No data collation is needed in GRPO
+        # 数据整理 Data collator
+        def data_collator(features):  # No data collation is needed in GRPO 
             return features
 
-        # Training arguments
-        self.max_prompt_length = args.max_prompt_length
-        self.max_completion_length = (
+        # 训练参数 Training arguments
+        self.max_prompt_length = args.max_prompt_length # 提示的最大长度
+        self.max_completion_length = ( 
             args.max_completion_length
-        )  # = |o_i| in the GRPO paper
-        self.num_generations = args.num_generations  # = G in the GRPO paper
+        )  # = |o_i| in the GRPO paper 是GRPO论文中的o_i
+        self.num_generations = args.num_generations  # = G in the GRPO paper  是GRPO论文中的G
         self.use_vllm = args.use_vllm
 
         # Multi-step
         self.num_iterations = args.num_iterations  # = 𝜇 in the GRPO paper
-        self.epsilon = args.epsilon
-        # Tracks the number of iterations (forward + backward passes), including those within a gradient accumulation cycle.
-        self._step = 0
+        self.epsilon = args.epsilon # 是GRPO论文中的epsilon
+        # 跟踪迭代的次数Tracks the number of iterations (forward + backward passes), including those within a gradient accumulation cycle. 
+        self._step = 0 
         # Buffer the batch to reuse generated outputs across multiple updates. For more details, see
         # `_get_train_sampler` and `_prepare_inputs`.
-        self._buffered_inputs = [None] * args.gradient_accumulation_steps
+        self._buffered_inputs = [None] * args.gradient_accumulation_steps # 缓冲区，用于在多个更新中重用生成的输出
 
-        # The trainer estimates the number of FLOPs (floating-point operations) using the number of elements in the
-        # input tensor associated with the key "input_ids". However, in GRPO, the sampled data does not include the
-        # "input_ids" key. Instead, the available keys is "prompt". As a result, the trainer issues the warning:
-        # "Could not estimate the number of tokens of the input, floating-point operations will not be computed." To
-        # suppress this warning, we set the "estimate_tokens" key in the model's "warnings_issued" dictionary to True.
-        # This acts as a flag to indicate that the warning has already been issued.
-        model.warnings_issued["estimate_tokens"] = True
+        '''
+        The trainer estimates the number of FLOPs (floating-point operations) using the number of elements in the
+        input tensor associated with the key "input_ids". However, in GRPO, the sampled data does not include the 
+        "input_ids" key. Instead, the available keys is "prompt". As a result, the trainer issues the warning:
+        "Could not estimate the number of tokens of the input, floating-point operations will not be computed." To
+        suppress this warning, we set the "estimate_tokens" key in the model's "warnings_issued" dictionary to True.
+        This acts as a flag to indicate that the warning has already been issued. 
+        '''
+        model.warnings_issued["estimate_tokens"] = True 
 
-        # Initialize the metrics
+        # 初始化指标 Initialize the metrics
         self._metrics = {"train": defaultdict(list), "eval": defaultdict(list)}
         self.log_completions = args.log_completions
 
-        super().__init__(
+        super().__init__( 
             model=model,
             args=args,
             data_collator=data_collator,
@@ -475,12 +477,10 @@ class GRPOTrainer(Trainer):
         # Check if the per_device_train/eval_batch_size * num processes can be divided by the number of generations
         num_processes = self.accelerator.num_processes
         global_batch_size = args.per_device_train_batch_size * num_processes
-        possible_values = [
-            n_gen
-            for n_gen in range(2, global_batch_size + 1)
-            if (global_batch_size) % n_gen == 0
+        possible_values = [ # 用于检查是否可以被整除
+            n_gen for n_gen in range(2, global_batch_size + 1)  if (global_batch_size) % n_gen == 0 
         ]
-        if self.num_generations not in possible_values:
+        if self.num_generations not in possible_values: 
             raise ValueError(
                 f"The global train batch size ({num_processes} x {args.per_device_train_batch_size}) must be evenly "
                 f"divisible by the number of generations per prompt ({self.num_generations}). Given the current train "
@@ -500,12 +500,12 @@ class GRPOTrainer(Trainer):
                     f"eval batch size, the valid values for the number of generations are: {possible_values}."
                 )
 
-        # Ensure each process receives a unique seed to prevent duplicate completions when generating with
+        # Ensure each process receives a unique seed to prevent duplicate completions when generating with 
         # transformers if num_generations exceeds per_device_train_batch_size. We could skip it if we use vLLM, but
         # it's safer to set it in all cases.
         set_seed(args.seed, device_specific=True)
 
-        if self.use_vllm:
+        if self.use_vllm: 
             if not is_vllm_available():
                 raise ImportError(
                     "vLLM is not available and `use_vllm` is set to True. Please install vLLM with "
@@ -550,7 +550,7 @@ class GRPOTrainer(Trainer):
                     "vllm.worker.worker.Worker._assert_memory_footprint_increased_during_profiling",
                     return_value=None,
                 )
-                with world_size_patch, profiling_patch:
+                with world_size_patch, profiling_patch: # 使用上下文管理器，确保在退出上下文管理器时，world_size_patch和profiling_patch被正确的清理
                     self.llm = LLM(
                         model=model.name_or_path,
                         device=vllm_device,
@@ -571,8 +571,8 @@ class GRPOTrainer(Trainer):
                 else:
                     guided_decoding = None
 
-                # Sampling parameters
-                self.sampling_params = SamplingParams(
+                # 采样参数 Sampling parameters
+                self.sampling_params = SamplingParams( 
                     temperature=args.temperature,
                     max_tokens=self.max_completion_length,
                     guided_decoding=guided_decoding,
@@ -580,27 +580,29 @@ class GRPOTrainer(Trainer):
                 )
 
             self._last_loaded_step = (
-                0  # tag to avoid useless loading during grad accumulation
+                0  # tag to avoid useless loading during grad accumulation 用于避免在梯度累积期间加载不必要的累积权重
             )
 
-            # When using vLLM, the main process is responsible for loading the model weights. This can cause process
-            # desynchronization and seems to lead to DeepSpeed hanging during initialization. To prevent this, we
-            # synchronize all processes after vLLM has been fully initialized.
-            self.accelerator.wait_for_everyone()
+            # 当使用 vLLM 时，主进程负责加载模型权重。这可能导致进程不同步，并且似乎会导致 DeepSpeed 在初始化期间挂起。为了防止这种情况，我们在 vLLM 完全初始化后同步所有进程。
+            # When using vLLM, the main process is responsible for loading the model weights. This can cause process 
+            # desynchronization and seems to lead to DeepSpeed hanging during initialization. To prevent this, we 
+            # synchronize all processes after vLLM has been fully initialized. 
+            self.accelerator.wait_for_everyone() # 等待所有进程完成初始化
         else:
-            self.generation_config = GenerationConfig(
+            self.generation_config = GenerationConfig( # 生成配置
                 max_new_tokens=self.max_completion_length,
                 do_sample=True,
                 temperature=args.temperature,
                 pad_token_id=processing_class.pad_token_id,
             )
 
-        # Gradient accumulation requires scaled loss. Normally, loss scaling in the parent class depends on whether the
+        # Gradient accumulation requires scaled loss. Normally, loss scaling in the parent class depends on whether the 
         # model accepts loss-related kwargs. Since we compute our own loss, this check is irrelevant. We set
         # self.model_accepts_loss_kwargs to False to enable scaling.
+        # 梯度累积需要缩放的损失。通常，父类中的损失缩放取决于模型是否接受损失相关的 kwargs。由于我们计算自己的损失，这个检查是无关的。我们设置 self.model_accepts_loss_kwargs 为 False 以启用缩放。
         self.model_accepts_loss_kwargs = False
 
-        # Add tags to the model
+        # 添加标签到模型 Add tags to the model
         self.model.add_model_tags(self._tag_names)
 
         if self.ref_model is not None:
@@ -611,10 +613,10 @@ class GRPOTrainer(Trainer):
                     self.ref_model, evaluation_mode=True
                 )
 
-        if args.sync_ref_model:
+        if args.sync_ref_model: # 如果设置为 True，则添加回调函数
             self.add_callback(
                 SyncRefModelCallback(
-                    ref_model=self.ref_model, accelerator=self.accelerator
+                    ref_model=self.ref_model, accelerator=self.accelerator # 引用模型和加速器
                 )
             )
 
@@ -624,7 +626,7 @@ class GRPOTrainer(Trainer):
                     reward_func, evaluation_mode=True
                 )
 
-    def _set_signature_columns_if_needed(self):
+    def _set_signature_columns_if_needed(self): # 如果设置为 True，则删除未使用的列 
         # If `self.args.remove_unused_columns` is True, non-signature columns are removed.
         # By default, this method sets `self._signature_columns` to the model's expected inputs.
         # In GRPOTrainer, we preprocess data, so using the model's signature columns doesn't work.
@@ -632,8 +634,8 @@ class GRPOTrainer(Trainer):
         if self._signature_columns is None:
             self._signature_columns = ["prompt"]
 
-    def _get_train_sampler(self) -> Sampler:
-        # Returns a sampler that
+    def _get_train_sampler(self) -> Sampler: # 获取训练采样器
+        # Returns a sampler that 
         # 1. ensures each prompt is repeated across multiple processes. This guarantees that identical prompts are
         #    distributed to different GPUs, allowing rewards to be computed and normalized correctly within each prompt
         #    group. Using the same seed across processes ensures consistent prompt assignment, preventing discrepancies
@@ -644,20 +646,20 @@ class GRPOTrainer(Trainer):
         # In the following figure, the values are the prompt indices. The first row shows the first sampled batch, the
         # second row shows the second sampled batch, and so on.
         #
-        #                                     |     GPU 0     |     GPU 1     |     GPU 2    |
+        #                                     |     GPU 0     |     GPU 1     |     GPU 2    | 
         #
         #               global_step   step     <───────>  num_generations=3
         #                                      <───────────> per_device_train_batch_size=4
-        #                ▲   0          0      0   0   0   1   1   1   2   2   2   3   3   3  │
-        #  grad_accum=3  │   0          1      4   4   4   5   5   5   6   6   6   7   7   7  │ Generate completions for each prompt
+        #                ▲   0          0      0   0   0   1   1   1   2   2   2   3   3   3  │ 第一次迭代
+        #  grad_accum=3  │   0          1      4   4   4   5   5   5   6   6   6   7   7   7  │ Generate completions for each prompt 为每个提示生成完成
         #                ▼   0          2      8   8   8   9   9   9  10  10  10  11  11  11  │
         #
-        #                    1          3      0   0   0   1   1   1   2   2   2   3   3   3  │ The sampled prompts are the same as in the first iteration
-        #                    1          4      4   4   4   5   5   5   6   6   6   7   7   7  │ Reuse the completions (here, once, because num_iterations=2)
-        #                    1          5      8   8   8   9   9   9  10  10  10  11  11  11  │
+        #                    1          3      0   0   0   1   1   1   2   2   2   3   3   3  │ The sampled prompts are the same as in the first iteration 采样的提示与第一次迭代中的提示相同
+        #                    1          4      4   4   4   5   5   5   6   6   6   7   7   7  │ Reuse the completions (here, once, because num_iterations=2)重用完成（这里，一次，因为 num_iterations=2）
+        #                    1          5      8   8   8   9   9   9  10  10  10  11  11  11  │ 
         #
-        #                    2          6     12  12  12  13  13  13  14  14  14  15  15  15
-        #                    2          7     16  16  16  17  17  17  18  18  18  19  19  19
+        #                    2          6     12  12  12  13  13  13  14  14  14  15  15  15  
+        #                    2          7     16  16  16  17  17  17  18  18  18  19  19  19  第三次迭代
         #                    2          8     20  20  20  21  21  21  22  22  22  23  23  23
         #                                          ...
         effective_batch_size = (
@@ -673,7 +675,7 @@ class GRPOTrainer(Trainer):
             seed=self.args.seed,
         )
 
-    def _get_eval_sampler(self, eval_dataset) -> Sampler:
+    def _get_eval_sampler(self, eval_dataset) -> Sampler: # 获取评估采样器
         # See _get_train_sampler for an explanation of the sampler.
         return RepeatRandomSampler(
             data_source=eval_dataset,
@@ -681,16 +683,17 @@ class GRPOTrainer(Trainer):
             seed=self.args.seed,
         )
 
-    def _enable_gradient_checkpointing(
-        self, model: PreTrainedModel, args: GRPOConfig
+    # 减少50-80%的GPU内存使用 ；增加约20-30%的训练时间（需要重新计算激活值）
+    def _enable_gradient_checkpointing( # 启用梯度检查点  
+        self, model: PreTrainedModel, args: GRPOConfig 
     ) -> PreTrainedModel:
         """Enables gradient checkpointing for the model."""
-        # Ensure use_cache is disabled
+        # Ensure use_cache is disabled 确保 use_cache 被禁用
         model.config.use_cache = False
 
-        # Enable gradient checkpointing on the base model for PEFT
-        if is_peft_model(model):
-            model.base_model.gradient_checkpointing_enable()
+        # Enable gradient checkpointing on the base model for PEFT 
+        if is_peft_model(model): # 检查模型是否是 PEFT 模型
+            model.base_model.gradient_checkpointing_enable() 
         # Enable gradient checkpointing for non-PEFT models
         else:
             model.gradient_checkpointing_enable()
@@ -704,53 +707,54 @@ class GRPOTrainer(Trainer):
         if use_reentrant:
             model.enable_input_require_grads()
 
-        return model
+        return model 
 
-    # Get the per-token log probabilities for the completions for the model and the reference model
+    # Get the per-token log probabilities for the completions for the model and the reference model 获取每个token的对数概率
     @profiling_decorator
-    def _get_per_token_logps(self, model, input_ids, attention_mask, logits_to_keep):
-        # We add 1 to `logits_to_keep` because the last logits of the sequence is later excluded
-        logits = model(
+    def _get_per_token_logps(self, model, input_ids, attention_mask, logits_to_keep): # 获取每个token的对数概率
+        # We add 1 to `logits_to_keep` because the last logits of the sequence is later excluded 因为我们稍后会排除序列的最后一个logits
+        logits = model( # 调用模型获取logits，input_ids是输入的token ids，attention_mask是注意力掩码，logits_to_keep是保留的logits数量
             input_ids=input_ids,
             attention_mask=attention_mask,
             logits_to_keep=logits_to_keep + 1,
         ).logits
         logits = logits[
             :, :-1, :
-        ]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred
+        ]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred 排除最后一个logits，因为它对应于下一个token的预测
 
         input_ids = input_ids[:, -logits_to_keep:]
-        # For transformers<=4.48, logits_to_keep argument isn't supported, so here we drop logits ourselves.
+        # For transformers<=4.48, logits_to_keep argument isn't supported, so here we drop logits ourselves. 
+        # 对于 transformers<=4.48，logits_to_keep 参数不受支持，所以这里我们自己删除logits。
         # See https://github.com/huggingface/trl/issues/2770
         logits = logits[:, -logits_to_keep:]
         return selective_log_softmax(
             logits, input_ids
-        )  #  compute logprobs for the input tokens
+        )  #  compute logprobs for the input tokens 计算输入token的对数概率
 
     @profiling_decorator
-    def _move_model_to_vllm(self):
+    def _move_model_to_vllm(self): # 将模型移动到vLLM
         with unwrap_model_for_generation(
             self.model,
             self.accelerator,
             gather_deepspeed3_params=self.args.ds3_gather_for_generation,
         ) as unwrapped_model:
-            if is_compiled_module(unwrapped_model):
-                unwrapped_model = unwrapped_model._orig_mod
-            if is_peft_model(unwrapped_model):
+            if is_compiled_module(unwrapped_model):   # 检查模型是否是编译模块
+                unwrapped_model = unwrapped_model._orig_mod 
+            if is_peft_model(unwrapped_model):  # 检查模型是否是 PEFT 模型
                 unwrapped_model.merge_adapter()
                 state_dict = unwrapped_model.state_dict()
-                # Remove base_model and base_layer prefixes
+                # Remove base_model and base_layer prefixes 删除 base_model 和 base_layer 前缀
                 state_dict = {
                     k.removeprefix("base_model.model.").replace(".base_layer", ""): v
                     for k, v in state_dict.items()
                 }
-                # Remove values with adapter prefix (example: "_lora")
+                # Remove values with adapter prefix (example: "_lora") 删除带有适配器前缀的值（例如："_lora"）
                 state_dict = {
                     k: v
                     for k, v in state_dict.items()
                     if unwrapped_model.prefix not in k
                 }
-                # When module to save, remove its prefix and discard the original module
+                # When module to save, remove its prefix and discard the original module 当模块需要保存时，删除其前缀并丢弃原始模块
                 state_dict = {
                     k.replace("modules_to_save.default.", ""): v
                     for k, v in state_dict.items()
@@ -763,49 +767,50 @@ class GRPOTrainer(Trainer):
                     self.llm.llm_engine.model_executor.driver_worker.model_runner.model
                 )
                 llm_model.load_weights(state_dict.items())
-            # Unmerge the adapter to restore the model to its original state.
-            # This must be done after loading weights to ensure they correspond to the merged state.
-            if is_peft_model(unwrapped_model):
+            # Unmerge the adapter to restore the model to its original state. 解绑适配器以恢复模型的原始状态。
+            # This must be done after loading weights to ensure they correspond to the merged state. 必须在加载权重后完成，以确保它们对应于合并的状态。
+            if is_peft_model(unwrapped_model): # 检查模型是否是 PEFT 模型
                 unwrapped_model.unmerge_adapter()
-
+                # 解绑适配器以恢复模型的原始状态。必须在加载权重后完成，以确保它们对应于合并的状态。
     @profiling_decorator
-    def _prepare_inputs(
+    def _prepare_inputs( # 准备输入 
         self, inputs: dict[str, Union[torch.Tensor, Any]]
-    ) -> dict[str, Union[torch.Tensor, Any]]:
-        mode = "eval" if self.control.should_evaluate else "train"
-        if mode == "train":
-            if self.state.global_step % self.num_iterations == 0:
-                inputs = self._generate_and_score_completions(inputs)
+    ) -> dict[str, Union[torch.Tensor, Any]]: 
+        mode = "eval" if self.control.should_evaluate else "train"  
+        if mode == "train": # 如果模式是训练
+            if self.state.global_step % self.num_iterations == 0: # 如果全局步数是迭代次数的倍数
+                inputs = self._generate_and_score_completions(inputs)  # 生成并评分完成
                 self._buffered_inputs[
                     self._step % self.args.gradient_accumulation_steps
-                ] = inputs
-            else:
-                inputs = self._buffered_inputs[
+                ] = inputs  # 将输入缓存到缓冲区中
+            else: 
+                inputs = self._buffered_inputs[ # 从缓冲区中获取输入
                     self._step % self.args.gradient_accumulation_steps
                 ]
             self._step += 1
         else:
-            # In evaluation, we don't reuse completions across multiple updates, so we don't need to buffer inputs.
-            inputs = self._generate_and_score_completions(inputs)
+            # In evaluation, we don't reuse completions across multiple updates, so we don't need to buffer inputs. 
+            # 在评估中，我们不重用多个更新中的完成，所以我们不需要缓冲输入的数据。
+            inputs = self._generate_and_score_completions(inputs) # 生成并评分完成的数据
         return inputs
 
-    def _generate_and_score_completions(
-        self, inputs: dict[str, Union[torch.Tensor, Any]]
+    def _generate_and_score_completions( # 生成并评分完成的数据
+        self, inputs: dict[str, Union[torch.Tensor, Any]] 
     ) -> dict[str, Union[torch.Tensor, Any]]:
         device = self.accelerator.device
         prompts = [x["prompt"] for x in inputs]
         prompts_text = [
-            maybe_apply_chat_template(example, self.processing_class)["prompt"]
+            maybe_apply_chat_template(example, self.processing_class)["prompt"] # 应用chat模板
             for example in inputs
         ]
-        prompt_inputs = self.processing_class(
+        prompt_inputs = self.processing_class( # 处理输入
             prompts_text,
             return_tensors="pt",
             padding=True,
             padding_side="left",
             add_special_tokens=False,
         )
-        prompt_inputs = super()._prepare_inputs(prompt_inputs)
+        prompt_inputs = super()._prepare_inputs(prompt_inputs) # 准备输入
         prompt_ids, prompt_mask = (
             prompt_inputs["input_ids"],
             prompt_inputs["attention_mask"],
@@ -815,111 +820,115 @@ class GRPOTrainer(Trainer):
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
 
-        # Generate completions using either vLLM or regular generation
+        # Generate completions using either vLLM or regular generation 使用vLLM或常规生成生成完成
         if self.args.use_vllm:
-            # First, have main process load weights if needed
+            # First, have main process load weights if needed 首先，如果需要，主进程加载权重
             if self.state.global_step != self._last_loaded_step:
-                self._move_model_to_vllm()
-                self._last_loaded_step = self.state.global_step
+                self._move_model_to_vllm() # 将模型移动到vLLM
+                self._last_loaded_step = self.state.global_step # 更新最后加载的步数
 
             # Generate completions using vLLM: gather all prompts and use them in a single call in the main process
-            all_prompts_text = gather_object(prompts_text)
+            #  使用vLLM生成完成：收集所有提示并使用它们在主进程中进行单次调用
+            all_prompts_text = gather_object(prompts_text) # 收集所有提示，将所有提示文本收集到一个列表中，以便在主进程中进行处理
             if self.accelerator.is_main_process:
-                # Since 'prompts' contains 'num_generations' duplicates, we first take unique prompts, and generate
+                # Since 'prompts' contains 'num_generations' duplicates, we first take unique prompts, and generate    
                 # num_generations outputs for each one. This is faster than generating outputs for each duplicate
                 # prompt individually.
-                ordered_set_of_prompts = list(dict.fromkeys(all_prompts_text))
-                all_outputs = self.llm.generate(
+                # 由于 'prompts' 包含 'num_generations' 个重复，我们首先取唯一的提示，并为每个提示生成 num_generations 个输出。这比单独为每个重复的提示生成输出要快。
+
+                ordered_set_of_prompts = list(dict.fromkeys(all_prompts_text)) # 取唯一的提示
+                all_outputs = self.llm.generate( # 使用vllm生成完成
                     ordered_set_of_prompts,
                     sampling_params=self.sampling_params,
                     use_tqdm=False,
                 )
                 completion_ids = []
-                for outputs in all_outputs:
+                for outputs in all_outputs: # 遍历所有输出
                     for output in outputs.outputs:
-                        completion_ids.append(output.token_ids)
+                        completion_ids.append(output.token_ids) # 添加token id
             else:
-                completion_ids = [None] * len(all_prompts_text)
+                completion_ids = [None] * len(all_prompts_text) # 如果没有主进程，则设置为None
             # Broadcast the completions from the main process to all processes, ensuring each process receives its
             # corresponding slice.
-            completion_ids = broadcast_object_list(completion_ids, from_process=0)
+            completion_ids = broadcast_object_list(completion_ids, from_process=0) # 广播完成，将完成从主进程广播到所有进程，确保每个进程收到其对应的切片。
             process_slice = slice(
                 self.accelerator.process_index * len(prompts),
-                (self.accelerator.process_index + 1) * len(prompts),
+                (self.accelerator.process_index + 1) * len(prompts), # 切片，确保每个进程收到其对应的切片。
             )
-            completion_ids = completion_ids[process_slice]
+            completion_ids = completion_ids[process_slice] # 从切片中获取完成，确保每个进程收到其对应的切片。
 
-            # Pad the completions, and concatenate them with the prompts
+            # Pad the completions, and concatenate them with the prompts 填充完成，并将它们与提示连接起来
             completion_ids = [
                 torch.tensor(ids, device=device) for ids in completion_ids
-            ]
+            ] # 将完成转换为张量，并将其移动到设备上
             completion_ids = pad(
                 completion_ids, padding_value=self.processing_class.pad_token_id
-            )
-            prompt_completion_ids = torch.cat([prompt_ids, completion_ids], dim=1)
+            ) # 填充完成，并将它们与提示连接起来
+            prompt_completion_ids = torch.cat([prompt_ids, completion_ids], dim=1) # 将提示和完成连接起来
         else:
-            # Regular generation path
-            with unwrap_model_for_generation(
+            # Regular generation path 常规生成路径
+            with unwrap_model_for_generation( # 解包模型，确保模型在生成过程中使用正确的设备
                 self.model, self.accelerator
             ) as unwrapped_model:
-                prompt_completion_ids = unwrapped_model.generate(
+                prompt_completion_ids = unwrapped_model.generate( # 生成完成
                     prompt_ids,
                     attention_mask=prompt_mask,
                     generation_config=self.generation_config,
                 )
 
-            # Compute prompt length and extract completion ids
+            # Compute prompt length and extract completion ids 计算提示长度，并提取完成
             prompt_length = prompt_ids.size(1)
             prompt_ids = prompt_completion_ids[:, :prompt_length]
             completion_ids = prompt_completion_ids[:, prompt_length:]
 
-        # Mask everything after the first EOS token
+        # Mask everything after the first EOS token 屏蔽所有在第一个EOS token之后的token
         is_eos = completion_ids == self.processing_class.eos_token_id
-        eos_idx = torch.full(
+        eos_idx = torch.full( # 创建一个全0的张量，用于存储EOS token的索引
             (is_eos.size(0),), is_eos.size(1), dtype=torch.long, device=device
         )
-        eos_idx[is_eos.any(dim=1)] = is_eos.int().argmax(dim=1)[is_eos.any(dim=1)]
-        sequence_indices = torch.arange(is_eos.size(1), device=device).expand(
-            is_eos.size(0), -1
+        eos_idx[is_eos.any(dim=1)] = is_eos.int().argmax(dim=1)[is_eos.any(dim=1)] # 找到EOS token的索引
+        sequence_indices = torch.arange(is_eos.size(1), device=device).expand( # 创建一个序列索引，用于存储序列的索引
+            is_eos.size(0), -1 # 创建一个序列索引，用于存储序列的索引
         )
-        completion_mask = (sequence_indices <= eos_idx.unsqueeze(1)).int()
+        completion_mask = (sequence_indices <= eos_idx.unsqueeze(1)).int() # 创建一个完成掩码，用于存储完成掩码
 
-        # Concatenate prompt_mask with completion_mask for logit computation
+        # Concatenate prompt_mask with completion_mask for logit computation 将prompt_mask和completion_mask连接起来，用于计算logits
         attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)  # (B, P+C)
 
         logits_to_keep = completion_ids.size(
-            1
+            1 # 我们只需要计算完成token的logits
         )  # we only need to compute the logits for the completion tokens
 
-        with torch.inference_mode():
-            # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's
+        with torch.inference_mode(): # 使用推理模式，确保模型在推理过程中使用正确的设备
+            # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's  
+            # 当使用num_iterations == 1时，old_per_token_logps == per_token_logps，所以我们可以跳过它的计算，并使用per_token_logps.detach()代替。
             # computation here, and use per_token_logps.detach() instead.
-            if self.num_iterations > 1:
-                old_per_token_logps = self._get_per_token_logps(
-                    self.model, prompt_completion_ids, attention_mask, logits_to_keep
+            if self.num_iterations > 1: #   如果迭代次数大于1
+                old_per_token_logps = self._get_per_token_logps( # 获取每个token的对数概率
+                    self.model, prompt_completion_ids, attention_mask, logits_to_keep #  使用模型获取每个token的对数概率
                 )
             else:
-                old_per_token_logps = None
+                old_per_token_logps = None # 如果迭代次数等于1，则设置为None
 
             if self.beta == 0.0:
-                ref_per_token_logps = None
+                ref_per_token_logps = None # 如果beta等于0，则设置为None
             elif self.ref_model is not None:
-                ref_per_token_logps = self._get_per_token_logps(
+                ref_per_token_logps = self._get_per_token_logps( # 使用模型获取每个token的对数概率
                     self.ref_model,
                     prompt_completion_ids,
                     attention_mask,
                     logits_to_keep,
                 )
             else:
-                with self.accelerator.unwrap_model(self.model).disable_adapter():
+                with self.accelerator.unwrap_model(self.model).disable_adapter(): # 禁用adapter，确保模型在推理过程中使用正确的设备
                     ref_per_token_logps = self._get_per_token_logps(
                         self.model,
-                        prompt_completion_ids,
-                        attention_mask,
-                        logits_to_keep,
+                        prompt_completion_ids, # 连接提示和完成
+                        attention_mask, # 连接提示和完成
+                        logits_to_keep, # 连接提示和完成
                     )
 
-        # Decode the generated completions
+        # Decode the generated completions 解码生成的完成
         completions_text = self.processing_class.batch_decode(
             completion_ids, skip_special_tokens=True
         )
@@ -1077,30 +1086,32 @@ class GRPOTrainer(Trainer):
             "advantages": advantages,
         }
 
+
+    # 核心是:GRPO损失函数的计算
     @profiling_decorator
-    def compute_loss(
+    def compute_loss( # 计算损失
         self, model, inputs, return_outputs=False, num_items_in_batch=None
     ):
         if return_outputs:
             raise ValueError("The GRPOTrainer does not support returning outputs")
-        # Compute the per-token log probabilities for the model
+        # Compute the per-token log probabilities for the model 计算模型每个token的对数概率
 
         prompt_ids, prompt_mask = inputs["prompt_ids"], inputs["prompt_mask"]
         completion_ids, completion_mask = (
             inputs["completion_ids"],
             inputs["completion_mask"],
         )
-        input_ids = torch.cat([prompt_ids, completion_ids], dim=1)
-        attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)
+        input_ids = torch.cat([prompt_ids, completion_ids], dim=1) 
+        attention_mask = torch.cat([prompt_mask, completion_mask], dim=1) # 连接prompt_mask和completion_mask
         logits_to_keep = completion_ids.size(
             1
-        )  # we only need to compute the logits for the completion tokens
+        )  # we only need to compute the logits for the completion tokens 我们只需要计算完成token的logits
 
         per_token_logps = self._get_per_token_logps(
             model, input_ids, attention_mask, logits_to_keep
         )
 
-        # Compute the KL divergence between the model and the reference model
+        # Compute the KL divergence between the model and the reference model 计算模型和参考模型之间的KL散度
         if self.beta != 0.0:
             ref_per_token_logps = inputs["ref_per_token_logps"]
             per_token_kl = (
@@ -1109,22 +1120,22 @@ class GRPOTrainer(Trainer):
                 - 1
             )
 
-        # Compute the loss
-        advantages = inputs["advantages"]
+        # Compute the loss 计算损失
+        advantages = inputs["advantages"] # 获取优势
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
-        # _generate_and_score_completions) and use per_token_logps.detach() instead.
+        # _generate_and_score_completions) and use per_token_logps.detach() instead. 当使用num_iterations == 1时，old_per_token_logps == per_token_logps，所以我们可以跳过它的计算，并使用per_token_logps.detach()代替。
         old_per_token_logps = (
-            inputs["old_per_token_logps"]
-            if self.num_iterations > 1
-            else per_token_logps.detach()
+            inputs["old_per_token_logps"] #  如果迭代次数等于1，则使用旧的每个token的对数概率
+            if self.num_iterations > 1 #    如果迭代次数大于1
+            else per_token_logps.detach() #  否则使用每个token的对数概率
         )
-        coef_1 = torch.exp(per_token_logps - old_per_token_logps)
-        coef_2 = torch.clamp(coef_1, 1 - self.epsilon, 1 + self.epsilon)
-        per_token_loss1 = coef_1 * advantages.unsqueeze(1)
-        per_token_loss2 = coef_2 * advantages.unsqueeze(1)
-        per_token_loss = -torch.min(per_token_loss1, per_token_loss2)
-        if self.beta != 0.0:
-            per_token_loss = per_token_loss + self.beta * per_token_kl
+        coef_1 = torch.exp(per_token_logps - old_per_token_logps) #  计算系数1
+        coef_2 = torch.clamp(coef_1, 1 - self.epsilon, 1 + self.epsilon) # 计算系数2
+        per_token_loss1 = coef_1 * advantages.unsqueeze(1) # 计算损失1
+        per_token_loss2 = coef_2 * advantages.unsqueeze(1) # 计算损失2
+        per_token_loss = -torch.min(per_token_loss1, per_token_loss2) # 计算损失
+        if self.beta != 0.0: # 如果beta不等于0，则计算KL散度
+            per_token_loss = per_token_loss + self.beta * per_token_kl # 计算损失
         loss = (per_token_loss * completion_mask).sum() / completion_mask.sum()
 
         # Log the metrics
@@ -1145,7 +1156,7 @@ class GRPOTrainer(Trainer):
         )
         return loss
 
-    def prediction_step(
+    def prediction_step( # 预测步骤
         self,
         model,
         inputs,
@@ -1159,7 +1170,7 @@ class GRPOTrainer(Trainer):
             loss = loss.mean().detach()
         return loss, None, None
 
-    def log(self, logs: dict[str, float], start_time: Optional[float] = None) -> None:
+    def log(self, logs: dict[str, float], start_time: Optional[float] = None) -> None: # 日志
         mode = "eval" if self.control.should_evaluate else "train"
         metrics = {
             key: sum(val) / len(val) for key, val in self._metrics[mode].items()
@@ -1177,7 +1188,7 @@ class GRPOTrainer(Trainer):
             super().log(logs)
         self._metrics[mode].clear()
 
-    def create_model_card(
+    def create_model_card( # 创建模型卡
         self,
         model_name: Optional[str] = None,
         dataset_name: Optional[str] = None,
