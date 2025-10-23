@@ -442,22 +442,36 @@ class PPOTrainer(Trainer):
 
                     ref_logits = ref_output.logits[:, context_length - 1 : -1]
                     # 计算参考模型的logits: 模型输出的logits
+                    # 模型的输出 logits，即未经过 softmax 或其他激活函数处理的原始输出
+
+                    # 对 ref_logits 进行温度缩放（temperature scaling），
+                    # 这是一种常见的技术，用于调整模型输出的“锐度”或“平滑度”。温度缩放通常用于调整模型的置信度
+                    # 温度参数，通常是一个正数，用于控制输出的平滑度。
+                    # 温度值越低：输出越“尖锐”，即模型对某些类别的置信度越高
+                    # 温度值越高：输出越“平滑”，即模型对所有类别的置信度更均匀
                     ref_logits /= args.temperature + 1e-7
                     ref_logprob = selective_log_softmax(ref_logits, response)
-                    del ref_output, ref_logits
+                    # 删除ref_output和ref_logits，释放内存  
+                    del ref_output, ref_logits   
                     torch.cuda.empty_cache()
 
-                    # Response Processing 1. truncate response after the first occurrence of `stop_token_id`
+                    # ---Response Processing 1. truncate response after the first occurrence of `stop_token_id`---
+                    # 截断响应，只保留第一个stop_token_id之后的部分
                     postprocessed_response = response
                     if self.stop_token_id is not None:  # handle the edge case when stop_token_id exists but is 0
                         postprocessed_response = truncate_response(
                             self.stop_token_id, processing_class.pad_token_id, response
                         )
 
-                    # Response Processing 2. run reward model on the truncated responses
+                    # ---Response Processing 2. run reward model on the truncated responses---
+                    # 将query和postprocessed_response连接起来
                     postprocessed_query_response = torch.cat((query, postprocessed_response), 1)
+                    # 计算sequence_length: 第一个pad_token_id的索引     
+                    # 获取sequence_length: 第一个pad_token_id的索引
                     sequence_length = first_true_indices(postprocessed_response == processing_class.pad_token_id) - 1
+                    # 获取value_model: 价值模型
                     unwrapped_value_model = accelerator.unwrap_model(model).value_model
+                    # 计算价值模型: 价值模型    
                     full_value, _, _ = get_reward(
                         unwrapped_value_model, query_response, processing_class.pad_token_id, context_length
                     )
@@ -484,7 +498,7 @@ class PPOTrainer(Trainer):
                 torch.cuda.empty_cache()
                 gc.collect()
 
-                # Response Processing 3. Filter completion. Ensure that the sample contains stop_token_id
+                # ---Response Processing 3. Filter completion. Ensure that the sample contains stop_token_id---
                 # Completions not passing that filter will receive a lower score.
                 contain_eos_token = torch.any(postprocessed_responses == self.processing_class.eos_token_id, dim=-1)
                 if self.args.missing_eos_penalty is not None:
@@ -500,20 +514,20 @@ class PPOTrainer(Trainer):
                 padding_mask_p1 = response_idxs > (sequence_lengths_p1.unsqueeze(1))
                 values = torch.masked_fill(values, padding_mask_p1, 0)
 
-                # 4. compute rewards
-                kl = logprobs - ref_logprobs
+                # ---4. compute rewards 计算奖励---   
+                kl = logprobs - ref_logprobs  
                 non_score_reward = -args.kl_coef * kl
                 rewards = non_score_reward.clone()
                 actual_start = torch.arange(rewards.size(0), device=rewards.device)
                 actual_end = torch.where(sequence_lengths_p1 < rewards.size(1), sequence_lengths_p1, sequence_lengths)
                 rewards[[actual_start, actual_end]] += scores
 
-                # 5. whiten rewards
+                # ---5. whiten rewards--- 白化奖励
                 if args.whiten_rewards:
                     rewards = masked_whiten(rewards, mask=~padding_mask_p1, shift_mean=False)
                     rewards = torch.masked_fill(rewards, padding_mask_p1, 0)
 
-                # 6. compute advantages and returns
+                # ---6. compute advantages and returns--- 计算优势和回报
                 lastgaelam = 0
                 advantages_reversed = []
                 gen_length = responses.shape[1]

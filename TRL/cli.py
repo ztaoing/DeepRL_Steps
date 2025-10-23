@@ -66,9 +66,9 @@ def main():
         grpo_training_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scripts", "grpo.py")
         args = launch_command_parser().parse_args([grpo_training_script])
 
-        # Feed the args to the launch command
+        # Feed the args to the launch command 传递参数
         args.training_script_args = sys.argv[2:]  # remove "trl" and "grpo"
-        launch_command(args)  # launch training
+        launch_command(args)  # launch training 启动训练
 
     elif args.command == "kto":
         # Get the default args for the launch command
