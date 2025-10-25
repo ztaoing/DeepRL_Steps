@@ -69,7 +69,10 @@ def masked_var(values: torch.Tensor, mask: torch.Tensor, unbiased: bool = True) 
 
 def masked_whiten(values: torch.Tensor, mask: torch.Tensor, shift_mean: bool = True) -> torch.Tensor:
     """Whiten values with masked values."""
+    # 计算均值和标准差
     mean, var = masked_mean(values, mask), masked_var(values, mask)
+    # torch.rsqrt(var + 1e-8)：计算方差的倒数平方根，加上一个小的常数 1e-8 以防止除以零
+    # 这个函数在许多深度学习任务中非常有用，尤其是在标准化和优化过程
     whitened = (values - mean) * torch.rsqrt(var + 1e-8)
     if not shift_mean:
         whitened += mean

@@ -15,6 +15,7 @@
 * easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
 * notes-on-reinforcement-learning   [在线阅读地址](https://newfacade.github.io/notes-on-reinforcement-learning/01-intro.html#)
 * 强化学习算法实现 [DRL-code-pytorch](https://github.com/Lizhi-sjtu/DRL-code-pytorch)
+* [复现deepseek-r1](https://github.com/FareedKhan-dev/train-deepseek-r1?tab=readme-ov-file#grpo-training-loop)
 ## 强化学习框架
 * trl  [trl](https://github.com/willccbb/trl)
 * veRL [veRL](https://github.com/volcengine/verl)

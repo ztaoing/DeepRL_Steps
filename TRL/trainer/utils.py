@@ -1149,11 +1149,19 @@ def first_true_indices(bools: torch.Tensor, dtype=torch.long):
             An (N-1)-dimensional tensor of integers indicating the position of the first True
             in each row. If no True value is found in a row, returns the length of the row.
     """
+    # row_len 是 bools 的最后一维的大小，即每一行的长度。
     row_len = bools.size(-1)
+    # ~bools：对 bools 进行逻辑取反，将 True 变为 False，将 False 变为 True。
+    # (~bools).type(dtype)：将布尔张量转换为指定的数据类型（例如 torch.long）
+    # row_len * (~bools).type(dtype)：将每一行中 False 的位置设置为 row_len，True 的位置设置为 0。
+    # torch.arange(row_len, dtype=dtype, device=bools.device)：生成一个从 0 到 row_len - 1 的序列，表示每一行的索引
+
+    # 将上述两个张量相加，得到一个辅助张量 zero_or_index
+    # 在这个张量中，True 的位置被替换为对应的索引，False 的位置被替换为 row_len。
     zero_or_index = row_len * (~bools).type(dtype) + torch.arange(row_len, dtype=dtype, device=bools.device)
     return torch.min(zero_or_index, dim=-1).values
 
-
+# 用于计算给定模型和查询响应的奖励 logits 和最终奖励
 def get_reward(
     model: torch.nn.Module, query_responses: torch.Tensor, pad_token_id: int, context_length: int
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
@@ -1161,25 +1169,27 @@ def get_reward(
     Computes the reward logits and the rewards for a given model and query responses.
 
     Args:
-        model (`torch.nn.Module`):
+        model (`torch.nn.Module`):用于计算奖励 logits 的模型
             The model used to compute the reward logits.
-        query_responses (`torch.Tensor`):
+        query_responses (`torch.Tensor`): 包含查询响应的张量
             The tensor containing the query responses.
         pad_token_id (`int`):
             The token ID representing the pad token.
-        context_length (`int`):
+        context_length (`int`): 查询响应中上下文的长度
             The length of the context in the query responses.
 
     Returns:
         tuple:
-            - `reward_logits` (`torch.Tensor`):
+            - `reward_logits` (`torch.Tensor`): 奖励模型的 logits
                 The logits for the reward model.
-            - `final_rewards` (`torch.Tensor`):
+            - `final_rewards` (`torch.Tensor`): 每个查询响应的最终奖励
                 The final rewards for each query response.
-            - `sequence_lengths` (`torch.Tensor`):
-                The lengths of the sequences in the query responses.
+            - `sequence_lengths` (`torch.Tensor`): 查询响应中序列的实际长度
+                The lengths of the sequences in the query responses. 
     """
     attention_mask = query_responses != pad_token_id
+    # attention_mask.cumsum(1)：按行计算累积和，得到每个位置的累积掩码值。
+    # position_ids：通过累积和减去掩码值，得到每个位置的实际位置 ID（从 0 开始
     position_ids = attention_mask.cumsum(1) - attention_mask.long()  # exclusive cumsum
     lm_backbone = getattr(model, model.base_model_prefix)
     input_ids = torch.masked_fill(query_responses, ~attention_mask, 0)
@@ -1191,12 +1201,16 @@ def get_reward(
         output_hidden_states=True,
         use_cache=False,  # otherwise mistral-based RM would error out
     )
+    # output.hidden_states[-1]：获取模型最后一层的隐藏状态
+    # model.score：调用模型的 score 方法，计算奖励 logits
     reward_logits = model.score(output.hidden_states[-1])
+    # query_responses[:, context_length:] == pad_token_id：从 context_length 开始，找到每个序列的第一个填充标记的位置。
+    # sequence_lengths：计算每个序列的实际长度，减去 1 是因为 first_true_indices 返回的是第一个填充标记的位置，加上 context_length 是因为从 context_length 开始计算
     sequence_lengths = first_true_indices(query_responses[:, context_length:] == pad_token_id) - 1 + context_length
     # https://github.com/huggingface/transformers/blob/dc68a39c8111217683bf49a4912d0c9018bab33d/src/transformers/models/gpt2/modeling_gpt2.py#L1454
     return (
         reward_logits,
-        reward_logits[
+        reward_logits[  
             torch.arange(reward_logits.size(0), device=reward_logits.device),
             sequence_lengths,
         ].squeeze(-1),
@@ -1309,6 +1323,8 @@ def truncate_response(stop_token_id: int, pad_token_id: int, responses: torch.Te
     trunc_idxs = first_true_indices(responses == stop_token_id).unsqueeze(-1)
     new_size = [1] * (len(responses.size()) - 1) + [responses.shape[1]]
     idxs = torch.arange(responses.shape[1], device=responses.device).view(*new_size)
+    # 使用trunc_idxs来阶段responses，只保留stop_stoken_id之前的信息
+    # 将大于trunc_idxs的索引的对应的response值填充为pad_token_id
     postprocessed_responses = torch.masked_fill(responses, idxs > trunc_idxs, pad_token_id)
     return postprocessed_responses
 
@@ -1680,7 +1696,8 @@ def selective_log_softmax(logits, index):
         logsumexp_values = torch.stack([torch.logsumexp(lg, dim=-1) for lg in logits])
         per_token_logps = selected_logits - logsumexp_values  # log_softmax(x_i) = x_i - logsumexp(x)
     else:
-        # logsumexp approach is unstable with bfloat16, fall back to slightly less efficent approach
+        # logsumexp approach is unstable with bfloat16, fall back to slightly less efficent approach : 
+        # 略微不那么高效的 approach: 因为logsumexp approach在bfloat16类型下不稳定，所以fallback到略微不那么高效的approach
         per_token_logps = []
         for row_logits, row_labels in zip(logits, index):  # loop to reduce peak mem consumption
             row_logps = F.log_softmax(row_logits, dim=-1)
