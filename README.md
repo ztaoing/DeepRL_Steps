@@ -16,6 +16,10 @@
 * notes-on-reinforcement-learning   [在线阅读地址](https://newfacade.github.io/notes-on-reinforcement-learning/01-intro.html#)
 * 强化学习算法实现 [DRL-code-pytorch](https://github.com/Lizhi-sjtu/DRL-code-pytorch)
 * [复现deepseek-r1](https://github.com/FareedKhan-dev/train-deepseek-r1?tab=readme-ov-file#grpo-training-loop)
+## 强化学习模型
+* [DAPO](https://github.com/BytedTsinghua-SIA/DAPO)
+* [ASPO](https://github.com/wizard-III/Archer2.0)
+
 ## 强化学习框架
 * trl  [trl](https://github.com/willccbb/trl)
 * veRL [veRL](https://github.com/volcengine/verl)
