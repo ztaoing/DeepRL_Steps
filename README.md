@@ -27,6 +27,17 @@
 * PPO-max [复旦大学](https://github.com/OpenLMLab/MOSS-RLHF)
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
+## 强化学习论文
+* [PPO]()
+* [Secrets of RLHF in Large Language Models Part I: PPO]()
+* [GRPO-deepseek]()
+* [GSPO-组序列策略优化]()
+* [DPO-直接偏好优化]()
+* [DACE-动态平衡探索与利用]()
+* [MAPO-混合优势策略优化]()
+* [DAPO-字节]()
+* [ASPO-非对称重要性采样策略优化]()
+* 
 
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
