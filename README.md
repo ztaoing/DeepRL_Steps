@@ -32,7 +32,7 @@
 * [Secrets of RLHF in Large Language Models Part I: PPO]()
 * [GRPO-deepseek]()
 * [GSPO-组序列策略优化]()
-* [DPO-直接偏好优化]()
+* [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [DACE-动态平衡探索与利用]()
 * [MAPO-混合优势策略优化]()
 * [DAPO-字节](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%AD%97%E8%8A%82clip-higher%EF%BC%9ADAPO-%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.pdf)
