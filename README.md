@@ -17,8 +17,8 @@
 * 强化学习算法实现 [DRL-code-pytorch](https://github.com/Lizhi-sjtu/DRL-code-pytorch)
 * [复现deepseek-r1](https://github.com/FareedKhan-dev/train-deepseek-r1?tab=readme-ov-file#grpo-training-loop)
 ## 强化学习模型
-* [DAPO](https://github.com/BytedTsinghua-SIA/DAPO)
-* [ASPO](https://github.com/wizard-III/Archer2.0)
+* [DAPO-github](https://github.com/BytedTsinghua-SIA/DAPO)
+* [ASPO-github](https://github.com/wizard-III/Archer2.0)
 
 ## 强化学习框架
 * trl  [trl](https://github.com/willccbb/trl)
@@ -35,7 +35,7 @@
 * [DPO-直接偏好优化]()
 * [DACE-动态平衡探索与利用]()
 * [MAPO-混合优势策略优化]()
-* [DAPO-字节]()
+* [DAPO-字节](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%AD%97%E8%8A%82clip-higher%EF%BC%9ADAPO-%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.pdf)
 * [ASPO-非对称重要性采样策略优化]()
 * [2-关注的是微观的、局部的“Token 级熵”Beyond the 80,20 Rule- High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/2-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%BE%AE%E8%A7%82%E7%9A%84%E3%80%81%E5%B1%80%E9%83%A8%E7%9A%84%E2%80%9CToken%20%E7%BA%A7%E7%86%B5%E2%80%9DBeyond%20the%2080%2C20%20Rule-%20High-Entropy%20Minority%20Tokens%20Drive%20Effective%20Reinforcement%20Learning%20for%20LLM%20Reasoning.pdf)
 
