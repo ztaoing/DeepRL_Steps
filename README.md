@@ -28,7 +28,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 ## 强化学习论文
-* [PPO]()
+* [PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
 * [Secrets of RLHF in Large Language Models Part I: PPO]()
 * [GRPO-deepseek]()
 * [GSPO-组序列策略优化]()
