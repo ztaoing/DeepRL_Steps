@@ -28,8 +28,11 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 ## 强化学习论文
+
+### PPO
 * [PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
 * [[复旦]1、PPO-Max Secrets of RLHF in Large Language Models Part I- PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1%E3%80%81PPO-Max%20Secrets%20of%20RLHF%20in%20Large%20Language%20Models%20Part%20I-%20PPO.pdf)
+### DeepSeek及衍生
 * [DeepSeek-GRPO]()
 * [DeepSeek-R1]()
 * [GSPO-组序列策略优化]()
@@ -38,9 +41,11 @@
 * [MAPO-混合优势策略优化]()
 * [DAPO-字节](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%AD%97%E8%8A%82clip-higher%EF%BC%9ADAPO-%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.pdf)
 * [ASPO-非对称重要性采样策略优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/ASPO-%20Asymmetric%20Importance%20Sampling%20Policy%20Optimization.pdf)
+* [CISPO]()
+### 熵
 * [[熵]1-关注的是宏观的、全局的“策略熵”The Entropy Mechanism of Reinforcement Learning for Reasoning Language Model](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%AE%8F%E8%A7%82%E7%9A%84%E3%80%81%E5%85%A8%E5%B1%80%E7%9A%84%E2%80%9C%E7%AD%96%E7%95%A5%E7%86%B5%E2%80%9DThe%20Entropy%20Mechanism%20of%20Reinforcement%20Learning%20for%20Reasoning%20Language%20Model.pdf)
 * [[熵]2-关注的是微观的、局部的“Token 级熵”Beyond the 80,20 Rule- High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/2-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%BE%AE%E8%A7%82%E7%9A%84%E3%80%81%E5%B1%80%E9%83%A8%E7%9A%84%E2%80%9CToken%20%E7%BA%A7%E7%86%B5%E2%80%9DBeyond%20the%2080%2C20%20Rule-%20High-Entropy%20Minority%20Tokens%20Drive%20Effective%20Reinforcement%20Learning%20for%20LLM%20Reasoning.pdf)
-* [CISPO]()
+
 
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
