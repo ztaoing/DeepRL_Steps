@@ -34,7 +34,7 @@
 * [[复旦]1、PPO-Max Secrets of RLHF in Large Language Models Part I- PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1%E3%80%81PPO-Max%20Secrets%20of%20RLHF%20in%20Large%20Language%20Models%20Part%20I-%20PPO.pdf)
 ### DeepSeek及衍生
 * [DeepSeek-GRPO]()
-* [DeepSeek-R1]()
+* [DeepSeek-R1](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/DeepSeek-R1-%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.pdf)
 * [GSPO-组序列策略优化]()
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [DACE-动态平衡探索与利用]()
