@@ -51,6 +51,9 @@
 * [为何在线强化学习能有效缓解灾难性遗忘？Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
 * [[for LLM]RL当你的 KL 散度正则化在“裸奔”On a few pitfalls in KL divergence gradient estimation for ]()
 
+### 奖励模型的设计
+* [通用奖励模型的推理时扩展Inference-Time Scaling for Generalist Reward Modeling]()
+
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
 * https://github.com/changyeyu/LLM-RL-Visualized  图解大模型算法
