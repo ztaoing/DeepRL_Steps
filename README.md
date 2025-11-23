@@ -52,7 +52,7 @@
 * [[for LLM]RL当你的 KL 散度正则化在“裸奔”On a few pitfalls in KL divergence gradient estimation for ]()
 
 ### 奖励模型的设计
-* [通用奖励模型的推理时扩展Inference-Time Scaling for Generalist Reward Modeling]()
+* [通用奖励模型的推理时扩展Inference-Time Scaling for Generalist Reward Modeling](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E8%AE%A9AI%E5%AD%A6%E4%BC%9A%E8%87%AA%E6%88%91%E6%89%B9%E8%AF%84-%E9%80%9A%E7%94%A8%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8E%A8%E7%90%86%E6%97%B6%E6%89%A9%E5%B1%95Inference-Time%20Scaling%20for%20Generalist%20Reward%20Modeling.pdf)
 
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
