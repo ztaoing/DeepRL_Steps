@@ -37,14 +37,14 @@
 * [重新思考下 PPO-Clip](https://zhuanlan.zhihu.com/p/1950985242098799047)
 * [DAPO-字节](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%AD%97%E8%8A%82clip-higher%EF%BC%9ADAPO-%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.pdf)
 * [ASPO-非对称重要性采样策略优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/ASPO-%20Asymmetric%20Importance%20Sampling%20Policy%20Optimization.pdf)
-
+* [在 PPO-Clip 中引入 Soft Clip 机制：CISPO-MiniMax-M1- Scaling Test-Time Compute Efficiently with Lightning Attention]()
 ### DeepSeek及衍生
 * [DeepSeek-GRPO]()
 * [DeepSeek-R1](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/DeepSeek-R1-%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.pdf)
 * [GSPO-组序列策略优化]()
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [MAPO-混合优势策略优化]()
-* [CISPO]()
+
 ### GRPO在机器领域的应用
 * [Extending Group Relative Policy Optimization to ContinuousControl: A Theoretical Framework for Robotic Reinforcement Learning]()
 ### KL散度
