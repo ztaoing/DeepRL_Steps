@@ -41,7 +41,7 @@
 ### DeepSeek及衍生
 * [DeepSeek-GRPO]()
 * [DeepSeek-R1](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/DeepSeek-R1-%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.pdf)
-* [GSPO-组序列策略优化]()
+* [【对整个 response 进行裁剪】GSPO-组序列策略优化]()
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [MAPO-混合优势策略优化]()
 
