@@ -67,7 +67,7 @@
 * [通用奖励模型的推理时扩展Inference-Time Scaling for Generalist Reward Modeling](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E8%AE%A9AI%E5%AD%A6%E4%BC%9A%E8%87%AA%E6%88%91%E6%89%B9%E8%AF%84-%E9%80%9A%E7%94%A8%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8E%A8%E7%90%86%E6%97%B6%E6%89%A9%E5%B1%95Inference-Time%20Scaling%20for%20Generalist%20Reward%20Modeling.pdf)
 ### 阿里：“目标”（序列级）和“手段”（token级）之间的不匹配
 * [一阶近似Stabilizing Reinforcement Learning with LLMs: Formulation and Practices](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%5B%E9%98%BF%E9%87%8C%5DStabilizing%20Reinforcement%20Learning%20with%20LLMs-%20Formulation%20and%20Practices.pdf)
-* [【对整个 response 进行裁剪】GSPO-组序列策略优化]()
+* [【对整个 response 进行裁剪】GSPO-组序列策略优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GSPO%EF%BC%9AGroup%20Sequence%20Policy%20Optimization.pdf)
 
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
