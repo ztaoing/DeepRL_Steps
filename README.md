@@ -39,7 +39,7 @@
 * [DeepSeek-GRPO]()
 * [DeepSeek-R1](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/DeepSeek-R1-%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.pdf)
 
-* [重新思考下 PPO-Clip](https://zhuanlan.zhihu.com/p/1950985242098799047)
+* [[推荐]重新思考下 PPO-Clip](https://zhuanlan.zhihu.com/p/1950985242098799047)
 * [DAPO-字节](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%AD%97%E8%8A%82clip-higher%EF%BC%9ADAPO-%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.pdf)
 * [ASPO-非对称重要性采样策略优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/ASPO-%20Asymmetric%20Importance%20Sampling%20Policy%20Optimization.pdf)
 * [Soft Clip 机制：CISPO-MiniMax-M1- Scaling Test-Time Compute Efficiently with Lightning Attention](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Soft%20Clip%20%E6%9C%BA%E5%88%B6%EF%BC%9ACISPO-MiniMax-M1-%20Scaling%20Test-Time%20Compute%20Efficiently%20with%20Lightning%20Attention.pdf)
@@ -50,7 +50,7 @@
 ### GRPO在机器领域的应用
 * [Extending Group Relative Policy Optimization to ContinuousControl: A Theoretical Framework for Robotic Reinforcement Learning]()
 ### KL散度
-* [为何在线强化学习能有效缓解灾难性遗忘？Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
+* [[推荐]为何在线强化学习能有效缓解灾难性遗忘？Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
 * [[for LLM]RL当你的 KL 散度正则化在“裸奔”On a few pitfalls in KL divergence gradient estimation for ]()
 ### 熵
 * [[熵]1-关注的是宏观的、全局的“策略熵”The Entropy Mechanism of Reinforcement Learning for Reasoning Language Model](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%AE%8F%E8%A7%82%E7%9A%84%E3%80%81%E5%85%A8%E5%B1%80%E7%9A%84%E2%80%9C%E7%AD%96%E7%95%A5%E7%86%B5%E2%80%9DThe%20Entropy%20Mechanism%20of%20Reinforcement%20Learning%20for%20Reasoning%20Language%20Model.pdf)
