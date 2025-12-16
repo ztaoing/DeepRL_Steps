@@ -35,6 +35,7 @@
 
 * [[复旦]PPO-Max:Secrets of RLHF in Large Language Models Part I- PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1%E3%80%81PPO-Max%20Secrets%20of%20RLHF%20in%20Large%20Language%20Models%20Part%20I-%20PPO.pdf)
 * [[复旦]PPO-Max:github地址](https://github.com/OpenLMLab/MOSS-RLHF)
+* [[分析了普通 IS 与加权 IS（WIS）在 off-policy TD 中的方差特性，证明 WIS 更稳定]Weighted importance sampling for off-policy learningwith linear function approximation]()
 ### DeepSeek及clip
 * [DeepSeek-GRPO]()
 * [DeepSeek-R1](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/DeepSeek-R1-%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.pdf)
