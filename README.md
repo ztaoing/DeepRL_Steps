@@ -5,8 +5,9 @@
 3. OPEN AI 强化学习手册 [官网地址](https://spinningup.openai.com/en/latest/index.html)
 4. 李宏毅-强化学习-PPO 【[视频地址](https://www.bilibili.com/video/BV18r421j7S4?spm_id_from=333.788.videopod.episodes&vd_source=f397e73b314ac775b2d6145b41327fa0) 】
 5. 李宏毅-强化学习-2025【[视频地址](https://www.bilibili.com/video/BV15hw9euExZ/?spm_id_from=333.337.search-card.all.click&vd_source=f397e73b314ac775b2d6145b41327fa0)】
-6. easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
-7. Mathematical-RL  [【赵世钰】强化学习的数学原理](https://www.bilibili.com/video/BV1sd4y167NS/?）
+6. [人人都能看懂的PPO原理与源码解读](https://zhuanlan.zhihu.com/p/677607581)
+7. easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
+8. Mathematical-RL  [【赵世钰】强化学习的数学原理](https://www.bilibili.com/video/BV1sd4y167NS/?）
 
 ## 强化学习-代码实现
 
@@ -32,7 +33,7 @@
 
 ### PPO
 * [PPO（通过裁剪重要性权重，实现稳定策略更新）](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
-* [人人都能看懂的PPO原理与源码解读](https://zhuanlan.zhihu.com/p/677607581)
+
 * [[复旦]PPO-Max:Secrets of RLHF in Large Language Models Part I- PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1%E3%80%81PPO-Max%20Secrets%20of%20RLHF%20in%20Large%20Language%20Models%20Part%20I-%20PPO.pdf)
 * [[复旦]PPO-Max:github地址](https://github.com/OpenLMLab/MOSS-RLHF)
 * [[分析了普通 IS 与加权 IS（WIS）在 off-policy TD 中的方差特性，证明 WIS 更稳定]Weighted importance sampling for off-policy learningwith linear function approximation]()
