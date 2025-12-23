@@ -1,0 +1,10 @@
+model_name: microsoft/DialoGPT-medium   # 小模型就能跑
+max_new_tokens: 256
+clip_low: 0.2
+clip_high: 0.28        # Clip-Higher
+dynamic_sample: true   # 简单版：组内全同 acc 就重采
+train_batch: 64
+gen_batch: 128
+lr: 5e-6
+epochs: 1
+kl_coef: 0.1
