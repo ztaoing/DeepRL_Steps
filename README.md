@@ -72,7 +72,7 @@
 * [一阶近似Stabilizing Reinforcement Learning with LLMs: Formulation and Practices](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%5B%E9%98%BF%E9%87%8C%5DStabilizing%20Reinforcement%20Learning%20with%20LLMs-%20Formulation%20and%20Practices.pdf)
 * [【对整个 response 进行裁剪】GSPO-组序列策略优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GSPO%EF%BC%9AGroup%20Sequence%20Policy%20Optimization.pdf)
 
-## Awesome-ML-SYS-Tutorial
+## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 
 ## 神经网络
