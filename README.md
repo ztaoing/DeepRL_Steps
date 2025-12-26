@@ -2,7 +2,7 @@
 
 1. BASIC            【鱼书】深度学习入门-强化学习 [课件及笔记](./BASIC)
 2. DRL              【王树森】深度强化学习 [课件及笔记](./DRL)
-3. Hands-on-RL       [【愈勇等】动手学强化学习 ](./Hands-on-RL)
+3. Hands-on-RL       [【愈勇等】动手学强化学习++ ](./Hands-on-RL)
   - 1
   - 2
 4. OPEN AI 强化学习手册 [官网地址](https://spinningup.openai.com/en/latest/index.html)
@@ -33,7 +33,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 ## 强化学习论文
-
+* [Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?]()
 ### PPO
 * [PPO（通过裁剪重要性权重，实现稳定策略更新）](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
 
