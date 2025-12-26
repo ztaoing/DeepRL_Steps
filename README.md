@@ -79,6 +79,7 @@
 
 ## 强化学习与base model
 * [强化学习是否真的在Llms中激发了超出基础模型的推理能力? Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Does%20Reinforcement%20Learning%20Really%20Incentivize%20Reasoning%20Capacity%20in%20LLMs%20Beyond%20the%20Base%20Model.pdf)
+* [RL根本无法无中生有！On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models]()
 
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
