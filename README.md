@@ -33,7 +33,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 ## 强化学习论文
-* [Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?]()
+* [Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model.pdf)
 ### PPO
 * [PPO（通过裁剪重要性权重，实现稳定策略更新）](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
 
