@@ -34,6 +34,7 @@
 
 ## 强化学习论文
 * [RLVR微调的本质是“非主成分学习”！：The Path Not Taken: RLVR Provably Learns Off the Principals]()
+* [主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
 
 
 ### PPO
