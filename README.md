@@ -84,6 +84,7 @@
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
+* [RL 系统深思：深入理解权重更新机制](https://zhuanlan.zhihu.com/p/1925210722704531547)
 
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
