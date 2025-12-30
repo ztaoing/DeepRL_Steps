@@ -82,7 +82,7 @@
 * [RL根本无法无中生有！On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models]()
 
 ## 主成分和非主成分
-* [RLVR微调的本质是“非主成分学习”！：The Path Not Taken: RLVR Provably Learns Off the Principals]()
+* [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals]()
 * [主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
 
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
