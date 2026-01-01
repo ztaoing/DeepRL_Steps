@@ -71,7 +71,7 @@
 * [deepseek-math-V1]()
 
 ## 幻觉
-* [用行为校准 RL 抑制模型幻觉:Mitigating LLM Hallucination via Behaviorally Calibrated Reinforcement Learning]()
+* [用行为校准 RL 抑制模型幻觉:Mitigating LLM Hallucination via Behaviorally Calibrated Reinforcement Learning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Mitigating%20LLM%20Hallucination%20via%20Behaviorally%20Calibrated%20Reinforcement%20Learning.pdf)
 * [为什么大模型出现幻觉？Why Language Models Hallucinate]()
 ## 奖励模型的设计
 * [通用奖励模型的推理时扩展Inference-Time Scaling for Generalist Reward Modeling](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E8%AE%A9AI%E5%AD%A6%E4%BC%9A%E8%87%AA%E6%88%91%E6%89%B9%E8%AF%84-%E9%80%9A%E7%94%A8%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8E%A8%E7%90%86%E6%97%B6%E6%89%A9%E5%B1%95Inference-Time%20Scaling%20for%20Generalist%20Reward%20Modeling.pdf)
@@ -84,7 +84,7 @@
 * [RL根本无法无中生有！On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models]()
 
 ## 主成分和非主成分
-* [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals]()
+* [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
 * [主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
 
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
