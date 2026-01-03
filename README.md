@@ -11,7 +11,7 @@
 7. [人人都能看懂的PPO原理与源码解读](https://zhuanlan.zhihu.com/p/677607581)
 8. easy-rl   [在线地址](https://datawhalechina.github.io/easy-rl/#/)
 9. Mathematical-RL  [【赵世钰】强化学习的数学原理](https://www.bilibili.com/video/BV1sd4y167NS/?）
-10. [RLHF-huggingface](https://huggingface.co/blog/rlhf)
+10. [RLHF-huggingface](https://huggingface.co/blog/zh/rlhf)
 ## 强化学习-代码实现
 
 
