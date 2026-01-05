@@ -62,7 +62,6 @@
 * [k3估计器：Approximating KL Divergence](http://joschu.net/blog/kl-approx.html)
 * [[推荐]为何在线强化学习能有效缓解灾难性遗忘？Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
 * [[for LLM]RL当你的 KL 散度正则化在“裸奔”On a few pitfalls in KL divergence gradient estimation for ]()
-* [别再把KL散度加进loss了:A COMEDY OF ESTIMATORS:  ON KL REGULARIZATION IN RL TRAINING OF LLMS]()
 * [分析了两种主流 KL 估计器（K1 和 K3）在两种放置位置（Reward 和 Loss）下的梯度特性A Comedy of Estimators On KL Regularization in RL Training of LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/A%20Comedy%20of%20Estimators%20On%20KL%20Regularization%20in%20RL%20Training%20of%20LLMs.pdf)
 ## 熵
 * [[熵]1-关注的是宏观的、全局的“策略熵”The Entropy Mechanism of Reinforcement Learning for Reasoning Language Model](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%AE%8F%E8%A7%82%E7%9A%84%E3%80%81%E5%85%A8%E5%B1%80%E7%9A%84%E2%80%9C%E7%AD%96%E7%95%A5%E7%86%B5%E2%80%9DThe%20Entropy%20Mechanism%20of%20Reinforcement%20Learning%20for%20Reasoning%20Language%20Model.pdf)
