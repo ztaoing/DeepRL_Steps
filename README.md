@@ -83,7 +83,7 @@
 * [一阶近似Stabilizing Reinforcement Learning with LLMs: Formulation and Practices](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%5B%E9%98%BF%E9%87%8C%5DStabilizing%20Reinforcement%20Learning%20with%20LLMs-%20Formulation%20and%20Practices.pdf)
 * [【对整个 response 进行裁剪】GSPO-组序列策略优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GSPO%EF%BC%9AGroup%20Sequence%20Policy%20Optimization.pdf)
 
-## 强化学习与base model
+## RL与base model
 * [强化学习是否真的在Llms中激发了超出基础模型的推理能力? Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Does%20Reinforcement%20Learning%20Really%20Incentivize%20Reasoning%20Capacity%20in%20LLMs%20Beyond%20the%20Base%20Model.pdf)
 * [RL根本无法无中生有！On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models]()
 
