@@ -90,7 +90,7 @@
 * [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
 * [主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
 ## RL训练
-* [ScaleRL:The Art of Scaling Reinforcement Learning Compute for LLMs]()
+* [ScaleRL:The Art of Scaling Reinforcement Learning Compute for LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Art%20of%20Scaling%20Reinforcement%20Learning%20Compute%20for%20LLMs.pdf)
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
