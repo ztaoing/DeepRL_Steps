@@ -41,8 +41,7 @@
 ## PPO
 * [PPO（通过裁剪重要性权重，实现稳定策略更新）](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
 
-* [[复旦]PPO-Max:Secrets of RLHF in Large Language Models Part I- PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1%E3%80%81PPO-Max%20Secrets%20of%20RLHF%20in%20Large%20Language%20Models%20Part%20I-%20PPO.pdf)
-* [[复旦]PPO-Max:github地址](https://github.com/OpenLMLab/MOSS-RLHF)
+* [[复旦]PPO-Max:Secrets of RLHF in Large Language Models Part I- PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1%E3%80%81PPO-Max%20Secrets%20of%20RLHF%20in%20Large%20Language%20Models%20Part%20I-%20PPO.pdf) [[复旦]PPO-Max:github地址](https://github.com/OpenLMLab/MOSS-RLHF)
 * [[分析了普通 IS 与加权 IS（WIS）在 off-policy TD 中的方差特性，证明 WIS 更稳定]Weighted importance sampling for off-policy learningwith linear function approximation]()
 ## DeepSeek及clip
 * [DeepSeek-GRPO]()
