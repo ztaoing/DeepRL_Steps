@@ -54,6 +54,7 @@
 
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [Understanding R1-Zero-Like Training: A Critical Perspective]()
+* [先归一化后加:GDPO: Group reward-Decoupled Normalization  Policy Optimization for Multi-reward RL  Optimization]()
 
 ## GRPO在机器领域的应用
 * [Extending Group Relative Policy Optimization to ContinuousControl: A Theoretical Framework for Robotic Reinforcement Learning]()
