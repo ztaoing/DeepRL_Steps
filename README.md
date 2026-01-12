@@ -53,7 +53,7 @@
 * [Soft Clip 机制：CISPO-MiniMax-M1- Scaling Test-Time Compute Efficiently with Lightning Attention](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Soft%20Clip%20%E6%9C%BA%E5%88%B6%EF%BC%9ACISPO-MiniMax-M1-%20Scaling%20Test-Time%20Compute%20Efficiently%20with%20Lightning%20Attention.pdf)
 
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
-* [Understanding R1-Zero-Like Training: A Critical Perspective]()
+* [Understanding R1-Zero-Like Training: A Critical Perspective](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Understanding%20R1-Zero-Like%20Training%20A%20Critical%20Perspective.pdf)
 * [先归一化后加:GDPO: Group reward-Decoupled Normalization  Policy Optimization for Multi-reward RL  Optimization]()
 
 ## GRPO在机器领域的应用
