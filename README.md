@@ -43,6 +43,9 @@
 
 * [[复旦]PPO-Max:Secrets of RLHF in Large Language Models Part I- PPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1%E3%80%81PPO-Max%20Secrets%20of%20RLHF%20in%20Large%20Language%20Models%20Part%20I-%20PPO.pdf) [[复旦]PPO-Max:github地址](https://github.com/OpenLMLab/MOSS-RLHF)
 * [[分析了普通 IS 与加权 IS（WIS）在 off-policy TD 中的方差特性，证明 WIS 更稳定]Weighted importance sampling for off-policy learningwith linear function approximation]()
+
+
+
 ## DeepSeek及clip
 * [DeepSeek-GRPO]()
 * [DeepSeek-R1](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/DeepSeek-R1-%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.pdf)
@@ -54,7 +57,7 @@
 
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [Understanding R1-Zero-Like Training: A Critical Perspective](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Understanding%20R1-Zero-Like%20Training%20A%20Critical%20Perspective.pdf)
-* [先归一化后加:GDPO: Group reward-Decoupled Normalization  Policy Optimization for Multi-reward RL  Optimization]()
+* [多奖励+先归一化后加:GDPO: Group reward-Decoupled Normalization  Policy Optimization for Multi-reward RL  Optimization](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GDPO%20Group%20reward-Decoupled%20Normalization%20Policy%20Optimization%20for%20Multi-reward%20RL%20Optimization.pdf)
 
 ## GRPO在机器领域的应用
 * [Extending Group Relative Policy Optimization to ContinuousControl: A Theoretical Framework for Robotic Reinforcement Learning]()
