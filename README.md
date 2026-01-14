@@ -59,7 +59,7 @@
 * [Understanding R1-Zero-Like Training: A Critical Perspective](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Understanding%20R1-Zero-Like%20Training%20A%20Critical%20Perspective.pdf)
 * [多奖励+先归一化后加:GDPO: Group reward-Decoupled Normalization  Policy Optimization for Multi-reward RL  Optimization](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GDPO%20Group%20reward-Decoupled%20Normalization%20Policy%20Optimization%20for%20Multi-reward%20RL%20Optimization.pdf)
 
-## GRPO在机器领域的应用
+## GRPO在机器领域的应用（TODO）
 * [Extending Group Relative Policy Optimization to ContinuousControl: A Theoretical Framework for Robotic Reinforcement Learning]()
 ## KL散度
 * [k3估计器：Approximating KL Divergence](http://joschu.net/blog/kl-approx.html)
