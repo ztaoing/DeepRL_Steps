@@ -64,7 +64,7 @@
 * [[推荐]为何在线强化学习能有效缓解灾难性遗忘？Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
 * [[for LLM]RL当你的 KL 散度正则化在“裸奔”On a few pitfalls in KL divergence gradient estimation for ](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/On%20a%20few%20pitfalls%20in%20KL%20divergence%20gradient%20estimation%20for%20RL%E5%BD%93%E4%BD%A0%E7%9A%84%20KL%20%E6%95%A3%E5%BA%A6%E6%AD%A3%E5%88%99%E5%8C%96%E5%9C%A8%E2%80%9C%E8%A3%B8%E5%A5%94%E2%80%9D.pdf)
 * [分析了两种主流 KL 估计器（K1 和 K3）在两种放置位置（Reward 和 Loss）下的梯度特性A Comedy of Estimators On KL Regularization in RL Training of LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/A%20Comedy%20of%20Estimators%20On%20KL%20Regularization%20in%20RL%20Training%20of%20LLMs.pdf)
-## 熵
+## 熵（探索）
 * [[熵]1-关注的是宏观的、全局的“策略熵”The Entropy Mechanism of Reinforcement Learning for Reasoning Language Model](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%AE%8F%E8%A7%82%E7%9A%84%E3%80%81%E5%85%A8%E5%B1%80%E7%9A%84%E2%80%9C%E7%AD%96%E7%95%A5%E7%86%B5%E2%80%9DThe%20Entropy%20Mechanism%20of%20Reinforcement%20Learning%20for%20Reasoning%20Language%20Model.pdf)
 * [[熵]2-关注的是微观的、局部的“Token 级熵”Beyond the 80,20 Rule- High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/2-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%BE%AE%E8%A7%82%E7%9A%84%E3%80%81%E5%B1%80%E9%83%A8%E7%9A%84%E2%80%9CToken%20%E7%BA%A7%E7%86%B5%E2%80%9DBeyond%20the%2080%2C20%20Rule-%20High-Entropy%20Minority%20Tokens%20Drive%20Effective%20Reinforcement%20Learning%20for%20LLM%20Reasoning.pdf)
 
@@ -78,8 +78,12 @@
 ## 幻觉
 * [用行为校准 RL 抑制模型幻觉:Mitigating LLM Hallucination via Behaviorally Calibrated Reinforcement Learning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Mitigating%20LLM%20Hallucination%20via%20Behaviorally%20Calibrated%20Reinforcement%20Learning.pdf)
 * [为什么大模型出现幻觉？Why Language Models Hallucinate]()
+
+
 ## 奖励模型的设计
 * [通用奖励模型的推理时扩展Inference-Time Scaling for Generalist Reward Modeling](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E8%AE%A9AI%E5%AD%A6%E4%BC%9A%E8%87%AA%E6%88%91%E6%89%B9%E8%AF%84-%E9%80%9A%E7%94%A8%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8E%A8%E7%90%86%E6%97%B6%E6%89%A9%E5%B1%95Inference-Time%20Scaling%20for%20Generalist%20Reward%20Modeling.pdf)
+
+
 ## 阿里：“目标”（序列级）和“手段”（token级）之间的不匹配
 * [一阶近似Stabilizing Reinforcement Learning with LLMs: Formulation and Practices](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%5B%E9%98%BF%E9%87%8C%5DStabilizing%20Reinforcement%20Learning%20with%20LLMs-%20Formulation%20and%20Practices.pdf)
 * [【对整个 response 进行裁剪】GSPO-组序列策略优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GSPO%EF%BC%9AGroup%20Sequence%20Policy%20Optimization.pdf)
@@ -91,8 +95,12 @@
 ## 主成分和非主成分
 * [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
 * [主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
+
+
 ## RL训练
 * [ScaleRL:The Art of Scaling Reinforcement Learning Compute for LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Art%20of%20Scaling%20Reinforcement%20Learning%20Compute%20for%20LLMs.pdf)
+
+
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
