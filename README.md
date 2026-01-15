@@ -33,7 +33,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 ## 强化学习论文
-
+* [在“大脑”内部做强化学习:Emergent temporal abstractions in autoregressive models enable hierarchical reinforcement learning]()
 
 
 ## PPO
