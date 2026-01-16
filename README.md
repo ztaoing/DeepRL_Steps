@@ -33,7 +33,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 # 强化学习论文
-* [观察位置发生变化：从观察token生成-》生成token之前的可选项的观察:Emergent temporal abstractions in autoregressive models enable hierarchical reinforcement learning]()
+
 
 
 ## PPO
