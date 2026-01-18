@@ -91,7 +91,7 @@
 ## RL是否真能超越base model？
 * [强化学习是否真的在Llms中激发了超出基础模型的推理能力? Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Does%20Reinforcement%20Learning%20Really%20Incentivize%20Reasoning%20Capacity%20in%20LLMs%20Beyond%20the%20Base%20Model.pdf)
 * [预训练（Pre-Training）、中期训练（Mid-Training）和基于强化学习的后训练（RL Post-Training）On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/On%20the%20Interplay%20of%20Pre-Training%2C%20Mid-Training%2C%20and%20RL%20on%20Reasoning%20Language%20Models.pdf)
-## mid-training 中训练
+## mid-training 中训练：领域指数的重要性
 * [爬坡似的接触特定的领域数据：基础领域知识-》专业领域知识OctoThinker: Mid-training Incentivizes Reinforcement Learning Scaling]()
 ## 主成分和非主成分
 * [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
