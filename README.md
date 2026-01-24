@@ -117,3 +117,6 @@
 ## 分布式
 * Ray-利用Ray进行大模型的数据处理、训练、推理和部署 [Ray rllib github地址](https://github.com/ray-project/ray/tree/master/rllib)
 * [图解OpenRLHF中基于Ray的分布式训练流程](https://zhuanlan.zhihu.com/p/12871616401)
+
+## 《动手学大模型》 系列编程实践教程
+* [上海交大](https://github.com/Lordog/dive-into-llms)
