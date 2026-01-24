@@ -96,7 +96,7 @@
 * [爬坡似的接触特定的领域数据：基础领域知识-》专业领域知识OctoThinker: Mid-training Incentivizes Reinforcement Learning Scaling]()
 ## 主成分和非主成分
 * [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
-* [主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
+* [TODO主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
 
 
 ## RL训练
