@@ -103,7 +103,7 @@
 * [TODO主权重：LIFT the Veil for the Truth: Principal Weights Emerge after Rank Reduction for Reasoning-Focused Supervised Fine-Tuning]()
 
 
-## RL训练
+## RL训练(Scaling Laws)
 * [RL 的 scaling 到底有没有规律可循？:The Art of Scaling Reinforcement Learning Compute for LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Art%20of%20Scaling%20Reinforcement%20Learning%20Compute%20for%20LLMs.pdf)
 * [工具综合推理：ToolRL: Reward is All Tool Learning Needs]()
 
