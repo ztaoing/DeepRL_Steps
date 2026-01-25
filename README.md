@@ -104,7 +104,7 @@
 
 
 ## RL训练
-* [ScaleRL:The Art of Scaling Reinforcement Learning Compute for LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Art%20of%20Scaling%20Reinforcement%20Learning%20Compute%20for%20LLMs.pdf)
+* [RL 的 scaling 到底有没有规律可循？:The Art of Scaling Reinforcement Learning Compute for LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Art%20of%20Scaling%20Reinforcement%20Learning%20Compute%20for%20LLMs.pdf)
 * [工具综合推理：ToolRL: Reward is All Tool Learning Needs]()
 
 
