@@ -94,6 +94,9 @@
 ## RL是否真能超越base model？
 * [强化学习是否真的在Llms中激发了超出基础模型的推理能力? Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Does%20Reinforcement%20Learning%20Really%20Incentivize%20Reasoning%20Capacity%20in%20LLMs%20Beyond%20the%20Base%20Model.pdf)
 * [预训练（Pre-Training）、中期训练（Mid-Training）和基于强化学习的后训练（RL Post-Training）On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/On%20the%20Interplay%20of%20Pre-Training%2C%20Mid-Training%2C%20and%20RL%20on%20Reasoning%20Language%20Models.pdf)
+
+## RL 能让模型学会全新的推理模式，实现 "能力扩展"
+*
 ## mid-training 中训练：领域指数的重要性
 * [爬坡似的接触特定的领域数据：基础领域知识-》专业领域知识OctoThinker: Mid-training Incentivizes Reinforcement Learning Scaling]()
 * 
