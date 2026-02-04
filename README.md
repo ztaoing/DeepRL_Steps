@@ -87,6 +87,11 @@
 * [group-level:GRPO]()
 * [batch-level:REINFORCE++]()
 
+## 损失计算：response-level还是token-level
+* [response-level:GRPO]()
+* [token-level:DAPO](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%AD%97%E8%8A%82clip-higher%EF%BC%9ADAPO-%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.pdf)
+
+
 ## 幻觉
 * [用行为校准 RL 抑制模型幻觉:Mitigating LLM Hallucination via Behaviorally Calibrated Reinforcement Learning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Mitigating%20LLM%20Hallucination%20via%20Behaviorally%20Calibrated%20Reinforcement%20Learning.pdf)
 * [TODO为什么大模型出现幻觉？Why Language Models Hallucinate]()
