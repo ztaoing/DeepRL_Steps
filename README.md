@@ -83,6 +83,10 @@
 ## 是否一定要控制熵
 * [deepseek-math-V1]()
 
+## 归一化：是group-level还是batch-level的归一化
+* [group-level:GRPO]()
+* [batch-level:REINFORCE++]()
+
 ## 幻觉
 * [用行为校准 RL 抑制模型幻觉:Mitigating LLM Hallucination via Behaviorally Calibrated Reinforcement Learning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Mitigating%20LLM%20Hallucination%20via%20Behaviorally%20Calibrated%20Reinforcement%20Learning.pdf)
 * [TODO为什么大模型出现幻觉？Why Language Models Hallucinate]()
