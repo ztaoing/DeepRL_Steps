@@ -140,5 +140,16 @@
 * Ray-利用Ray进行大模型的数据处理、训练、推理和部署 [Ray rllib github地址](https://github.com/ray-project/ray/tree/master/rllib)
 * [图解OpenRLHF中基于Ray的分布式训练流程](https://zhuanlan.zhihu.com/p/12871616401)
 
-## 《动手学大模型》 系列编程实践教程
+## 《动手学大模型》 
+### 初级
 * [上海交大](https://github.com/Lordog/dive-into-llms)
+* [1、训练数据准备](https://www.hiascend.com/developer/courses/detail/1871373977722732546)
+* [2、大模型预训练](https://www.hiascend.com/developer/courses/detail/1872199134812995586)
+* [3、大模型推理](https://www.hiascend.com/developer/courses/detail/1872200627859406849)
+* [4、大模型性能评估](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
+* [5、提示学习](https://www.hiascend.com/developer/courses/detail/1872203390798430210)
+* [6、思维链提示](https://www.hiascend.com/developer/courses/detail/1873667409401028610)
+
+### 中级
+
+### 高级
