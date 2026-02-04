@@ -83,7 +83,7 @@
 ## 是否一定要控制熵
 * [deepseek-math-V1]()
 
-## 归一化：是group-level还是batch-level的归一化
+## 优势归一化：是group-level还是batch-level的归一化
 * [group-level:GRPO]()
 * [batch-level:REINFORCE++]()
 
