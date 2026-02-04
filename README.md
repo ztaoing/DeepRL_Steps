@@ -41,6 +41,7 @@
 * [当我们试着加入一些"应该有用"的优化时，性能反而下降了:JustRL: Scaling a 1.5B LLM with a Simple RL Recipe]()
 * [技巧还是陷阱？从bese模型和aligned模型的角度观察：Part I: Tricks or Traps? A Deep Dive into RL for LLM Reasoning]()
 
+![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/RL-tool.png)
 ## PPO
 * [PPO（通过裁剪重要性权重，实现稳定策略更新）](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
 
