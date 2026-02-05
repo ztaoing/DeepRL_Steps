@@ -141,8 +141,8 @@
 * [图解OpenRLHF中基于Ray的分布式训练流程](https://zhuanlan.zhihu.com/p/12871616401)
 
 ## 《动手学大模型》 
-### 初级
 * [上海交大](https://github.com/Lordog/dive-into-llms)
+### 初级
 * [1、训练数据准备](https://www.hiascend.com/developer/courses/detail/1871373977722732546)
 * [2、大模型预训练](https://www.hiascend.com/developer/courses/detail/1872199134812995586)
 * [3、大模型推理](https://www.hiascend.com/developer/courses/detail/1872200627859406849)
