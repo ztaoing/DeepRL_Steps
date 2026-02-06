@@ -41,7 +41,7 @@
 * [当我们试着加入一些"应该有用"的优化时，性能反而下降了:JustRL: Scaling a 1.5B LLM with a Simple RL Recipe]()
 * [技巧还是陷阱？从bese模型和aligned模型的角度观察：Part I: Tricks or Traps? A Deep Dive into RL for LLM Reasoning]()
 
-![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/RL-tool.png)
+![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/RL-tool.png?v=1)
 ## PPO
 * [PPO（通过裁剪重要性权重，实现稳定策略更新）](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
 
@@ -144,7 +144,7 @@
 * [图解Vllm V1系列1：整体流程](https://zhuanlan.zhihu.com/p/1900126076279160869)
 
 ## megatron
-![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png)
+![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png?v=1)
 * [1、Megatron源码解读1，分布式环境初始化](https://zhuanlan.zhihu.com/p/629121480)
 * [2、Megatron源码解读2，模型并行](https://zhuanlan.zhihu.com/p/634377071)
 * [3、Megatron源码解读3，分布式混合精度训练](https://zhuanlan.zhihu.com/p/662700424)
