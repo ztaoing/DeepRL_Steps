@@ -140,6 +140,14 @@
 * Ray-利用Ray进行大模型的数据处理、训练、推理和部署 [Ray rllib github地址](https://github.com/ray-project/ray/tree/master/rllib)
 * [图解OpenRLHF中基于Ray的分布式训练流程](https://zhuanlan.zhihu.com/p/12871616401)
 
+## vLLM
+* [图解Vllm V1系列1：整体流程](https://zhuanlan.zhihu.com/p/1900126076279160869)
+
+## megatron
+![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png)
+* [1、Megatron源码解读1，分布式环境初始化](https://zhuanlan.zhihu.com/p/629121480)
+
+
 ## 《动手学大模型》 
 * [上海交大](https://github.com/Lordog/dive-into-llms)
 ### 初级
