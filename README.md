@@ -142,7 +142,11 @@
 
 ## vLLM
 * [图解Vllm V1系列1：整体流程](https://zhuanlan.zhihu.com/p/1900126076279160869)
-
+## 流水线并行（Pipeline Parallelism），数据并行（Data Parallelism）和张量并行（Tensor Parallesim）
+* [流水线并行（Pipeline Parallelism）](https://zhuanlan.zhihu.com/p/613196255)
+* [数据并行上篇(DP, DDP与ZeRO)](https://zhuanlan.zhihu.com/p/617133971)
+* [数据并行下篇( DeepSpeed ZeRO，零冗余优化)](https://zhuanlan.zhihu.com/p/618865052)
+* [张量模型并行(TP)，Megatron-LM](https://zhuanlan.zhihu.com/p/622212228)
 ## megatron
 ![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png?v=4)
 * [1、Megatron源码解读1，分布式环境初始化](https://zhuanlan.zhihu.com/p/629121480)
