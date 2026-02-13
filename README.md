@@ -153,11 +153,13 @@
 * [张量模型并行(TP)，Megatron-LM](https://zhuanlan.zhihu.com/p/622212228)
 ## megatron (猛猿)
 ![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png?v=4)
+* [Megatron-LM](https://github.com/NVIDIA/Megatron-LM)
 * [1、Megatron源码解读1，分布式环境初始化](https://zhuanlan.zhihu.com/p/629121480)
 * [2、Megatron源码解读2，模型并行](https://zhuanlan.zhihu.com/p/634377071)
 * [3、Megatron源码解读3，分布式混合精度训练](https://zhuanlan.zhihu.com/p/662700424)
 * [4、DeepSpeed-Megatron MoE并行训练（原理篇）](https://zhuanlan.zhihu.com/p/681154742)
 * [5、DeepSpeed-Megatron MoE并行训练（源码解读篇）](https://zhuanlan.zhihu.com/p/681692152)
+* [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism]()
 
 
 ## 《动手学大模型》 
