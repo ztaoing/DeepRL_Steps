@@ -153,6 +153,29 @@
 * [张量模型并行(TP)，Megatron-LM](https://zhuanlan.zhihu.com/p/622212228)
 ## megatron (猛猿)
 ![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png?v=4)
+```
+Megatron-LM/
+├── megatron/
+│   ├── core/                    # Megatron Core (kernels, parallelism, building blocks)
+│   │   ├── models/              # Transformer models
+│   │   ├── transformer/         # Transformer building blocks
+│   │   ├── tensor_parallel/     # Tensor parallelism
+│   │   ├── pipeline_parallel/   # Pipeline parallelism
+│   │   ├── distributed/         # Distributed training (FSDP, DDP)
+│   │   ├── optimizer/           # Optimizers
+│   │   ├── datasets/            # Dataset loaders
+│   │   ├── inference/           # Inference engines and server
+│   │   └── export/              # Model export (e.g. TensorRT-LLM)
+│   ├── training/                # Training scripts
+│   ├── legacy/                  # Legacy components
+│   ├── post_training/           # Post-training (quantization, distillation, pruning, etc.)
+│   └── rl/                      # Reinforcement learning (RLHF, etc.)
+├── examples/                    # Ready-to-use training examples
+├── tools/                       # Utility tools
+├── tests/                       # Comprehensive test suite
+└── docs/                        # Documentation
+```
+
 * [Megatron-LM](https://github.com/NVIDIA/Megatron-LM)
 * [1、Megatron源码解读1，分布式环境初始化](https://zhuanlan.zhihu.com/p/629121480)
 * [2、Megatron源码解读2，模型并行](https://zhuanlan.zhihu.com/p/634377071)
