@@ -177,6 +177,7 @@ Megatron-LM/
 ```
 
 * [Megatron-LM](https://github.com/NVIDIA/Megatron-LM)
+* [Megatron官方手册](https://docs.nvidia.com/megatron-core/developer-guide/latest/get-started/overview.html)
 * [1、Megatron源码解读1，分布式环境初始化](https://zhuanlan.zhihu.com/p/629121480)
 * [2、Megatron源码解读2，模型并行](https://zhuanlan.zhihu.com/p/634377071)
 * [3、Megatron源码解读3，分布式混合精度训练](https://zhuanlan.zhihu.com/p/662700424)
