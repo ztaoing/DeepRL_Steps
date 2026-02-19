@@ -197,6 +197,10 @@ Megatron-LM/
 * [5、提示学习](https://www.hiascend.com/developer/courses/detail/1872203390798430210)
 * [6、思维链提示](https://www.hiascend.com/developer/courses/detail/1873667409401028610)
 
-### 中级
+##  训练与推理
 
-### 高级
+* [推理框架的切换成本,降低RL训推共卡开销：SGLang/vLLM的无缝切换实现与分析](https://zhuanlan.zhihu.com/p/2002748926185469778)
+* [VMM：虚拟地址与物理地址之间的映射](https://github.com/CalvinXKY/BasicCUDA/tree/master/memory_opt/vmm)
+
+## pytorch
+* [PyTorch显存管理介绍与源码解析（一）](https://zhuanlan.zhihu.com/p/680769942)
