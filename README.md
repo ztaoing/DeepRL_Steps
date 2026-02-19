@@ -202,6 +202,7 @@ Megatron-LM/
 * [推理框架的切换成本,降低RL训推共卡开销：SGLang/vLLM的无缝切换实现与分析](https://zhuanlan.zhihu.com/p/2002748926185469778)
 * [VMM：虚拟地址与物理地址之间的映射](https://github.com/CalvinXKY/BasicCUDA/tree/master/memory_opt/vmm)
 * [训推角色切换与权重更新](https://github.com/CalvinXKY/InfraTech/blob/main/llm_infer/switch_role_update_weights.ipynb)
+* [睡眠模式](https://github.com/vllm-project/vllm/blob/main/docs/features/sleep_mode.md)
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
 ## pytorch
