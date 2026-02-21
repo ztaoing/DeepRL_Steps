@@ -206,4 +206,6 @@ Megatron-LM/
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
 ## pytorch
+* [pytorch官方手册](https://docs.pytorch.org/docs/stable/index.html)
+* [pytorch examples](https://github.com/pytorch/examples/tree/main)
 * [PyTorch显存管理介绍与源码解析（一）](https://zhuanlan.zhihu.com/p/680769942)
