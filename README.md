@@ -196,6 +196,9 @@ Megatron-LM/
 * [4、大模型性能评估](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
 ### 大模型推理
 * [大模型微调-高级](https://www.hiascend.com/developer/courses/detail/1915246001570357250)
+### 大模型评估
+* [常用大模型评估指标](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
+* [2-基于C-Eval的大模型性能评估](https://www.hiascend.com/developer/courses/detail/1915237566367830017)
 
 ##  训练与推理
 
