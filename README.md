@@ -21,6 +21,8 @@
 * notes-on-reinforcement-learning   [在线阅读地址](https://newfacade.github.io/notes-on-reinforcement-learning/01-intro.html#)
 * 强化学习算法实现 [DRL-code-pytorch](https://github.com/Lizhi-sjtu/DRL-code-pytorch)
 * [复现deepseek-r1](https://github.com/FareedKhan-dev/train-deepseek-r1?tab=readme-ov-file#grpo-training-loop)
+
+
 ## 强化学习算法 github地址
 * [DAPO-github](https://github.com/BytedTsinghua-SIA/DAPO)
 * [ASPO-github](https://github.com/wizard-III/Archer2.0)
@@ -114,7 +116,7 @@
 ## RL 能让模型学会全新的推理模式，实现 "能力扩展"
 * [RL Grokking Recipe: How Does RL Unlock and Transfer New Algorithms in LLMs?]()
 
-## 从"生成什么token"转向"关注哪里"
+## 从离散的token序列转向连续的注意力分布
 * [Reinforced Attention Learning (RAL)]()
 
 
