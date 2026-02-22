@@ -62,7 +62,7 @@
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [Understanding R1-Zero-Like Training: A Critical Perspective](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Understanding%20R1-Zero-Like%20Training%20A%20Critical%20Perspective.pdf)
 * [多奖励+先归一化后加:GDPO: Group reward-Decoupled Normalization  Policy Optimization for Multi-reward RL  Optimization](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GDPO%20Group%20reward-Decoupled%20Normalization%20Policy%20Optimization%20for%20Multi-reward%20RL%20Optimization.pdf)
-* [MaxRL：Maximum Likelihood Reinforcement Learning]()
+* [MaxRL：Maximum Likelihood Reinforcement Learning]()麦克劳林展开（Maclaurin Series）
 
 ## GRPO在机器领域的应用（TODO）
 * [Extending Group Relative Policy Optimization to ContinuousControl: A Theoretical Framework for Robotic Reinforcement Learning]()
@@ -113,9 +113,15 @@
 
 ## RL 能让模型学会全新的推理模式，实现 "能力扩展"
 * [RL Grokking Recipe: How Does RL Unlock and Transfer New Algorithms in LLMs?]()
+
+## 从"生成什么token"转向"关注哪里"
+* [Reinforced Attention Learning (RAL)]()
+
+
 ## mid-training 中训练：领域指数的重要性
 * [爬坡似的接触特定的领域数据：基础领域知识-》专业领域知识OctoThinker: Mid-training Incentivizes Reinforcement Learning Scaling]()
-* 
+
+
 ## RL 与 SFT
 * [[推荐]为何在线强化学习能有效缓解灾难性遗忘？Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
 * [RLVR微调的本质是“非主成分学习”！SFT微调的是“主成分”：The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
