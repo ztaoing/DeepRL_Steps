@@ -37,10 +37,11 @@
 
 ![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=3)
 # 强化学习论文
+* [TODO全面综述：RL在现实世界落地的未来方向:Statistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
 
 ##  RL(pass@1)与最大似然估计MLE(pass@k)
 * [MaxRL建立起RL(pass@1)与最大似然估计MLE(pass@k)之间的桥梁：Maximum Likelihood Reinforcement Learning]()
-* [TODO全面综述：RL在现实世界落地的未来方向:Statistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
+
 
 ## 技巧还是陷阱？
 * [当我们试着加入一些"应该有用"的优化时，性能反而下降了:JustRL: Scaling a 1.5B LLM with a Simple RL Recipe]()
