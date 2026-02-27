@@ -37,6 +37,9 @@
 
 ![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=3)
 # 强化学习论文
+
+##  RL(pass@1)与最大似然估计MLE(pass@k)
+* [MaxRL建立起RL(pass@1)与最大似然估计MLE(pass@k)之间的桥梁：Maximum Likelihood Reinforcement Learning]()
 * [TODO全面综述：RL在现实世界落地的未来方向:Statistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
 
 ## 技巧还是陷阱？
@@ -64,7 +67,7 @@
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [Understanding R1-Zero-Like Training: A Critical Perspective](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Understanding%20R1-Zero-Like%20Training%20A%20Critical%20Perspective.pdf)
 * [多奖励+先归一化后加:GDPO: Group reward-Decoupled Normalization  Policy Optimization for Multi-reward RL  Optimization](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/GDPO%20Group%20reward-Decoupled%20Normalization%20Policy%20Optimization%20for%20Multi-reward%20RL%20Optimization.pdf)
-* [MaxRL建立起RL与最大似然估计MLE之间的桥梁：Maximum Likelihood Reinforcement Learning]()
+
 
 ## GRPO在机器领域的应用（TODO）
 * [Extending Group Relative Policy Optimization to ContinuousControl: A Theoretical Framework for Robotic Reinforcement Learning]()
@@ -87,9 +90,10 @@
 ## 是否一定要控制熵
 * [deepseek-math-V1]()
 
-## 优势归一化：是group-level还是batch-level的归一化
+## 优势归一化：
 * [group-level:GRPO]()
 * [batch-level:REINFORCE++]()
+* [MaxRL：使用成功样本的数量进行归一化，而不是总样本数量]()
 
 ## 损失计算：response-level还是token-level
 * [response-level:GRPO]()
