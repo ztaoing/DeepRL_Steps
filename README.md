@@ -203,6 +203,8 @@ Megatron-LM/
 
 ## 《动手学大模型》 
 * [上海交大](https://github.com/Lordog/dive-into-llms)
+* [昇腾开源文档中心](https://ascend.github.io/docs/index.html)
+* 
 ### 大模型训练
 * [1、训练数据准备](https://www.hiascend.com/developer/courses/detail/1871373977722732546)
 * [2、大模型预训练](https://www.hiascend.com/developer/courses/detail/1872199134812995586)
