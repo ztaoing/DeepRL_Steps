@@ -206,6 +206,7 @@ Megatron-LM/
 ### 大模型训练
 * [1、训练数据准备](https://www.hiascend.com/developer/courses/detail/1871373977722732546)
 * [2、大模型预训练](https://www.hiascend.com/developer/courses/detail/1872199134812995586)
+* [2.1、预训练](https://www.hiascend.com/developer/courses/detail/1915241801172033538)
 * [3、大模型推理](https://www.hiascend.com/developer/courses/detail/1872200627859406849)
 * [4、大模型性能评估](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
 ### 大模型推理
