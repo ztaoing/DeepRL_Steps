@@ -1,0 +1,66 @@
+2026-03-03 17:16:28 | INFO     | 95624 | 2003372488.py:51 | setup_logging | 日志系统初始化完成
+2026-03-03 17:16:28 | INFO     | 95624 | 2003372488.py:57 | main | 应用程序启动
+2026-03-03 17:16:28 | INFO     | 95624 | 2768590066.py:38 | run_batch_task | === 开始批量任务 ===
+2026-03-03 17:16:28 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：1
+2026-03-03 17:16:28 | CRITICAL | 95624 | 2003372488.py:71 | main | 程序发生致命错误即将退出
+Traceback (most recent call last):
+  File "/var/folders/lq/hmdtq6_x06d32l7lfmd0g7gr0000gn/T/ipykernel_95624/2768590066.py", line 19, in process_data
+    raise ValueError(f'数据{data_id}格式校验失败')
+ValueError: 数据1格式校验失败
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/folders/lq/hmdtq6_x06d32l7lfmd0g7gr0000gn/T/ipykernel_95624/2003372488.py", line 61, in main
+    run_batch_task()
+  File "/var/folders/lq/hmdtq6_x06d32l7lfmd0g7gr0000gn/T/ipykernel_95624/2768590066.py", line 41, in run_batch_task
+    if process_data(i):
+  File "/var/folders/lq/hmdtq6_x06d32l7lfmd0g7gr0000gn/T/ipykernel_95624/2768590066.py", line 29, in process_data
+    logger.warning(f'数据ID{data}')
+NameError: name 'data' is not defined
+2026-03-03 17:16:28 | INFO     | 95624 | 2003372488.py:74 | main | 应用程序正常关闭
+2026-03-03 17:16:54 | INFO     | 95624 | 1916699627.py:51 | setup_logging | 日志系统初始化完成
+2026-03-03 17:16:55 | INFO     | 95624 | 1916699627.py:57 | main | 应用程序启动
+2026-03-03 17:16:55 | INFO     | 95624 | 2768590066.py:38 | run_batch_task | === 开始批量任务 ===
+2026-03-03 17:16:55 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：1
+2026-03-03 17:16:55 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID1中间计算结果：2
+2026-03-03 17:16:55 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID1处理成功
+2026-03-03 17:16:55 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：2
+2026-03-03 17:16:56 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID2中间计算结果：4
+2026-03-03 17:16:56 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID2处理成功
+2026-03-03 17:16:56 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：3
+2026-03-03 17:16:56 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID3中间计算结果：6
+2026-03-03 17:16:56 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID3处理成功
+2026-03-03 17:16:56 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：4
+2026-03-03 17:16:57 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID4中间计算结果：8
+2026-03-03 17:16:57 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID4处理成功
+2026-03-03 17:16:57 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：5
+2026-03-03 17:16:57 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID5中间计算结果：10
+2026-03-03 17:16:57 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID5处理成功
+2026-03-03 17:16:57 | INFO     | 95624 | 2768590066.py:44 | run_batch_task | === 批量任务结束，成功：5/5 ===
+2026-03-03 17:16:57 | INFO     | 95624 | 1916699627.py:74 | main | 应用程序正常关闭
+2026-03-03 17:17:25 | INFO     | 95624 | 1916699627.py:51 | setup_logging | 日志系统初始化完成
+2026-03-03 17:17:25 | INFO     | 95624 | 1916699627.py:57 | main | 应用程序启动
+2026-03-03 17:17:25 | INFO     | 95624 | 2768590066.py:38 | run_batch_task | === 开始批量任务 ===
+2026-03-03 17:17:25 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：1
+2026-03-03 17:17:26 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID1中间计算结果：2
+2026-03-03 17:17:26 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID1处理成功
+2026-03-03 17:17:26 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：2
+2026-03-03 17:17:26 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID2中间计算结果：4
+2026-03-03 17:17:26 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID2处理成功
+2026-03-03 17:17:26 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：3
+2026-03-03 17:17:27 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID3中间计算结果：6
+2026-03-03 17:17:27 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID3处理成功
+2026-03-03 17:17:27 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：4
+2026-03-03 17:17:27 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID4中间计算结果：8
+2026-03-03 17:17:27 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID4处理成功
+2026-03-03 17:17:27 | INFO     | 95624 | 2768590066.py:11 | process_data | 开始处理数据ID：5
+2026-03-03 17:17:28 | DEBUG    | 95624 | 2768590066.py:24 | process_data | 数据ID5中间计算结果：10
+2026-03-03 17:17:28 | INFO     | 95624 | 2768590066.py:25 | process_data | 数据ID5处理成功
+2026-03-03 17:17:28 | INFO     | 95624 | 2768590066.py:44 | run_batch_task | === 批量任务结束，成功：5/5 ===
+2026-03-03 17:17:28 | INFO     | 95624 | 1916699627.py:74 | main | 应用程序正常关闭
+2026-03-03 17:33:27 | DEBUG    | 95624 | 1638053210.py:9 | <module> | 这条不会显示，因为级别低于 INFO
+2026-03-03 17:33:27 | INFO     | 95624 | 1638053210.py:10 | <module> | 程序启动了
+2026-03-03 17:33:27 | WARNING  | 95624 | 1638053210.py:11 | <module> | 注意：内存占用较高
+2026-03-03 17:33:27 | ERROR    | 95624 | 1638053210.py:12 | <module> | 出错了！
+2026-03-03 17:33:27 | CRITICAL | 95624 | 1638053210.py:13 | <module> | 系统崩溃！
