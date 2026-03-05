@@ -166,13 +166,13 @@
 * [图解Vllm V1系列1：整体流程](https://zhuanlan.zhihu.com/p/1900126076279160869)
 
 ## Transformer 架构
+* [Self-Attention（自注意力机制）](https://zhuanlan.zhihu.com/p/455399791)
 
 ## 流水线并行，数据并行和张量并行 (猛猿)
 * [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models]()
 * [流水线并行（Pipeline Parallelism）](https://zhuanlan.zhihu.com/p/613196255)
 * [数据并行上篇(DP, DDP与ZeRO)](https://zhuanlan.zhihu.com/p/617133971)
 * [数据并行下篇( DeepSpeed ZeRO，零冗余优化)](https://zhuanlan.zhihu.com/p/618865052)
-* [Self-Attention（自注意力机制）](https://zhuanlan.zhihu.com/p/455399791)
 * [张量模型并行(TP)，Megatron-LM](https://zhuanlan.zhihu.com/p/622212228)
 ## megatron (猛猿)
 ![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png?v=4)
