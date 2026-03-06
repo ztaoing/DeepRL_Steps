@@ -146,7 +146,7 @@
 ## RL训练(Scaling Laws)
 * [RL 的 scaling 到底有没有规律可循？:The Art of Scaling Reinforcement Learning Compute for LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Art%20of%20Scaling%20Reinforcement%20Learning%20Compute%20for%20LLMs.pdf)
 * [工具综合推理：ToolRL: Reward is All Tool Learning Needs]()
-
+![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/token_to_process.png)
 ## 从优化结果（token），转向优化过程（内部信息分配）
 ### MLLM（多模态大模型）中从Next-token Prediction（下一个词预测）-->Attention Distribution(注意力分布)
 * [为什么 LLM 的 CoT 经验在多模态感知任务上失效了？Reinforced Attention Learning]()
