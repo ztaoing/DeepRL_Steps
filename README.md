@@ -149,8 +149,10 @@
 
 
 
-![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/token_to_process.png?v=2)
+
 ## 多模态：从优化结果（token），转向优化过程（内部信息分配）
+
+![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/token_to_process.png?v=2)
 ### MLLM（多模态大模型）中从Next-token Prediction（下一个词预测）-->Attention Distribution(注意力分布)
 * [为什么 LLM 的 CoT 经验在多模态感知任务上失效了？Reinforced Attention Learning]()
 
