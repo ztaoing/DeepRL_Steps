@@ -149,7 +149,7 @@
 
 
 ## MLLM（多模态大模型）中从Next-token Prediction（下一个词预测）-->Attention Distribution(注意力分布)
-* [Reinforced Attention Learning]()
+* [为什么 LLM 的 CoT 经验在多模态感知任务上失效了？Reinforced Attention Learning]()
 
 
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
