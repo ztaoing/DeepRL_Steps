@@ -178,8 +178,9 @@
 
 
 ## mid-training 中训练：领域指数的重要性
-* [爬坡似的接触特定的领域数据：基础领域知识-》专业领域知识OctoThinker: Mid-training Incentivizes Reinforcement Learning Scaling]()
+* [OctoThinker: Mid-training Incentivizes Reinforcement Learning Scaling]()
 
+  爬坡似的接触特定的领域数据：基础领域知识-》专业领域知识
 
 ## RL 与 SFT
 * [[推荐]Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
