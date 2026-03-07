@@ -210,9 +210,11 @@
 
 ![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/token_to_process.png?v=2)
 
-* [为什么 LLM 的 CoT 经验在多模态感知任务上失效了？Reinforced Attention Learning]()
+* [Reinforced Attention Learning]()
 
-  MLLM（多模态大模型）中从Next-token Prediction（下一个词预测）-->Attention Distribution(注意力分布)
+  - MLLM（多模态大模型）中从Next-token Prediction（下一个词预测）-->Attention Distribution(注意力分布)
+  
+  - 为什么 LLM 的 CoT 经验在多模态感知任务上失效了？
 
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
