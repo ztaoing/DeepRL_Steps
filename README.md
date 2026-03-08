@@ -35,7 +35,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 
-![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=4)
+![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=5)
 # 强化学习论文
 * [TODOStatistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
 
