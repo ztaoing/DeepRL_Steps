@@ -217,7 +217,7 @@
   - 为什么 LLM 的 CoT 经验在多模态感知任务上失效了？
 ## 经验强化学习（Experiential Reinforcement Learning, ERL）
    学习者在观察到结果后，会反思发生了什么，形成修正后的内部模型，并在后续的尝试中应用这些修正
-   
+* [Experiential Reinforcement Learning, ERL]()
   - 传统的强化学习通常将复杂的环境反馈压缩成一个简单的标量优化信号（scalar optimization signals），这要求策略在没有明确方向的探索中隐式地发现纠正结构
   - 引入经验学习机制，模型可以像人一样，把反馈转化为具体的中间推理（即反思过程），从而进行显式的纠正，大大提高了学习效率和针对性
 
