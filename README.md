@@ -216,6 +216,7 @@
   
   - 为什么 LLM 的 CoT 经验在多模态感知任务上失效了？
 * [On-Policy Distillation](https://thinkingmachines.ai/blog/on-policy-distillation/)
+  - 训练与测试的统一：学生写，老师改
 
 ![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/On-Policy-Distillation.png?v=2)
 
