@@ -216,7 +216,8 @@
   
   - 为什么 LLM 的 CoT 经验在多模态感知任务上失效了？
 * [On-Policy Distillation](https://thinkingmachines.ai/blog/on-policy-distillation/)
-![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/On-Policy-Distillation.png?v=1)
+
+![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/On-Policy-Distillation.png?v=2)
 
 ## 稀疏奖励  
 ### 经验强化学习（Experiential Reinforcement Learning, ERL）
