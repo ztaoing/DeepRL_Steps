@@ -223,7 +223,11 @@
 ### On-Policy Distillation
 * [On-Policy Distillation](https://thinkingmachines.ai/blog/on-policy-distillation/)
   - 训练与测试的统一：学生写，老师改
-
+* [Reinforced Attention Learning]()
+  使用On-Policy Distillation方案
+* [Experiential Reinforcement Learning, ERL]()
+  使用自蒸馏方案
+  
 ![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/On-Policy-Distillation.png?v=2)
 
 ## 稀疏奖励  
@@ -233,6 +237,7 @@
   - 传统的强化学习通常将复杂的环境反馈压缩成一个简单的标量优化信号（scalar optimization signals），这要求策略在没有明确方向的探索中隐式地发现纠正结构
   - 引入经验学习机制，模型可以像人一样，把反馈转化为具体的中间推理（即反思过程），从而进行显式的纠正，大大提高了学习效率和针对性
   - 经验学习：环境的反馈 --> 一段具体的反思
+  - 让它先尝试，拿到反馈后进行文字反思，然后再做一次修正尝试，最后将成功的经验“内化”到基础策略中
 
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
