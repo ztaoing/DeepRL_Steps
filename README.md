@@ -224,8 +224,10 @@
 * [On-Policy Distillation](https://thinkingmachines.ai/blog/on-policy-distillation/)
   - 训练与测试的统一：学生写，老师改
 * [Reinforced Attention Learning]()
+
   使用On-Policy Distillation方案
 * [Experiential Reinforcement Learning, ERL]()
+
   使用自蒸馏方案
   
 ![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/On-Policy-Distillation.png?v=2)
