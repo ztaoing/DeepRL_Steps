@@ -204,7 +204,8 @@
 
 
 
-## 多模态：“对于视觉理解任务”，从优化结果（token），转向优化过程（内部信息分配）
+## 多模态
+### ：“对于视觉理解任务”，从优化结果（token），转向优化过程（内部信息分配）
 
 对于视觉理解任务，显式的语言逻辑（Verbalized Logic）可能并不是必须的。
 
@@ -215,6 +216,8 @@
   - MLLM（多模态大模型）中从Next-token Prediction（下一个词预测）-->Attention Distribution(注意力分布)
   - 为什么 LLM 的 CoT 经验在多模态感知任务上失效了？
   - 作者的目标是：让高奖励的回复对应的注意力模式被保留和增强
+  - 去 CoT 化
+  - 强化学习不应该只停留在输出层。Transformer 内部丰富的中间状态（Attention, Activations）其实蕴含着巨大的可优化空间
 
 ## 蒸馏
 ### On-Policy Distillation
