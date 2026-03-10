@@ -226,6 +226,8 @@
 * [Reinforced Attention Learning]()
 
   使用On-Policy Distillation方案
+
+### 自蒸馏
 * [Experiential Reinforcement Learning, ERL]()
 
   使用自蒸馏方案
