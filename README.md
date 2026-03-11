@@ -243,6 +243,7 @@
 * [Reinforced Attention Learning]()
 
   使用On-Policy Distillation方案
+* [蒸馏实现](https://github.com/thinking-machines-lab/tinker-cookbook/tree/main/tinker_cookbook/recipes/distillation)
 
 ### 自蒸馏
 * [Experiential Reinforcement Learning, ERL]()
