@@ -108,7 +108,10 @@
  
   关注的是微观的、局部的“Token 级熵”
 
-*  [TODO动态平衡探索与利用（在难题上探索、在简单题上利用）-DACE]()
+* [Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
+
+  指出 RL 微调是“局部更新”，而非全局重塑，因此更容易被后续训练干扰
+
 *  [Harnessing Uncertainty  Entropy Modulated Policy Gradients for Long-Horizon LLM Agents](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%88%A9%E7%94%A8%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%9D%A2%E5%90%91%E9%95%BF%E5%BA%8F%E5%88%97LLM%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%86%B5%E8%B0%83%E5%88%B6%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6Harnessing%20Uncertainty%20%20Entropy%20Modulated%20Policy%20Gradients%20for%20Long-Horizon%20LLM%20Agents.pdf)
 
    利用不确定性面向长序列LLM智能体的熵调制策略梯度
