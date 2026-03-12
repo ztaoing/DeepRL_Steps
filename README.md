@@ -91,6 +91,8 @@
 
   为何在线强化学习能有效缓解灾难性遗忘？
   
+  [Retaining by Doing: The Role of On-Policy Data in Mitigating Forgetting]()
+  - 支持“on-policy SFT 可减轻遗忘”的观点
 * [[for LLM]On a few pitfalls in KL divergence gradient estimation for ](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/On%20a%20few%20pitfalls%20in%20KL%20divergence%20gradient%20estimation%20for%20RL%E5%BD%93%E4%BD%A0%E7%9A%84%20KL%20%E6%95%A3%E5%BA%A6%E6%AD%A3%E5%88%99%E5%8C%96%E5%9C%A8%E2%80%9C%E8%A3%B8%E5%A5%94%E2%80%9D.pdf)
 
   RL当你的 KL 散度正则化在“裸奔”
@@ -108,10 +110,10 @@
  
   关注的是微观的、局部的“Token 级熵”
 
-* [Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
+    [Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
 
-  指出 RL 微调是“局部更新”，而非全局重塑，因此更容易被后续训练干扰
-  - 实际上，它只改动了模型 5%-30% 的权重，剩下的部分几乎纹丝不动。这和 SFT（监督微调）那种“地毯式轰炸”的更新模式完全不同。
+    指出 RL 微调是“局部更新”，而非全局重塑，因此更容易被后续训练干扰
+    - 实际上，它只改动了模型 5%-30% 的权重，剩下的部分几乎纹丝不动。这和 SFT（监督微调）那种“地毯式轰炸”的更新模式完全不同。
   
 *  [Harnessing Uncertainty  Entropy Modulated Policy Gradients for Long-Horizon LLM Agents](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%88%A9%E7%94%A8%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%9D%A2%E5%90%91%E9%95%BF%E5%BA%8F%E5%88%97LLM%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%86%B5%E8%B0%83%E5%88%B6%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6Harnessing%20Uncertainty%20%20Entropy%20Modulated%20Policy%20Gradients%20for%20Long-Horizon%20LLM%20Agents.pdf)
 
