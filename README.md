@@ -35,7 +35,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 
-![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=5)
+![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=6)
 # 强化学习论文
 * [TODOStatistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
 
@@ -246,6 +246,7 @@
 ### On-Policy Distillation
 * [On-Policy Distillation](https://thinkingmachines.ai/blog/on-policy-distillation/)
   - 训练与测试的统一：学生写，老师改
+  - SFT是一种破坏性的训练（哪怕目标分布与原始分布完全一致）
 * [Reinforced Attention Learning]()
 
   使用On-Policy Distillation方案
