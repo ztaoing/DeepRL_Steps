@@ -318,7 +318,9 @@ Megatron-LM/
 * [3、Megatron源码解读3，分布式混合精度训练](https://zhuanlan.zhihu.com/p/662700424)
 * [4、DeepSpeed-Megatron MoE并行训练（原理篇）](https://zhuanlan.zhihu.com/p/681154742)
 * [5、DeepSpeed-Megatron MoE并行训练（源码解读篇）](https://zhuanlan.zhihu.com/p/681692152)
-* [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism]()
+* [【论文】Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)
+* [【论文】Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM](https://arxiv.org/abs/2104.04473 )
+* [【论文】Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198)
 
 
 ## 《动手学大模型》 
