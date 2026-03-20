@@ -280,6 +280,8 @@
 * [Self-Attention（自注意力机制）](https://zhuanlan.zhihu.com/p/455399791)
 
 ## 流水线并行，数据并行和张量并行 (猛猿)
+
+![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/tpdppp.png?v=1)
     
     1.节点内部 (8 卡)：使用 TP (张量并行)。因为 8 卡之间有 NVLink 高速互联，可以承受 TP 的高频通信，解决单卡存不下大层的问题。
     2.节点之间：使用 PP (流水线并行)。将模型层切分到不同的机器组上，减少跨机器的通信频率。
