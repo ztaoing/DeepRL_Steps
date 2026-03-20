@@ -280,6 +280,10 @@
 * [Self-Attention（自注意力机制）](https://zhuanlan.zhihu.com/p/455399791)
 
 ## 流水线并行，数据并行和张量并行 (猛猿)
+    
+    1.节点内部 (8 卡)：使用 TP (张量并行)。因为 8 卡之间有 NVLink 高速互联，可以承受 TP 的高频通信，解决单卡存不下大层的问题。
+    2.节点之间：使用 PP (流水线并行)。将模型层切分到不同的机器组上，减少跨机器的通信频率。
+    3.整体集群：使用 DP (数据并行：模型复制，数据分片)。将上述的 "TP+PP" 组合视为一个大的“虚拟卡”，然后复制多份这样的组合，处理不同的数据批次，通过 DP 来扩大总吞吐量。
 * [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models]()
 * [流水线并行（Pipeline Parallelism）](https://zhuanlan.zhihu.com/p/613196255)
 * [数据并行上篇(DP, DDP与ZeRO)](https://zhuanlan.zhihu.com/p/617133971)
