@@ -261,7 +261,8 @@
 
 * [Why Does Self-Distillation (Sometimes) Degrade the Reasoning Capability of LLMs?]()
     研究表明，尽管自我蒸馏在化学问答、代码生成等领域能够缩短推理路径并提升模型性能，但在数学推理领域，该方法会导致模型性能出现较大幅度的下降。
-    
+  - 在化学领域，SDPO 在缩短回复长度的同时快速提升了分数
+  - 而在数学领域（DAPO-Math-17k 数据集），SDPO 随着训练步数的增加，其评估分数却低于持续增长的 GRPO。
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
