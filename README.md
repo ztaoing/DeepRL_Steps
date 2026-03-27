@@ -259,6 +259,9 @@
   
 ![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/On-Policy-Distillation.png?v=2)
 
+* [Why Does Self-Distillation (Sometimes) Degrade the Reasoning Capability of LLMs?]()
+    研究表明，尽管自我蒸馏在化学问答、代码生成等领域能够缩短推理路径并提升模型性能，但在数学推理领域，该方法会导致模型性能出现较大幅度的下降。
+    
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
