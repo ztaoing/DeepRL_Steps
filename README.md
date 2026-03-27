@@ -263,6 +263,8 @@
     研究表明，尽管自我蒸馏在化学问答、代码生成等领域能够缩短推理路径并提升模型性能，但在数学推理领域，该方法会导致模型性能出现较大幅度的下降。
   - 在化学领域，SDPO 在缩短回复长度的同时快速提升了分数
   - 而在数学领域（DAPO-Math-17k 数据集），SDPO 随着训练步数的增加，其评估分数却低于持续增长的 GRPO。
+  - “认知不确定性表达”（Epistemic Verbalization）
+  - 语言模型输出中的认知不确定性表达是支持其执行纠错和寻找解答的核心组成部分。
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
