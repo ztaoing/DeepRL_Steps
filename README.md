@@ -35,7 +35,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 
-![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=6)
+![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=7)
 # 强化学习论文
 * [TODOStatistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
 
@@ -120,6 +120,8 @@
     - 在绝大多数生成步骤中，强化学习模型与基础模型的预测分布近乎一致，仅在少部分特定位置出现明显的发散。
     - 少部分词元决定整体性能
     - 在出现较大分布变化的词元位置，RLVR 主要是在基础模型原有的候选词元集合内进行概率重分配和排序调整，较少提升原本在基础模型中处于低概率尾部的词元。
+    - DAPO 算法能够同时修改初始高熵和低熵的预测，这体现了其覆盖甚至推翻基础模型自信预测的能力。
+    - SimpleRL 则倾向于在基础模型具有较高熵的区域集中产生散度，反映出一种更为保守的更新策略
    ![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/sparseRL.png?v=1) 
   
 *  [Harnessing Uncertainty  Entropy Modulated Policy Gradients for Long-Horizon LLM Agents](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%88%A9%E7%94%A8%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%9D%A2%E5%90%91%E9%95%BF%E5%BA%8F%E5%88%97LLM%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%86%B5%E8%B0%83%E5%88%B6%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6Harnessing%20Uncertainty%20%20Entropy%20Modulated%20Policy%20Gradients%20for%20Long-Horizon%20LLM%20Agents.pdf)
