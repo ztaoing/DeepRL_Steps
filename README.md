@@ -116,7 +116,7 @@
     - 实际上，它只改动了模型 5%-30% 的权重，剩下的部分几乎纹丝不动。这和 SFT（监督微调）那种“地毯式轰炸”的更新模式完全不同。
 
     
-    [Sparse but Critical: A Token-Level Analysis of Distributional Shifts in RLVR Fine-Tuning of LLMs]()
+    [Sparse but Critical: A Token-Level Analysis of Distributional Shifts in RLVR Fine-Tuning of LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Sparse%20but%20Critical%20A%20Token-Level%20Analysis%20of%20Distributional%20Shifts%20in%20RLVR%20Fine-Tuning%20of%20LLMs.pdf)
     - 在绝大多数生成步骤中，强化学习模型与基础模型的预测分布近乎一致，仅在少部分特定位置出现明显的发散。
     - 少部分词元决定整体性能
     - 在出现较大分布变化的词元位置，RLVR 主要是在基础模型原有的候选词元集合内进行概率重分配和排序调整，较少提升原本在基础模型中处于低概率尾部的词元。
@@ -135,6 +135,12 @@
 
 ## 是否一定要控制熵
 * [deepseek-math-V1]()
+
+
+## 从幅度到方向
+* [On the Direction of RLVR Updates for LLM Reasoning: Identification and Exploitation]()
+    - 大小度量(熵和KL散度)的分布直方图在Base和RLVR模型之间几乎一模一样
+    - <b>稀疏性源于RLVR对低概率Token的天然聚焦</b>
 
 ## 优势归一化：
 * [group-level:GRPO]()
