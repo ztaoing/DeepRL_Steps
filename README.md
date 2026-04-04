@@ -138,9 +138,17 @@
 
 
 ## 从幅度到方向
+### reasoning direction: pointing from base to RLVR distribution
 * [On the Direction of RLVR Updates for LLM Reasoning: Identification and Exploitation]()
     - 大小度量(熵和KL散度)的分布直方图在Base和RLVR模型之间几乎一模一样
     - <b>稀疏性源于RLVR对低概率Token的天然聚焦</b>
+    - 测试时外推是在<b>训练完成后</b>放大RLVR学到的信号，
+    - 而训练时重加权则是在<b>训练过程中</b>主动强化这些信号
+    - RLVR 的策略梯度稀疏地集中在低概率token上
+### Low-Probability Tokens
+* [Do Not Let Low-Probability Tokens Over-Dominate in RL for LLMs]()
+    1. 优势重加权（Advantage Reweighting, AR）：通过重新调整不同概率词元的优势（advantage）权重，直接削弱低概率词元的影响力。
+    2. 低概率词元隔离（Low-Probability Token Isolation, Lopti）：将更新过程分解为两个阶段，先更新低概率词元，再更新高概率词元，通过隔离来避免梯度干扰。
 
 ## 优势归一化：
 * [group-level:GRPO]()
