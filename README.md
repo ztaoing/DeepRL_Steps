@@ -76,6 +76,8 @@
 
 * [DPO-直接偏好优化](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Direct%20Preference%20Optimization-%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.pdf)
 * [Understanding R1-Zero-Like Training: A Critical Perspective](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Understanding%20R1-Zero-Like%20Training%20A%20Critical%20Perspective.pdf)
+* [FIPO（Future-KL Influenced Policy Optimization）]()
+    - FIPO 追踪的是每个Token引发的概率偏移(实时追踪每一个Token对后续推理轨迹的实际影响)
 
 
 
@@ -108,15 +110,31 @@
   
 * [[熵]2-Beyond the 80,20 Rule- High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/2-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%BE%AE%E8%A7%82%E7%9A%84%E3%80%81%E5%B1%80%E9%83%A8%E7%9A%84%E2%80%9CToken%20%E7%BA%A7%E7%86%B5%E2%80%9DBeyond%20the%2080%2C20%20Rule-%20High-Entropy%20Minority%20Tokens%20Drive%20Effective%20Reinforcement%20Learning%20for%20LLM%20Reasoning.pdf)
  
-  关注的是微观的、局部的“Token 级熵”
+  - 关注的是微观的、局部的“Token 级熵”
+*  [Harnessing Uncertainty  Entropy Modulated Policy Gradients for Long-Horizon LLM Agents](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%88%A9%E7%94%A8%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%9D%A2%E5%90%91%E9%95%BF%E5%BA%8F%E5%88%97LLM%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%86%B5%E8%B0%83%E5%88%B6%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6Harnessing%20Uncertainty%20%20Entropy%20Modulated%20Policy%20Gradients%20for%20Long-Horizon%20LLM%20Agents.pdf)
 
-    [Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
+   - 利用不确定性面向长序列LLM智能体的熵调制策略梯度
+  
+*  [TODO Rethinking Entropy Regularization in Large Reasoning model]()
+
+   - 探索不应是盲目和全局的，而应是有选择性的
+   
+## 是否一定要控制熵
+* [deepseek-math-V1]()
+  
+## 稀疏性
+
+* [TODO-Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
+    - RL引起的参数更新稀疏性
+    - 这种稀疏性主要源于强化学习微调的数据特性
+
+* [Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
 
     指出 RL 微调是“局部更新”，而非全局重塑，因此更容易被后续训练干扰
     - 实际上，它只改动了模型 5%-30% 的权重，剩下的部分几乎纹丝不动。这和 SFT（监督微调）那种“地毯式轰炸”的更新模式完全不同。
 
     
-    [Sparse but Critical: A Token-Level Analysis of Distributional Shifts in RLVR Fine-Tuning of LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Sparse%20but%20Critical%20A%20Token-Level%20Analysis%20of%20Distributional%20Shifts%20in%20RLVR%20Fine-Tuning%20of%20LLMs.pdf)
+* [Sparse but Critical: A Token-Level Analysis of Distributional Shifts in RLVR Fine-Tuning of LLMs](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Sparse%20but%20Critical%20A%20Token-Level%20Analysis%20of%20Distributional%20Shifts%20in%20RLVR%20Fine-Tuning%20of%20LLMs.pdf)
     - 在绝大多数生成步骤中，强化学习模型与基础模型的预测分布近乎一致，仅在少部分特定位置出现明显的发散。
     - 少部分词元决定整体性能
     - 在出现较大分布变化的词元位置，RLVR 主要是在基础模型原有的候选词元集合内进行概率重分配和排序调整，较少提升原本在基础模型中处于低概率尾部的词元。
@@ -125,16 +143,9 @@
     - base model 引入的稀疏token，改变了推理的轨迹
    ![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/sparseRL.png?v=1) 
   
-*  [Harnessing Uncertainty  Entropy Modulated Policy Gradients for Long-Horizon LLM Agents](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%88%A9%E7%94%A8%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%9D%A2%E5%90%91%E9%95%BF%E5%BA%8F%E5%88%97LLM%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%86%B5%E8%B0%83%E5%88%B6%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6Harnessing%20Uncertainty%20%20Entropy%20Modulated%20Policy%20Gradients%20for%20Long-Horizon%20LLM%20Agents.pdf)
 
-   利用不确定性面向长序列LLM智能体的熵调制策略梯度
-  
-*  [TODO Rethinking Entropy Regularization in Large Reasoning model]()
 
-   探索不应是盲目和全局的，而应是有选择性的
 
-## 是否一定要控制熵
-* [deepseek-math-V1]()
 
 
 ## 从幅度到方向
