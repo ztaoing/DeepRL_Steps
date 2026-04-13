@@ -1,0 +1,6 @@
+model:
+  name: resnet101
+  num_classes: 1000
+  pretrained: true
+lr: 0.01
+epochs: 10
