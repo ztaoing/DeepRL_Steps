@@ -404,6 +404,12 @@ Megatron-LM/
 * [睡眠模式](https://github.com/vllm-project/vllm/blob/main/docs/features/sleep_mode.md)
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
+## veRL
+* [verl.single_controller.ray](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.single_controller.ray.ipynb)
+* [verl.trainer](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.trainer.ipynb)
+* [verl.utils](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.utils.ipynb)
+* [verl.workers](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/%20verl.workers.ipynb)
+
 ## pytorch
 * [pytorch官方手册](https://docs.pytorch.org/docs/stable/index.html)
 * [pytorch examples](https://github.com/pytorch/examples/tree/main)
