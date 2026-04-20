@@ -271,6 +271,11 @@ def compute_advantage(
         DataProto: The updated data with computed advantages and returns.
     """
     # Back-compatible with trainers that do not compute response mask in fit
+    """
+    防御性编程。
+     逻辑：计算优势时，必须知道哪些 Token 是模型生成的（有效），哪些是 Padding（无效）。
+     如果上层调用者忘记计算 response_mask，这里会自动补上，防止后续计算出错。
+    """
     if "response_mask" not in data.batch.keys():
         data.batch["response_mask"] = compute_response_mask(data)
     # prepare response group
@@ -292,6 +297,17 @@ def compute_advantage(
                 config.pf_ppo.get("weight_pow"),
             )
     elif adv_estimator == AdvantageEstimator.GRPO:
+        """
+
+        适用场景：GRPO (Group Relative Policy Optimization) 算法。
+        依赖：不需要 Critic。
+        核心逻辑：
+            调用 compute_grpo_outcome_advantage。
+            关键参数：
+                - index=data.non_tensor_batch["uid"]：这是 GRPO 的核心。它利用 uid 将同一个 Prompt 生成的一组回答（Group）聚合在一起。
+                norm_adv_by_std_in_grpo：控制是否除以组内奖励的标准差，用于归一化。
+                - 计算原理：通过计算组内样本的相对表现（减去组平均值）来确定优势。
+        """
         # Initialize the mask for GRPO calculation
         grpo_calculation_mask = data.batch["response_mask"]
         # Call compute_grpo_outcome_advantage with parameters matching its definition
@@ -304,6 +320,15 @@ def compute_advantage(
         data.batch["advantages"] = advantages
         data.batch["returns"] = returns
     else:
+        """
+        设计模式：策略模式。
+        目的：为了代码的扩展性。如果你想实现一个新的算法（比如 ReMax 或 RLOO），
+            你不需要修改这个主函数，只需要在 core_algos 中注册一个新的函数即可。
+        逻辑：
+            1.获取函数：通过 get_adv_estimator_fn 动态获取对应的计算函数。
+            2.构建参数：动态构建参数字典 adv_kwargs。它会检查数据中是否有 uid 或 reward_baselines，有则加入，无则忽略。
+            3.执行计算：调用该函数并获取结果。
+        """
         # handle all other adv estimator type other than GAE and GRPO
         adv_estimator_fn = core_algos.get_adv_estimator_fn(adv_estimator)
         adv_kwargs = {
