@@ -875,21 +875,70 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
     @register(dispatch_mode=make_nd_compute_dataproto_dispatch_fn(mesh_name="actor"))
     @DistProfiler.annotate(color="red", role="actor_update")
     def update_actor(self, data: DataProto):
+        """
+        将必要的模型参数和优化器状态从 CPU 内存加载回 GPU 显存。
+        """
         # Support all hardwares
         data = data.to(get_device_id())
-
+        """
+        作用：
+         角色校验：在复杂的分布式系统中（如 RLHF 训练），一个进程可能同时承担多种角色（如 Actor, Critic, Rollout, Ref）。
+                 这行代码确保接下来的操作只会在被指定为 Actor 的进程上执行。
+         防止错误：如果当前进程不是 Actor（例如它只是一个负责生成数据的 Rollout 进程），程序会在这里立即崩溃并报错，
+                 防止在不该更新参数的地方错误地修改模型状态。
+        """
         assert self._is_actor
+        """
+        为了节省昂贵的 GPU 显存，框架开启了参数卸载（Param Offload）功能。这意味着模型的参数平时是存储在 CPU 内存中的，而不是 GPU 上。
+            作用：
+                检查开关：判断是否开启了参数卸载功能。
+                数据搬运：如果开启了，必须先把参数从 CPU“搬运”回 GPU。因为 GPU 无法直接计算存储在 CPU 内存中的数据。
+                FSDP 特性：在 FSDP 模式下，这通常涉及 all_gather 操作，即从各个 GPU 收集分片参数，或者从 CPU 加载分片参数，重组出完整的层参数以便进行前向或反向计算。
+        """
         if self._is_offload_param:
             load_fsdp_model_to_gpu(self.actor_module_fsdp)
+
+        """
+        优化器状态（如 Adam 优化器中的动量 exp_avg 和方差 exp_avg_sq）通常占用比模型参数更大的显存（通常是参数的 2 倍，
+            因为是 FP32 精度）。为了省显存，这些状态也被卸载到了 CPU。
+        作用：
+            检查开关：判断是否开启了优化器状态卸载。
+            准备更新：在进行梯度更新（Optimizer Step）之前，必须将优化器状态加载回 GPU，否则无法完成参数更新计算。
+        """
         if self._is_offload_optimizer:
             load_fsdp_optimizer(
                 optimizer=self.actor_optimizer, device_id=get_device_id()
             )
+        """
+        这段代码是分布式训练（特别是结合了 Ulysses 序列并行）中核心训练循环的一部分.
 
+        它的主要功能是执行模型更新、监控硬件性能指标（如显存占用、计算利用率），并更新学习率。
+
+        这是一个上下文管理器，用于处理 Ulysses 序列并行（Sequence Parallelism）。
+          作用：在这个代码块内部，数据（data）会被自动切分（Sharding）到不同的 GPU 上，或者在不同的 GPU 之间进行通信（All-to-All），
+               以便模型能够处理超长序列。它确保了在 update_policy 执行期间，数据是以序列并行的格式存在的。
+        
+        """
         with self.ulysses_sharding_manager:
             # perform training
             with Timer(name="update_policy", logger=None) as timer:
+                """
+
+                这是真正的训练步骤。它执行前向传播、计算 Loss、反向传播和优化器更新。
+                它会返回一个 metrics 字典，包含当前的 Loss 等信息。
+
+                """
                 metrics = self.actor.update_policy(data=data)
+
+            """
+            目的：评估你的 GPU 到底“有多忙”。MFU(Model FLOPs Utilization) 是衡量分布式训练效率的核心指标
+            计算逻辑：
+                - estimated_flops：根据处理的 Token 数量（global_num_tokens）和模型参数量，估算出理论上需要多少次浮点运算。
+                - promised_flops：GPU 硬件理论上的峰值算力。
+                - mfu 公式：MFU = 实际有效算力/理论峰值算力
+
+​            如果 MFU 很低（例如低于 30%），说明 GPU 大部分时间在空转（等待通信或数据加载），训练效率不高。
+            """
             delta_time = timer.last
             global_num_tokens = data.meta_info["global_token_num"]
             estimated_flops, promised_flops = self.flops_counter.estimate_flops(
@@ -901,6 +950,19 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
                 / promised_flops
                 / self.world_size
             )
+
+            """
+            监控显存与内存:
+            作用：帮助开发者判断是否接近 OOM（显存溢出）红线。
+
+            metrics["perf/max_memory_allocated_gb"]：当前 GPU 显存中已分配的内存量，单位是 GB。
+            metrics["perf/max_memory_reserved_gb"]：当前 GPU 显存中已保留的内存量，单位是 GB。
+
+            CPU 内存：
+              监控 CPU 内存使用量。这在使用 Offload（卸载） 技术（将参数或优化器状态放到 CPU 内存）时非常重要，
+              防止 CPU 内存爆满导致系统卡死。
+            metrics["perf/cpu_memory_used_gb"]：当前 CPU 内存中已使用的内存量，单位是 GB。
+            """
             metrics["perf/max_memory_allocated_gb"] = (
                 get_torch_device().max_memory_allocated() / (1024**3)
             )
@@ -911,11 +973,28 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
                 1024**3
             )
 
+            """
+            学习率调度:
+            作用：根据训练进度动态调整学习率，以实现更好的训练效果。
+
+            记录：获取当前的学习率并存入日志，方便后续画 Loss 曲线时对照。
+            更新：step() 函数会根据预设的策略（如 Cosine Annealing 或 Warmup）更新下一个 Step 的学习率。
+            """
+
             lr = self.actor_lr_scheduler.get_last_lr()[0]
             metrics["actor/lr"] = lr
             self.actor_lr_scheduler.step()
 
             # TODO: here, we should return all metrics
+            """
+            处理非张量数据与输出:
+
+            特殊数据处理：metrics 中可能包含一些无法直接转为 Tensor 的复杂对象（如日志缓冲区 global_log_buffer）。
+                       代码将其单独提取出来，放入 non_tensor_batch，并用 numpy 对象数组封装。
+
+            DataProto：这是框架自定义的数据结构，用于统一封装训练结果。
+            
+            """
             non_tensor_batch = {}
             if "actor/global_log_buffer" in metrics:
                 global_log_buffer = metrics.pop("actor/global_log_buffer")
@@ -923,18 +1002,49 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
                 non_tensor_batch["global_log_buffer"] = np.array(
                     global_log_buffer, dtype=object
                 )
-
+            """
+            output.to("cpu")：
+                关键点：将包含 metrics 的结果从 GPU 移回 CPU。
+                原因：训练步骤结束后，GPU 需要尽快腾出空间进行下一轮计算。
+                     统计数据（metrics）只需要在 CPU 上进行记录或打印，不需要留在 GPU 上占用显存。
+            """
             output = DataProto(
                 meta_info={"metrics": metrics}, non_tensor_batch=non_tensor_batch
             )
 
             output = output.to("cpu")
 
+        """
+        通过这种“用完即走，搬回内存”的策略，使得在单张显存有限的显卡（如 24GB 的 4090）上训练超大模型成为可能，
+        代价是增加了 CPU-GPU 之间的数据传输时间（PCIe 带宽瓶颈）。
+
+        卸载模型参数:
+
+        if self._is_offload_param:
+            - 这是一个配置开关。只有当你开启了“参数卸载（Param Offload）”功能时，这段代码才会执行。这通常用于显存极度受限的场景（如训练 70B+ 模型）。
+        
+        offload_fsdp_model_to_cpu(...)
+            动作：将 Actor 模型的参数（Weights）从 GPU 显存拷贝回 CPU 内存。
+            背景：在 FSDP 模式下，模型参数在计算时会被聚合到 GPU 上。
+                 计算结束后，如果不再立即进行下一次计算（例如进入 Rollout 阶段或等待下一个 Batch），
+                 这些参数就可以暂时“寄存”在 CPU 内存中。
+            效果：瞬间释放大量 GPU 显存（通常几 GB 到几十 GB）   
+
+            log_gpu_memory_usage(...)
+                监控：记录并打印当前的 GPU 显存使用情况。
+                目的：这是一个调试和监控手段。开发者可以通过日志看到：“哦，调用这个函数后，显存确实下降了 10GB”，从而确认卸载操作是否生效。
+
+        """
+
         if self._is_offload_param:
             offload_fsdp_model_to_cpu(self.actor_module_fsdp)
             log_gpu_memory_usage(
                 "After offload actor model during update_actor", logger=logger
             )
+        """
+        卸载优化器状态:
+
+        """
         if self._is_offload_optimizer:
             offload_fsdp_optimizer(optimizer=self.actor_optimizer)
             log_gpu_memory_usage(

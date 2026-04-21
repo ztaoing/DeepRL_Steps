@@ -1,0 +1,4 @@
+{
+    "vim.surround": false,
+    "vim.startInInsertMode": true
+}
