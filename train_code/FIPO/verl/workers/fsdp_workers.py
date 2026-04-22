@@ -1056,11 +1056,26 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
     @register(dispatch_mode=make_nd_compute_dataproto_dispatch_fn(mesh_name="rollout"))
     @DistProfiler.annotate(color="red", role="rollout_generate")
     def generate_sequences(self, prompts: DataProto):
+        """
+        这行代码将 prompts（提示词数据张量）移动到指定的计算设备上。
+        作用：get_device_id() 是一个获取当前可用设备（如 GPU 0, GPU 1 或 CPU）的函数。
+             这确保了输入数据与模型权重位于同一个设备上，避免因设备不匹配（例如数据在 CPU，模型在 GPU）而报错
+        """
         # Support all hardwares
         prompts = prompts.to(get_device_id())
 
+        """
+        这是一个代码安全检查。
+        作用：它强制要求当前的执行上下文必须处于 rollout（ rollout 通常指在强化学习中让智能体与环境交互产生数据的过程，或者指模型的推理生成阶段）模式。
+             如果 _is_rollout 为 False，程序会在此处崩溃，防止在非生成阶段错误地调用此逻辑。
+        """
         assert self._is_rollout
 
+        """
+        eos_token_id (End of Sequence)：序列结束标记。告诉模型“什么时候停止生成”。例如，当模型生成出这个 ID 对应的 token 时，它就会停止续写，标志着回答结束。
+
+        pad_token_id (Padding)：填充标记。在批量处理（Batch Processing）时，为了将所有句子补齐到相同长度，会在短句子后面填充这个 ID。模型在计算时会忽略这些填充部分。
+        """
         meta_info = {
             "eos_token_id": (
                 self.generation_config.eos_token_id
@@ -1075,23 +1090,53 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
         }
         prompts.meta_info.update(meta_info)
         timing_generate = {}
+        """
+        self.rollout_sharding_manager：这是一个上下文管理器，通常用于处理分布式推理。
+            - 在进入 with 块时，它可能会进行“分片（Sharding）”操作，例如将模型权重从训练格式转换为推理格式，或者在 GPU 之间重新分配数据。
+            - 在退出 with 块时，它负责恢复状态或清理资源。
+            - log_gpu_memory_usage：在进入核心逻辑前，记录当前的 GPU 显存占用情况。这对于调试显存溢出（OOM）问题非常关键，帮助开发者确认“进入推理模式”这一步本身是否占用了额外显存。
+        """
         with self.rollout_sharding_manager:
             log_gpu_memory_usage(
                 "After entering rollout sharding manager", logger=logger
             )
 
             with simple_timer("generate_sequences", timing_generate):
+                """
+                self.rollout.generate_sequences：这是实际调用底层推理引擎（如 vLLM 或 SGLang）的地方。
+                    - 它接收处理好的 prompts，让模型生成后续的文本序列。
+                    - 这是整个流程中最耗时的部分。
+                """
                 output = self.rollout.generate_sequences(
                     prompts=prompts
                 )  # 调用 vLLM/SGLang的generate_sequences方法
 
+            """
+            作用：对比生成前后的显存差异，确认推理过程中是否有显存泄漏，或者 KV Cache 是否按预期增长。
+            """
             log_gpu_memory_usage("After rollout generation", logger=logger)
 
         timing_generate.update(self.rollout_sharding_manager.timing)
         # We calculate the average timing across all ranks
         # to make sure meta_info["timing"] is the same
+        """
+        背景：在分布式训练/推理中，有多个 GPU（Ranks）同时运行这段代码。由于硬件波动，GPU 0 可能比 GPU 1 快一点点。
+
+        reduce_timing：这是一个集合通信操作（通常基于 MPI 或 PyTorch Distributed）。
+            - 它会收集所有 GPU 上的耗时数据，计算平均值（或最大值），然后广播给所有 GPU。
+        目的：确保所有 GPU 上的 output.meta_info["timing"] 数据是完全一致的。这对于后续的数据聚合、日志记录以及确保不同进程处理同一批次数据时的逻辑同步非常重要。
+
+        """
         timing_generate = reduce_timing(timing_generate)
         output.meta_info["timing"] = timing_generate
+        """
+        数据回传与清理:
+        
+        output = output.to("cpu")：将生成的张量从 GPU 移动到 CPU。
+            - 作用：释放 GPU 显存，为下一个 Batch 的处理腾出空间。通常在强化学习的 Rollout 阶段，生成的数据需要传回 CPU 进行奖励计算，不需要一直留在 GPU 上。
+        get_torch_device().empty_cache()：强制清空 PyTorch 的显存缓存分配器。
+            - 作用：这是一个防御性操作，确保 KV Cache 和其他临时显存被彻底释放，防止显存碎片化导致后续的 OOM。
+        """
         output = output.to("cpu")
 
         # clear kv cache
