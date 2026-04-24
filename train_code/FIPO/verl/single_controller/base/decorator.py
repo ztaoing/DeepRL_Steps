@@ -444,6 +444,26 @@ def _materialize_futures(*args, **kwargs):
     return new_args, kwargs
 
 
+"""
+它的核心哲学是：业务逻辑与分布式逻辑解耦。
+
+开发者只需关注函数内部的计算逻辑（“做什么”），而通过装饰器参数告诉框架如何处理数据的分发和同步（“怎么做”）。
+
+这是装饰器的工厂函数，它允许你为被装饰的方法配置“元数据”：
+- dispatch_mode: 决定数据怎么分。例如是广播给所有人（ONE_TO_ALL），还是切分给不同人（ALL_TO_ALL）。
+- execute_mode: 决定谁去执行。是所有 Worker 都跑一遍（ALL），还是只有主节点跑（RANK_ZERO）。
+- blocking: 决定调用后是否等待结果。
+- materialize_futures: 这是一个高级优化选项，用于处理异步对象（Ray Future）。
+
+
+这个 register 函数通过闭包和元编程，实现了以下流程：
+接收配置：用户指定怎么分发数据。
+预处理数据：在执行前自动把异步 Future 转为实体数据。
+打标签：把配置信息绑定在函数属性上，供框架后续读取和调度。
+这使得 VeRL 的代码看起来非常像单机代码，但背后却拥有强大的分布式调度能力。
+"""
+
+
 def register(
     dispatch_mode=Dispatch.ALL_TO_ALL,
     execute_mode=Execute.ALL,
@@ -473,6 +493,19 @@ def register(
     _check_dispatch_mode(dispatch_mode=dispatch_mode)
     _check_execute_mode(execute_mode=execute_mode)
 
+    """
+    包装函数：处理异步与数据“变现”
+
+    这里定义了真正的包装逻辑，它做了两件事：
+    1. 数据“变现” (_materialize_futures)：
+        - 在分布式系统中，参数可能是一个“承诺”（Future/Promise），代表一个还没计算完的结果。
+        - 如果 materialize_futures=True，装饰器会在执行函数前，强制等待这些 Future 完成，把数据真正取出来（即“变现”），确保函数内部拿到的是实实在在的数据，而不是句柄。
+    2. 兼容异步：
+        - 代码检测了原函数是否是 async 的（inspect.iscoroutinefunction），并分别生成了同步版 inner 和异步版 async_inner 包装器，保证框架能同时支持同步和异步代码。
+
+
+    """
+
     def decorator(func):
         @wraps(func)
         def inner(*args, **kwargs):
@@ -486,6 +519,18 @@ def register(
                 args, kwargs = _materialize_futures(*args, **kwargs)
             return await func(*args, **kwargs)
 
+        """
+        注入“魔法”：元数据标记
+
+        这是整个装饰器最精髓的部分：
+        - MAGIC_ATTR：这是一个特殊的字符串常量（如 "attrs_3141562937"）。
+        - setattr(...)：装饰器并没有直接执行分布式逻辑，而是把你配置的参数（分发模式、执行模式等）打包成一个字典，像贴标签一样贴在了函数对象上。
+        
+        为什么要这么做？
+        - 这是一种元编程技巧。VeRL 的框架层（如 RayWorkerGroup）在初始化时，会扫描所有 Worker 类的方法。
+          一旦发现某个方法身上有这个 MAGIC_ATTR 标签，框架就知道：“哦，这个方法需要分布式处理”，
+          然后框架会根据标签里的配置，动态生成相应的分发和收集代码。
+        """
         wrapper = async_inner if inspect.iscoroutinefunction(func) else inner
         attrs = {
             "dispatch_mode": dispatch_mode,
