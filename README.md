@@ -411,6 +411,8 @@ Megatron-LM/
 * [verl.workers](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/%20verl.workers.ipynb)
 * [DataProto统一数据协议](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/DataProto%E7%BB%9F%E4%B8%80%E6%95%B0%E6%8D%AE%E5%8D%8F%E8%AE%AE(Data%20Protocol).ipynb)
 * [self.actor_rollout_wg](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/self.actor_rollout_wg.ipynb)
+* [verl-装饰器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E8%A3%85%E9%A5%B0%E5%99%A8.ipynb)
+* [verl-上下文管理器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8.ipynb)
 
 ## pytorch
 * [pytorch官方手册](https://docs.pytorch.org/docs/stable/index.html)
