@@ -98,6 +98,16 @@ class TaskRunner:
 
         from verl.single_controller.ray import RayWorkerGroup
 
+        """
+        动态 Worker 映射（工厂模式）
+        这是代码中最关键的部分，它根据配置文件动态决定使用哪种并行策略和模型实现。
+
+        代码根据 config 中的策略配置，动态导入对应的 Worker 类。
+        
+        FSDP 路径：适用于基于 PyTorch 原生 FSDP 的分布式训练。
+        Megatron 路径：适用于基于 NVIDIA Megatron-LM 的 4D 并行训练（TP/PP/DP/SP）。
+        这种设计让上层训练逻辑（Trainer）可以解耦，不用关心底层具体是用 FSDP 还是 Megatron 跑。 
+        """
         # define worker classes
         if config.actor_rollout_ref.actor.strategy in {"fsdp", "fsdp2"}:
             assert config.critic.strategy in {"fsdp", "fsdp2"}
@@ -126,6 +136,9 @@ class TaskRunner:
         }
 
         global_pool_id = "global_pool"
+        """
+        资源池：定义了需要多少 GPU 资源。例如，如果配置了 1 个节点 8 张卡，resource_pool_spec 就会告诉 Ray：“我需要一组包含 8 个 GPU 的资源池
+        """
         resource_pool_spec = {
             global_pool_id: [config.trainer.n_gpus_per_node] * config.trainer.nnodes,
         }
