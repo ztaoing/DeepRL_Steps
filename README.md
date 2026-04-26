@@ -35,7 +35,7 @@
 * deepspeed-chat [deepspeed-chat](https://github.com/deepspeedai/DeepSpeed/tree/master/blogs/deepspeed-chat)
 
 
-![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/rl_ai.png?v=9)
+![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/rl_ai.png?v=9)
 # 强化学习论文
 * [TODOStatistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
 
@@ -56,9 +56,9 @@
 
   技巧还是陷阱？从bese模型和aligned模型的角度观察
 
-![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/RL-tool.png?v=1)
+![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/RL-tool.png?v=1)
 
-![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/advantage.png?v=1)
+![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/advantage.png?v=1)
 ## PPO
 * [PPO（通过裁剪重要性权重，实现稳定策略更新）](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/PPO%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96.pdf)
     - <b>token-level的advantage</b>
@@ -145,7 +145,7 @@
     - DAPO 算法能够同时修改初始高熵和低熵的预测，这体现了其覆盖甚至推翻基础模型自信预测的能力。
     - SimpleRL 则倾向于在基础模型具有较高熵的区域集中产生散度，反映出一种更为保守的更新策略
     - base model 引入的稀疏token，改变了推理的轨迹
-   ![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/sparseRL.png?v=1) 
+   ![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/sparseRL.png?v=1) 
   
 
 
@@ -260,7 +260,7 @@
 
 对于视觉理解任务，显式的语言逻辑（Verbalized Logic）可能并不是必须的。
 
-![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/token_to_process.png?v=2)
+![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/token_to_process.png?v=2)
 
 * [Reinforced Attention Learning]()
 
@@ -274,7 +274,7 @@
 
 ## 稀疏奖励  
 
-![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/erl.png?v=1)
+![token_to_process](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/erl.png?v=1)
 
 ### 经验强化学习（Experiential Reinforcement Learning, ERL）
    学习者在观察到结果后，会反思发生了什么，形成修正后的内部模型，并在后续的尝试中应用这些修正
@@ -302,7 +302,7 @@
 
   使用自蒸馏方案
   
-![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/On-Policy-Distillation.png?v=2)
+![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/On-Policy-Distillation.png?v=2)
 
 * [Why Does Self-Distillation (Sometimes) Degrade the Reasoning Capability of LLMs?]()
     研究表明，尽管自我蒸馏在化学问答、代码生成等领域能够缩短推理路径并提升模型性能，但在数学推理领域，该方法会导致模型性能出现较大幅度的下降。
@@ -314,6 +314,9 @@
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
 * [RL 系统深思：深入理解权重更新机制](https://zhuanlan.zhihu.com/p/1925210722704531547)
+
+## oops 异常
+
 
 ## 神经网络
 * http://udlbook.github.io/udlbook  深度学习中的算法背后的原理
@@ -332,7 +335,7 @@
 
 ## 流水线并行，数据并行和张量并行 (猛猿)
 
-![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/tpdppp.png?v=1)
+![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/tpdppp.png?v=1)
     
     1.节点内部 (8 卡)：使用 TP (张量并行)。因为 8 卡之间有 NVLink 高速互联，可以承受 TP 的高频通信，解决单卡存不下大层的问题。
     2.节点之间：使用 PP (流水线并行)。将模型层切分到不同的机器组上，减少跨机器的通信频率。
@@ -343,7 +346,7 @@
 * [数据并行下篇( DeepSpeed ZeRO，零冗余优化)](https://zhuanlan.zhihu.com/p/618865052)
 * [张量模型并行(TP)，Megatron-LM](https://zhuanlan.zhihu.com/p/622212228)
 ## megatron (猛猿)
-![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/mengyuan_megatron.png?v=4)
+![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/mengyuan_megatron.png?v=4)
 ```
 Megatron-LM/
 ├── megatron/
