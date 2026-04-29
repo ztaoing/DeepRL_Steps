@@ -416,6 +416,10 @@ Megatron-LM/
 * [self.actor_rollout_wg](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/self.actor_rollout_wg.ipynb)
 * [verl-装饰器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E8%A3%85%E9%A5%B0%E5%99%A8.ipynb)
 * [verl-上下文管理器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8.ipynb)
+### verl设计
+* [深入浅出理解 verl 源码（Part 1）](https://zhuanlan.zhihu.com/p/1920751852749849692)
+* [深入浅出理解 verl 源码——Rollout](https://zhuanlan.zhihu.com/p/1923349757566388159)
+* [verl 参数速览](https://zhuanlan.zhihu.com/p/1925041836998783250)
 
 ## pytorch
 * [pytorch官方手册](https://docs.pytorch.org/docs/stable/index.html)
