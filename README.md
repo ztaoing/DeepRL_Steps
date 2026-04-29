@@ -408,7 +408,7 @@ Megatron-LM/
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
 ## veRL
-![verl](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/ray.png?v=1)
+
 * [verl.single_controller.ray](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.single_controller.ray.ipynb)
 * [verl.trainer](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.trainer.ipynb)
 * [verl.utils](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.utils.ipynb)
@@ -418,6 +418,7 @@ Megatron-LM/
 * [verl-装饰器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E8%A3%85%E9%A5%B0%E5%99%A8.ipynb)
 * [verl-上下文管理器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8.ipynb)
 ### verl设计
+![verl](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/ray.png?v=1)
 * [深入浅出理解 verl 源码（Part 1）](https://zhuanlan.zhihu.com/p/1920751852749849692)
 * [深入浅出理解 verl 源码——Rollout](https://zhuanlan.zhihu.com/p/1923349757566388159)
 * [verl 参数速览](https://zhuanlan.zhihu.com/p/1925041836998783250)
