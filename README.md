@@ -408,6 +408,7 @@ Megatron-LM/
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
 ## veRL
+![verl](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/ray.png?v=1)
 * [verl.single_controller.ray](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.single_controller.ray.ipynb)
 * [verl.trainer](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.trainer.ipynb)
 * [verl.utils](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.utils.ipynb)

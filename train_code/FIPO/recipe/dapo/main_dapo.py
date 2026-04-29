@@ -137,7 +137,9 @@ class TaskRunner:
 
         global_pool_id = "global_pool"
         """
-        资源池：定义了需要多少 GPU 资源。例如，如果配置了 1 个节点 8 张卡，resource_pool_spec 就会告诉 Ray：“我需要一组包含 8 个 GPU 的资源池
+        资源池：定义了需要多少 GPU 资源。
+        
+        例如，如果配置了 1 个节点 8 张卡，resource_pool_spec 就会告诉 Ray：“我需要一组包含 8 个 GPU 的资源池
         """
         resource_pool_spec = {
             global_pool_id: [config.trainer.n_gpus_per_node] * config.trainer.nnodes,
