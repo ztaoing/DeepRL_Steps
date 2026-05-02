@@ -52,10 +52,16 @@ from transformers import PreTrainedTokenizer, PreTrainedTokenizerFast, Processor
 
 from verl import DataProto
 from verl.interactions.base import BaseInteraction
-from verl.interactions.utils.interaction_registry import initialize_interactions_from_config
+from verl.interactions.utils.interaction_registry import (
+    initialize_interactions_from_config,
+)
 from verl.third_party.sglang import parallel_state as sglang_ps
 from verl.tools.base_tool import BaseTool
-from verl.tools.schemas import OpenAIFunctionCallSchema, OpenAIFunctionParsedSchema, OpenAIFunctionToolCall
+from verl.tools.schemas import (
+    OpenAIFunctionCallSchema,
+    OpenAIFunctionParsedSchema,
+    OpenAIFunctionToolCall,
+)
 from verl.tools.utils.tool_registry import initialize_tools_from_config
 from verl.utils.net_utils import is_ipv6
 from verl.utils.profiler import GPUMemoryLogger
@@ -153,8 +159,12 @@ class AsyncEngine(sglang.srt.entrypoints.engine.Engine):
             obj = ResumeMemoryOccupationReqInput(tags=tags)
         return await self.tokenizer_manager.resume_memory_occupation(obj, None)
 
-    async def update_weights_from_tensor(self, update_weights_request: UpdateWeightsFromTensorReqInput):
-        return await self.tokenizer_manager.update_weights_from_tensor(update_weights_request, None)
+    async def update_weights_from_tensor(
+        self, update_weights_request: UpdateWeightsFromTensorReqInput
+    ):
+        return await self.tokenizer_manager.update_weights_from_tensor(
+            update_weights_request, None
+        )
 
     async def flush_cache(self):
         return await self.tokenizer_manager.flush_cache()
@@ -167,7 +177,9 @@ def _pre_process_inputs(
     prompt_token_ids: torch.Tensor,
 ) -> torch.Tensor:
     # remove the left padding in the prompt token_id
-    non_pad_index = torch.nonzero(prompt_token_ids != pad_token_id, as_tuple=False)[0][0]
+    non_pad_index = torch.nonzero(prompt_token_ids != pad_token_id, as_tuple=False)[0][
+        0
+    ]
     return prompt_token_ids[non_pad_index:]
 
 
@@ -179,7 +191,11 @@ def _extract_logprob_from_output(output):
     def _map_each_response(resp):
         input_token_logprobs = resp["meta_info"]["input_token_logprobs"]
         log_probs, output_token_ids = zip(
-            *[(log_prob, token_ids) for log_prob, token_ids, _ in input_token_logprobs[1:]], strict=False
+            *[
+                (log_prob, token_ids)
+                for log_prob, token_ids, _ in input_token_logprobs[1:]
+            ],
+            strict=False,
         )
         return torch.tensor(output_token_ids), torch.tensor(log_probs)
 
@@ -197,12 +213,18 @@ def _post_process_outputs(processing_class, output):
             # This is when processing_class is a tokenizer
             tokenizer = processing_class
         except AttributeError as e:
-            raise ValueError(f"Cannot get tokenizer from processing_class {processing_class}") from e
+            raise ValueError(
+                f"Cannot get tokenizer from processing_class {processing_class}"
+            ) from e
 
     def _map_each_response(resp):
         output_token_logprobs = resp["meta_info"]["output_token_logprobs"]
         log_probs, output_token_ids = zip(
-            *[(log_prob, token_ids) for log_prob, token_ids, _ in output_token_logprobs], strict=True
+            *[
+                (log_prob, token_ids)
+                for log_prob, token_ids, _ in output_token_logprobs
+            ],
+            strict=True,
         )
         return torch.tensor(output_token_ids), torch.tensor(log_probs)
 
@@ -212,10 +234,18 @@ def _post_process_outputs(processing_class, output):
     for output_token_ids, log_probs in out_map:
         batched_output_token_ids.append(output_token_ids)
         batched_logprobs.append(log_probs)
-    pad_token_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id
-    batched_output_token_ids = pad_sequence(batched_output_token_ids, batch_first=True, padding_value=pad_token_id)
+    pad_token_id = (
+        tokenizer.pad_token_id
+        if tokenizer.pad_token_id is not None
+        else tokenizer.eos_token_id
+    )
+    batched_output_token_ids = pad_sequence(
+        batched_output_token_ids, batch_first=True, padding_value=pad_token_id
+    )
     if len(batched_logprobs) > 0:
-        batched_logprobs = pad_sequence(batched_logprobs, batch_first=True, padding_value=pad_token_id)
+        batched_logprobs = pad_sequence(
+            batched_logprobs, batch_first=True, padding_value=pad_token_id
+        )
     return batched_output_token_ids, batched_logprobs
 
 
@@ -233,14 +263,31 @@ def get_tool_call_parser_type(
                 # This is when processing_class is a processor
                 tokenizer_vocab = processing_class.tokenizer.get_vocab()
             except AttributeError as e:
-                raise ValueError(f"Cannot get vocab from processing_class {processing_class}") from e
+                raise ValueError(
+                    f"Cannot get vocab from processing_class {processing_class}"
+                ) from e
 
         if parser.bot_token.strip() in tokenizer_vocab and (
             parser.eot_token == "" or parser.eot_token.strip() in tokenizer_vocab
         ):
             return parser_type
     else:
-        raise ValueError(f"No tool call parser found for processing_class {processing_class}")
+        raise ValueError(
+            f"No tool call parser found for processing_class {processing_class}"
+        )
+
+
+"""
+再往下看一层 SGLang 具体的初始化：
+
+1.调用父类构造函数并设置配置和设备网格。
+2.通过 _initialize_tools() 初始化工具 schemas、map 和解析器，支持 Multi-turn 对话中的工具使用。
+3.初始化 SGLang 推理所需的分布式环境。
+4.通过 _verify_config() 验证模型配置。
+5.通过 _init_inference_engine() 初始化 SGLang 推理引擎。
+6.通过 _init_sampling_params() 初始化生成序列的采样参数。
+7.设置 Tokenizer 和 padding token ID。
+"""
 
 
 class SGLangRollout(BaseRollout):
@@ -248,7 +295,9 @@ class SGLangRollout(BaseRollout):
         self,
         actor_module: str,
         config: DictConfig,
-        processing_class: PreTrainedTokenizer | PreTrainedTokenizerFast | ProcessorMixin,
+        processing_class: (
+            PreTrainedTokenizer | PreTrainedTokenizerFast | ProcessorMixin
+        ),
         model_hf_config,
         port=None,
         trust_remote_code: bool = False,
@@ -289,7 +338,9 @@ class SGLangRollout(BaseRollout):
             self._sgl_tools,
             self._function_call_parser,
         ) = self._initialize_tools(config, processing_class)
-        self.interaction_map: dict[str, BaseInteraction] = self._initialize_interactions(config)
+        self.interaction_map: dict[str, BaseInteraction] = (
+            self._initialize_interactions(config)
+        )
         # If turn on `free_cache_engine`, SGLang engine's KV cache
         # will be freed after each `generate_sequences` call.
         logger.info(
@@ -316,15 +367,17 @@ class SGLangRollout(BaseRollout):
                 # This is when processing_class is a processor
                 self.pad_token_id = self.processing_class.tokenizer.pad_token_id
             except AttributeError as e:
-                raise ValueError(f"Cannot get pad_token_id from processing_class {self.processing_class}") from e
+                raise ValueError(
+                    f"Cannot get pad_token_id from processing_class {self.processing_class}"
+                ) from e
 
     def _init_distributed_env(self, device_mesh_cpu, **kwargs):
         self._device_mesh_cpu = device_mesh_cpu
         os.environ.setdefault("SGL_DISABLE_TP_MEMORY_INBALANCE_CHECK", "true")
         self.tensor_parallel_size = self.config.get("tensor_model_parallel_size", 1)
-        assert self.tensor_parallel_size <= dist.get_world_size(), (
-            "tensor parallel size should be less than or equal to the world size"
-        )
+        assert (
+            self.tensor_parallel_size <= dist.get_world_size()
+        ), "tensor parallel size should be less than or equal to the world size"
         self.train_tp = kwargs.get("train_tp", None)
         if self.train_tp is not None:
             # deployed with megatron
@@ -353,39 +406,53 @@ class SGLangRollout(BaseRollout):
         self._tp_rank = self._device_mesh_cpu["tp"].get_local_rank()
         self._tp_size = self._device_mesh_cpu["tp"].size()
         if self._rank == 0:
-            logger.info(f"_init_distributed_env: :tp_world: {self._tp_size}, global_world: {world_size}")
+            logger.info(
+                f"_init_distributed_env: :tp_world: {self._tp_size}, global_world: {world_size}"
+            )
         # get tp_rank of this process in this tp group
         visible_devices = [None] * self._device_mesh_cpu.size(1)
 
         torch.distributed.all_gather_object(
-            visible_devices, os.environ["CUDA_VISIBLE_DEVICES"], self._device_mesh_cpu.get_group("tp")
+            visible_devices,
+            os.environ["CUDA_VISIBLE_DEVICES"],
+            self._device_mesh_cpu.get_group("tp"),
         )
         self.visible_devices_set = set(",".join(visible_devices).split(","))
-        os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(sorted(list(self.visible_devices_set)))
+        os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(
+            sorted(list(self.visible_devices_set))
+        )
 
     def _verify_config(self, model_hf_config):
         if not self.config.get("max_model_len", None):
-            self.config.max_model_len = self.config.prompt_length + self.config.response_length
+            self.config.max_model_len = (
+                self.config.prompt_length + self.config.response_length
+            )
         assert (
-            self.config.max_model_len >= self.config.prompt_length + self.config.response_length
+            self.config.max_model_len
+            >= self.config.prompt_length + self.config.response_length
         ), f"""max_model_len should be greater than total sequence length (prompt_length + response_length): 
             {self.config.max_model_len} >= {self.config.prompt_length} + {self.config.response_length}"""
         max_position_embeddings = None
         if hasattr(model_hf_config, "max_position_embeddings"):
             max_position_embeddings = model_hf_config.max_position_embeddings
-        elif hasattr(model_hf_config, "llm_config") and hasattr(model_hf_config.llm_config, "max_position_embeddings"):
+        elif hasattr(model_hf_config, "llm_config") and hasattr(
+            model_hf_config.llm_config, "max_position_embeddings"
+        ):
             max_position_embeddings = model_hf_config.llm_config.max_position_embeddings
         elif hasattr(model_hf_config, "text_config") and hasattr(
             model_hf_config.text_config, "max_position_embeddings"
         ):
-            max_position_embeddings = model_hf_config.text_config.max_position_embeddings
+            max_position_embeddings = (
+                model_hf_config.text_config.max_position_embeddings
+            )
         if max_position_embeddings is None:
             raise ValueError("max_position_embeddings not found in model_hf_config")
         rope_scaling_config = getattr(model_hf_config, "rope_scaling", None)
         if not rope_scaling_config:
-            assert max_position_embeddings >= self.config.prompt_length + self.config.response_length, (
-                "model context length should be greater than total sequence length"
-            )
+            assert (
+                max_position_embeddings
+                >= self.config.prompt_length + self.config.response_length
+            ), "model context length should be greater than total sequence length"
         else:
             # handle type where there's a length extend factor
             # see https://qwen.readthedocs.io/en/latest/deployment/vllm.html#extended-context-support
@@ -424,7 +491,11 @@ class SGLangRollout(BaseRollout):
         else:
             dist_init_addr = None
 
-        load_format = "dummy" if self.config.load_format.startswith("dummy") else self.config.load_format
+        load_format = (
+            "dummy"
+            if self.config.load_format.startswith("dummy")
+            else self.config.load_format
+        )
         tp_size_per_node = self._tp_size // nnodes
         node_rank = self._tp_rank // tp_size_per_node
         first_rank_in_node = self._tp_rank % tp_size_per_node == 0
@@ -458,7 +529,9 @@ class SGLangRollout(BaseRollout):
                 # log_requests_level=2,
                 # max_running_requests=1,
                 mm_attention_backend="fa3",
-                attention_backend=attention_backend if attention_backend is not None else "fa3",
+                attention_backend=(
+                    attention_backend if attention_backend is not None else "fa3"
+                ),
                 # In async mode, we want token in token out.
                 skip_tokenizer_init=self.config.mode == "async",
             )
@@ -514,7 +587,9 @@ class SGLangRollout(BaseRollout):
         tool_list = initialize_tools_from_config(tools_config_file)
 
         logger.info(f"Initialize tools from configuration.: tool_list: {tool_list}")
-        tool_schemas = [tool.get_openai_tool_schema().model_dump() for tool in tool_list]
+        tool_schemas = [
+            tool.get_openai_tool_schema().model_dump() for tool in tool_list
+        ]
         tool_map = {tool.name: tool for tool in tool_list}
         tool_call_parser_type = get_tool_call_parser_type(processing_class)
         sgl_tools = [Tool.model_validate(tool_schema) for tool_schema in tool_schemas]
@@ -543,7 +618,9 @@ class SGLangRollout(BaseRollout):
         interaction_config_file = config.multi_turn.interaction_config_path
         interaction_map = initialize_interactions_from_config(interaction_config_file)
 
-        logger.info(f"Initialize interactions from configuration: interaction_map: {list(interaction_map.keys())}")
+        logger.info(
+            f"Initialize interactions from configuration: interaction_map: {list(interaction_map.keys())}"
+        )
         return interaction_map
 
     @GPUMemoryLogger(role="sglang rollout", logger=logger)
@@ -575,7 +652,9 @@ class SGLangRollout(BaseRollout):
 
     @GPUMemoryLogger(role="sglang rollout", logger=logger)
     @torch.no_grad()
-    def _batch_level_generate_sequences(self, prompts: DataProto, **kwargs) -> DataProto:
+    def _batch_level_generate_sequences(
+        self, prompts: DataProto, **kwargs
+    ) -> DataProto:
         """Generates single-turn sequences for a batch of prompts.
         For single-turn generation, all prompts are processed in one request.
         `_batch_level_generate_sequences` involves:
@@ -632,7 +711,10 @@ class SGLangRollout(BaseRollout):
         non_tensor_batch = prompts.non_tensor_batch
         if "raw_prompt_ids" not in non_tensor_batch:
             non_tensor_batch["raw_prompt_ids"] = np.array(
-                [_pre_process_inputs(self.pad_token_id, idx[i]).tolist() for i in range(batch_size)],
+                [
+                    _pre_process_inputs(self.pad_token_id, idx[i]).tolist()
+                    for i in range(batch_size)
+                ],
                 dtype=object,
             )
 
@@ -648,13 +730,16 @@ class SGLangRollout(BaseRollout):
                         "prompt_token_ids": raw_prompt_ids,
                         "multi_modal_data": multi_modal_data,
                         "image_data": (
-                            multi_modal_data.get("image", None) if isinstance(multi_modal_data, dict) else None
+                            multi_modal_data.get("image", None)
+                            if isinstance(multi_modal_data, dict)
+                            else None
                         ),
                     }
                 )
         else:
             sglang_inputs = [
-                {"prompt_token_ids": raw_prompt_ids} for raw_prompt_ids in non_tensor_batch.pop("raw_prompt_ids")
+                {"prompt_token_ids": raw_prompt_ids}
+                for raw_prompt_ids in non_tensor_batch.pop("raw_prompt_ids")
             ]
 
         for input_data in sglang_inputs:
@@ -668,7 +753,9 @@ class SGLangRollout(BaseRollout):
 
         # Extract token IDs and image data for SGLang Engine
         idx_list = [input_data["prompt_token_ids"] for input_data in sglang_inputs]
-        image_list = [input_data.get("image_data", None) for input_data in sglang_inputs]
+        image_list = [
+            input_data.get("image_data", None) for input_data in sglang_inputs
+        ]
 
         do_sample = prompts.meta_info.get("do_sample", True)
         is_validate = prompts.meta_info.get("validate", False)
@@ -736,7 +823,9 @@ class SGLangRollout(BaseRollout):
             rollout_log_probs = out[1].to(idx.device)
 
         if response.shape[1] < self.config.response_length:
-            response = pad_sequence_to_length(response, self.config.response_length, self.pad_token_id)
+            response = pad_sequence_to_length(
+                response, self.config.response_length, self.pad_token_id
+            )
             if self.config.calculate_log_probs:
                 rollout_log_probs = pad_sequence_to_length(
                     rollout_log_probs, self.config.response_length, self.pad_token_id
@@ -745,10 +834,14 @@ class SGLangRollout(BaseRollout):
         seq = torch.cat([idx, response], dim=-1)
 
         response_length = response.size(1)
-        delta_position_id = torch.arange(1, response_length + 1, device=position_ids.device)
+        delta_position_id = torch.arange(
+            1, response_length + 1, device=position_ids.device
+        )
         delta_position_id = delta_position_id.unsqueeze(0).repeat(batch_size, 1)
         if position_ids.dim() == 3:  # qwen2vl mrope
-            delta_position_id = delta_position_id.view(batch_size, 1, -1).expand(batch_size, 3, -1)
+            delta_position_id = delta_position_id.view(batch_size, 1, -1).expand(
+                batch_size, 3, -1
+            )
 
         # TODO(sgm): fix position_ids on right_pad
         # prompt: left pad + response: right pad
@@ -843,25 +936,37 @@ class SGLangRollout(BaseRollout):
                             self._tool_map[tool_call.function.name].execute(
                                 _req.request_id,
                                 tool_call.function.arguments,
-                                **_req.tools_kwargs[tool_call.function.name].get("execute_kwargs", {}),
+                                **_req.tools_kwargs[tool_call.function.name].get(
+                                    "execute_kwargs", {}
+                                ),
                             )
                             for tool_call in parsed_tool_calls
                         ]
                     )
-                    _req.add_tool_response_messages(self.processing_class, [resp for resp, _, _ in tool_call_results])
-                    for tool_call, (resp, reward, metrics) in zip(parsed_tool_calls, tool_call_results, strict=True):
+                    _req.add_tool_response_messages(
+                        self.processing_class,
+                        [resp for resp, _, _ in tool_call_results],
+                    )
+                    for tool_call, (resp, reward, metrics) in zip(
+                        parsed_tool_calls, tool_call_results, strict=True
+                    ):
                         _req.update_metrics(metrics, tool_call.function.name)
                     if len(_req.input_ids) >= self.config.max_model_len:
                         finish_reason_type = FinishReasonTypeEnum.STOP
                         break
                     _req.state = AsyncRolloutRequestStateEnum.RUNNING
                 else:
-                    raise ValueError(f"Unexpected tool calling last message state: {_req.messages[-1]}")
+                    raise ValueError(
+                        f"Unexpected tool calling last message state: {_req.messages[-1]}"
+                    )
             elif _req.state == AsyncRolloutRequestStateEnum.RUNNING:
                 # Only continue the conversation if the prompt length is not greater than max_model_len - 1,
                 # since SGLang raises an error when max_new_tokens + 1 is greater to max_model_len (the extra
                 # token accounts for the EOS token).
-                if len(_req.get_generation_prompt_ids(self.processing_class)) + 1 >= self.config.max_model_len:
+                if (
+                    len(_req.get_generation_prompt_ids(self.processing_class)) + 1
+                    >= self.config.max_model_len
+                ):
                     finish_reason_type = FinishReasonTypeEnum.LENGTH
                     break
 
@@ -878,22 +983,32 @@ class SGLangRollout(BaseRollout):
                 )
                 if video_data:
                     logger.warning(
-                        "video support is not implemented yet, current length of video data is %d", len(video_data)
+                        "video support is not implemented yet, current length of video data is %d",
+                        len(video_data),
                     )
 
-                output = await self._handle_engine_call(_req, request_sampling_params, image_data=image_data)
+                output = await self._handle_engine_call(
+                    _req, request_sampling_params, image_data=image_data
+                )
                 content = output["text"]
-                finish_reason_type = FinishReasonTypeEnum.from_str(output["meta_info"]["finish_reason"]["type"])
+                finish_reason_type = FinishReasonTypeEnum.from_str(
+                    output["meta_info"]["finish_reason"]["type"]
+                )
                 current_turns += 1
                 if finish_reason_type == FinishReasonTypeEnum.LENGTH:
                     _req.add_assistant_message(self.processing_class, content)
                     break
                 else:
-                    if self._function_call_parser and self._function_call_parser.has_tool_call(content):
+                    if (
+                        self._function_call_parser
+                        and self._function_call_parser.has_tool_call(content)
+                    ):
                         finish_reason_type = FinishReasonTypeEnum.TOOL_CALL
                         _req.state = AsyncRolloutRequestStateEnum.TOOL_CALLING
                         try:
-                            normed_content, tool_calls = self._function_call_parser.parse_non_stream(content)
+                            normed_content, tool_calls = (
+                                self._function_call_parser.parse_non_stream(content)
+                            )
                         except JSONDecodeError:
                             normed_content = content
                             tool_calls = []
@@ -902,10 +1017,12 @@ class SGLangRollout(BaseRollout):
                             tool_calls = []
                         parsed_tool_calls = []
                         for tool_call in tool_calls:
-                            function, has_decode_error = OpenAIFunctionCallSchema.from_openai_function_parsed_schema(
-                                OpenAIFunctionParsedSchema(
-                                    name=tool_call.name,
-                                    arguments=tool_call.parameters,
+                            function, has_decode_error = (
+                                OpenAIFunctionCallSchema.from_openai_function_parsed_schema(
+                                    OpenAIFunctionParsedSchema(
+                                        name=tool_call.name,
+                                        arguments=tool_call.parameters,
+                                    )
                                 )
                             )
                             # Drop the tool call if its arguments has decode error
@@ -919,7 +1036,9 @@ class SGLangRollout(BaseRollout):
                             )
                         if len(parsed_tool_calls) > 0:
                             _req.add_assistant_message(
-                                self.processing_class, normed_content, tool_calls=parsed_tool_calls
+                                self.processing_class,
+                                normed_content,
+                                tool_calls=parsed_tool_calls,
                             )
                         else:
                             _req.add_assistant_message(self.processing_class, content)
@@ -935,14 +1054,17 @@ class SGLangRollout(BaseRollout):
                             _req.interaction_kwargs
                             and self.interaction_map
                             and user_turns < self.config.multi_turn.max_user_turns
-                            and current_turns < self.config.multi_turn.max_assistant_turns
+                            and current_turns
+                            < self.config.multi_turn.max_assistant_turns
                         ):
                             _req.state = AsyncRolloutRequestStateEnum.INTERACTING
                         else:
                             break
             elif _req.state == AsyncRolloutRequestStateEnum.INTERACTING:
                 user_turns += 1
-                messages = [{"role": x.role, "content": x.content} for x in _req.messages]
+                messages = [
+                    {"role": x.role, "content": x.content} for x in _req.messages
+                ]
 
                 # Get interaction by name from interaction_kwargs
                 interaction_name = _req.interaction_kwargs.get(
@@ -955,8 +1077,10 @@ class SGLangRollout(BaseRollout):
                     )
 
                 interaction = self.interaction_map[interaction_name]
-                should_terminate_sequence, content, reward, metrics = await interaction.generate_response(
-                    _req.request_id, messages, **_req.interaction_kwargs
+                should_terminate_sequence, content, reward, metrics = (
+                    await interaction.generate_response(
+                        _req.request_id, messages, **_req.interaction_kwargs
+                    )
                 )
                 user_turn_rewards.append(reward)
                 if should_terminate_sequence:
@@ -976,8 +1100,12 @@ class SGLangRollout(BaseRollout):
 
         # Calculate the reward for each tool
         async def calc_reward_and_release_fn(name: str, tool: BaseTool):
-            reward = await tool.calc_reward(_req.request_id, **_req.tools_kwargs[name].get("calc_reward_kwargs", {}))
-            await tool.release(_req.request_id, **_req.tools_kwargs[name].get("release_kwargs", {}))
+            reward = await tool.calc_reward(
+                _req.request_id, **_req.tools_kwargs[name].get("calc_reward_kwargs", {})
+            )
+            await tool.release(
+                _req.request_id, **_req.tools_kwargs[name].get("release_kwargs", {})
+            )
             return name, reward
 
         tool_reward_tasks = []
@@ -1000,19 +1128,32 @@ class SGLangRollout(BaseRollout):
                 logprob_start_len=0,
             )
             # len(input_token_logprobs) = len(input_tokens)-1，because logprob of 1st token is None
-            _req.output_token_ids, _req.rollout_log_probs = _extract_logprob_from_output(output)
+            _req.output_token_ids, _req.rollout_log_probs = (
+                _extract_logprob_from_output(output)
+            )
         return _req
 
     async def _handle_engine_call(
-        self, _req: AsyncRolloutRequest, sampling_params: dict, image_data: Optional[list[Any]] = None
+        self,
+        _req: AsyncRolloutRequest,
+        sampling_params: dict,
+        image_data: Optional[list[Any]] = None,
     ) -> dict:
         generation_prompt_ids = _req.get_generation_prompt_ids(self.processing_class)
-        return await self._handle_engine_generate(generation_prompt_ids, sampling_params, image_data)
+        return await self._handle_engine_generate(
+            generation_prompt_ids, sampling_params, image_data
+        )
 
     async def _handle_engine_generate(
-        self, generation_prompt_ids: list[int], sampling_params: dict, image_data: Optional[list[Any]] = None
+        self,
+        generation_prompt_ids: list[int],
+        sampling_params: dict,
+        image_data: Optional[list[Any]] = None,
     ) -> dict:
-        max_new_tokens = min(self.config.response_length, self.config.max_model_len - len(generation_prompt_ids) - 1)
+        max_new_tokens = min(
+            self.config.response_length,
+            self.config.max_model_len - len(generation_prompt_ids) - 1,
+        )
         kwargs = sampling_params.copy()
         kwargs["max_new_tokens"] = max_new_tokens
         kwargs["n"] = 1  # group size is supported in preprocess
@@ -1024,21 +1165,28 @@ class SGLangRollout(BaseRollout):
         )
         return output
 
-    async def _handle_pending_state(self, _req: AsyncRolloutRequest) -> AsyncRolloutRequest:
+    async def _handle_pending_state(
+        self, _req: AsyncRolloutRequest
+    ) -> AsyncRolloutRequest:
         if _req.tool_schemas is not None:
             tool_creation_coroutines = []
             for tool_schema in _req.tool_schemas:
                 tool = self._tool_map[tool_schema.function.name]
                 create_kwargs = _req.tools_kwargs[tool.name].get("create_kwargs", {})
-                tool_creation_coroutines.append(tool.create(_req.request_id, **create_kwargs))
+                tool_creation_coroutines.append(
+                    tool.create(_req.request_id, **create_kwargs)
+                )
             tool_creation_results = await asyncio.gather(*tool_creation_coroutines)
             _req.add_tool_response_messages(
-                self.processing_class, [tool_result for _, tool_result in tool_creation_results]
+                self.processing_class,
+                [tool_result for _, tool_result in tool_creation_results],
             )
         if _req.interaction_kwargs and self.interaction_map:
             interaction_kwargs = _req.interaction_kwargs
             # Get interaction by name from interaction_kwargs
-            interaction_name = interaction_kwargs.get("name", "gsm8k")  # Default to gsm8k for backward compatibility
+            interaction_name = interaction_kwargs.get(
+                "name", "gsm8k"
+            )  # Default to gsm8k for backward compatibility
             if interaction_name not in self.interaction_map:
                 raise ValueError(
                     f"Interaction '{interaction_name}' not found in interaction_map. Available interactions: "
@@ -1078,10 +1226,17 @@ class SGLangRollout(BaseRollout):
             loop = asyncio.get_event_loop()
             output_req_list = loop.run_until_complete(
                 asyncio.gather(
-                    *[self._async_rollout_a_request(req, do_sample, is_validate, **kwargs) for req in req_list],
+                    *[
+                        self._async_rollout_a_request(
+                            req, do_sample, is_validate, **kwargs
+                        )
+                        for req in req_list
+                    ],
                 )
             )
-            sorted_output_req_list = sorted(output_req_list, key=lambda x: (x.batch_data_id, x.rollout_offset))
+            sorted_output_req_list = sorted(
+                output_req_list, key=lambda x: (x.batch_data_id, x.rollout_offset)
+            )
         else:
             sorted_output_req_list = None
 
@@ -1107,7 +1262,9 @@ class SGLangRollout(BaseRollout):
             rollout_output_token_ids = []
 
         for req in sorted_output_req_list:
-            assert req.state == AsyncRolloutRequestStateEnum.COMPLETED, f"Request {req.request_id} is not completed"
+            assert (
+                req.state == AsyncRolloutRequestStateEnum.COMPLETED
+            ), f"Request {req.request_id} is not completed"
             assert (
                 req.input_ids.shape[-1]
                 == req.attention_mask.shape[-1]
@@ -1135,10 +1292,18 @@ class SGLangRollout(BaseRollout):
                     f"""{req.request_id=} has response_ids length {req.response_ids.shape[-1]} 
                     greater than max_response_len {self.config.response_length},\n{req=}"""
                 )
-            prompt_attention_mask.append(req.prompt_attention_mask.to(tgt_device).squeeze(0))
-            response_attention_mask.append(req.response_attention_mask.to(tgt_device).squeeze(0))
-            prompt_position_ids.append(req.prompt_position_ids.to(tgt_device).squeeze(0))
-            response_position_ids.append(req.response_position_ids.to(tgt_device).squeeze(0))
+            prompt_attention_mask.append(
+                req.prompt_attention_mask.to(tgt_device).squeeze(0)
+            )
+            response_attention_mask.append(
+                req.response_attention_mask.to(tgt_device).squeeze(0)
+            )
+            prompt_position_ids.append(
+                req.prompt_position_ids.to(tgt_device).squeeze(0)
+            )
+            response_position_ids.append(
+                req.response_position_ids.to(tgt_device).squeeze(0)
+            )
             prompt_loss_mask.append(req.prompt_loss_mask.to(tgt_device).squeeze(0))
             response_loss_mask.append(req.response_loss_mask.to(tgt_device).squeeze(0))
             messages.append({"messages": req.messages})
@@ -1148,7 +1313,9 @@ class SGLangRollout(BaseRollout):
             if self.config.calculate_log_probs:
                 # extract output log_probs
                 output_logprobs.append(req.rollout_log_probs[-len(req.response_ids) :])
-                rollout_output_token_ids.append(req.output_token_ids[-len(req.response_ids) :])
+                rollout_output_token_ids.append(
+                    req.output_token_ids[-len(req.response_ids) :]
+                )
 
         prompt_ids = pad_sequence(
             prompt_ids,
@@ -1157,10 +1324,16 @@ class SGLangRollout(BaseRollout):
             padding_side="left",
         )
         if prompt_ids.shape[-1] < self.config.prompt_length:
-            prompt_ids = pad_sequence_to_length(prompt_ids, self.config.prompt_length, self.pad_token_id, left_pad=True)
-        response_ids = pad_sequence(response_ids, batch_first=True, padding_value=self.pad_token_id)
+            prompt_ids = pad_sequence_to_length(
+                prompt_ids, self.config.prompt_length, self.pad_token_id, left_pad=True
+            )
+        response_ids = pad_sequence(
+            response_ids, batch_first=True, padding_value=self.pad_token_id
+        )
         if response_ids.shape[-1] < self.config.response_length:
-            response_ids = pad_sequence_to_length(response_ids, self.config.response_length, self.pad_token_id)
+            response_ids = pad_sequence_to_length(
+                response_ids, self.config.response_length, self.pad_token_id
+            )
         prompt_attention_mask = pad_sequence(
             prompt_attention_mask,
             batch_first=True,
@@ -1171,22 +1344,34 @@ class SGLangRollout(BaseRollout):
             prompt_attention_mask = pad_sequence_to_length(
                 prompt_attention_mask, self.config.prompt_length, 0, left_pad=True
             )
-        response_attention_mask = pad_sequence(response_attention_mask, batch_first=True, padding_value=0)
+        response_attention_mask = pad_sequence(
+            response_attention_mask, batch_first=True, padding_value=0
+        )
         if response_attention_mask.shape[-1] < self.config.response_length:
-            response_attention_mask = pad_sequence_to_length(response_attention_mask, self.config.response_length, 0)
+            response_attention_mask = pad_sequence_to_length(
+                response_attention_mask, self.config.response_length, 0
+            )
 
         # padding prompt_position_ids
         if prompt_position_ids[0].dim() == 2:
             # if prompt_position_ids is a 2D tensor
             # e.g. from qwen2vl, prompt_position_ids.shape = (3, seq_len)
-            transposed_prompt_position_ids = [p.transpose(0, 1) for p in prompt_position_ids]
+            transposed_prompt_position_ids = [
+                p.transpose(0, 1) for p in prompt_position_ids
+            ]
             prompt_position_ids = pad_sequence(
-                transposed_prompt_position_ids, batch_first=True, padding_value=0, padding_side="left"
+                transposed_prompt_position_ids,
+                batch_first=True,
+                padding_value=0,
+                padding_side="left",
             )
             prompt_position_ids = prompt_position_ids.transpose(1, 2)
         else:
             prompt_position_ids = pad_sequence(
-                prompt_position_ids, batch_first=True, padding_value=0, padding_side="left"
+                prompt_position_ids,
+                batch_first=True,
+                padding_value=0,
+                padding_side="left",
             )
         if prompt_position_ids.shape[-1] < self.config.prompt_length:
             prompt_position_ids = pad_sequence_to_length(
@@ -1197,36 +1382,61 @@ class SGLangRollout(BaseRollout):
         if response_position_ids[0].dim() == 2:
             # if response_position_ids is a 2D tensor
             # e.g. from qwen2vl, response_position_ids.shape = (3, seq_len)
-            transposed_response_position_ids = [p.transpose(0, 1) for p in response_position_ids]
+            transposed_response_position_ids = [
+                p.transpose(0, 1) for p in response_position_ids
+            ]
             response_position_ids = pad_sequence(
-                transposed_response_position_ids, batch_first=True, padding_value=0, padding_side="left"
+                transposed_response_position_ids,
+                batch_first=True,
+                padding_value=0,
+                padding_side="left",
             )
             response_position_ids = response_position_ids.transpose(1, 2)
         else:
-            response_position_ids = pad_sequence(response_position_ids, batch_first=True, padding_value=0)
+            response_position_ids = pad_sequence(
+                response_position_ids, batch_first=True, padding_value=0
+            )
         if response_position_ids.shape[-1] < self.config.response_length:
-            response_position_ids = pad_sequence_to_length(response_position_ids, self.config.response_length, 0)
+            response_position_ids = pad_sequence_to_length(
+                response_position_ids, self.config.response_length, 0
+            )
 
-        prompt_loss_mask = pad_sequence(prompt_loss_mask, batch_first=True, padding_value=0, padding_side="left")
+        prompt_loss_mask = pad_sequence(
+            prompt_loss_mask, batch_first=True, padding_value=0, padding_side="left"
+        )
         if prompt_loss_mask.shape[1] < self.config.prompt_length:
-            prompt_loss_mask = pad_sequence_to_length(prompt_loss_mask, self.config.prompt_length, 0, left_pad=True)
-        response_loss_mask = pad_sequence(response_loss_mask, batch_first=True, padding_value=0)
+            prompt_loss_mask = pad_sequence_to_length(
+                prompt_loss_mask, self.config.prompt_length, 0, left_pad=True
+            )
+        response_loss_mask = pad_sequence(
+            response_loss_mask, batch_first=True, padding_value=0
+        )
         if response_loss_mask.shape[1] < self.config.response_length:
-            response_loss_mask = pad_sequence_to_length(response_loss_mask, self.config.response_length, 0)
+            response_loss_mask = pad_sequence_to_length(
+                response_loss_mask, self.config.response_length, 0
+            )
         if self.config.calculate_log_probs:
-            output_logprobs = pad_sequence(output_logprobs, padding_value=0.0, batch_first=True)
+            output_logprobs = pad_sequence(
+                output_logprobs, padding_value=0.0, batch_first=True
+            )
             output_logprobs = pad_sequence_to_length(
                 output_logprobs, pad_token_id=0.0, max_seq_len=response_ids.shape[-1]
             ).to(tgt_device)
             rollout_output_token_ids = pad_sequence(
-                rollout_output_token_ids, padding_value=self.pad_token_id, batch_first=True
+                rollout_output_token_ids,
+                padding_value=self.pad_token_id,
+                batch_first=True,
             )
             rollout_output_token_ids = pad_sequence_to_length(
-                rollout_output_token_ids, pad_token_id=self.pad_token_id, max_seq_len=response_ids.shape[-1]
+                rollout_output_token_ids,
+                pad_token_id=self.pad_token_id,
+                max_seq_len=response_ids.shape[-1],
             ).to(tgt_device)
 
         input_ids = torch.cat((prompt_ids, response_ids), dim=-1)
-        attention_mask = torch.cat((prompt_attention_mask, response_attention_mask), dim=-1)
+        attention_mask = torch.cat(
+            (prompt_attention_mask, response_attention_mask), dim=-1
+        )
         position_ids = torch.cat((prompt_position_ids, response_position_ids), dim=-1)
 
         # Construct the batch data
@@ -1257,21 +1467,26 @@ class SGLangRollout(BaseRollout):
         }
 
         is_multimodal = isinstance(self.processing_class, ProcessorMixin) and (
-            hasattr(self.processing_class, "image_processor") or hasattr(self.model_hf_config, "vision_config")
+            hasattr(self.processing_class, "image_processor")
+            or hasattr(self.model_hf_config, "vision_config")
         )
 
         if is_multimodal:
-            non_tensor_batch["multi_modal_inputs"] = np.array(multi_modal_inputs, dtype=object)
+            non_tensor_batch["multi_modal_inputs"] = np.array(
+                multi_modal_inputs, dtype=object
+            )
 
         return DataProto(
             batch=batch,
             non_tensor_batch=non_tensor_batch,
         )
 
-    def _preprocess_prompt_to_async_rollout_requests(self, prompts: DataProto, n: int = 1) -> list[AsyncRolloutRequest]:
-        assert "raw_prompt" in prompts.non_tensor_batch, (
-            "need data.return_raw_chat=True, due to no official way do parse_messages"
-        )
+    def _preprocess_prompt_to_async_rollout_requests(
+        self, prompts: DataProto, n: int = 1
+    ) -> list[AsyncRolloutRequest]:
+        assert (
+            "raw_prompt" in prompts.non_tensor_batch
+        ), "need data.return_raw_chat=True, due to no official way do parse_messages"
         logger.info(
             "n is deprecated for SGLang rollout since ray ppo trainer will repeat the prompts for rollout.n times"
         )
@@ -1281,26 +1496,41 @@ class SGLangRollout(BaseRollout):
         )
 
         for data_idx, (raw_prompt, multi_modal_data) in enumerate(
-            zip(prompts.non_tensor_batch["raw_prompt"], multi_modal_data_list, strict=True)
+            zip(
+                prompts.non_tensor_batch["raw_prompt"],
+                multi_modal_data_list,
+                strict=True,
+            )
         ):
             if self._tool_schemas:
                 _tools_kwargs = prompts.non_tensor_batch["tools_kwargs"][data_idx]
-                _tool_schemas = [self._tool_map[k].get_openai_tool_schema() for k in _tools_kwargs.keys()]
+                _tool_schemas = [
+                    self._tool_map[k].get_openai_tool_schema()
+                    for k in _tools_kwargs.keys()
+                ]
                 _input_ids = None
                 _attention_mask = None
             else:
-                _input_ids = _pre_process_inputs(self.pad_token_id, prompts.batch["input_ids"][data_idx])
-                _attention_mask = _pre_process_inputs(0, prompts.batch["attention_mask"][data_idx])
+                _input_ids = _pre_process_inputs(
+                    self.pad_token_id, prompts.batch["input_ids"][data_idx]
+                )
+                _attention_mask = _pre_process_inputs(
+                    0, prompts.batch["attention_mask"][data_idx]
+                )
                 _tools_kwargs = {}
                 _tool_schemas = None
 
             if self.interaction_map:
-                _interaction_kwargs = prompts.non_tensor_batch["interaction_kwargs"][data_idx]
+                _interaction_kwargs = prompts.non_tensor_batch["interaction_kwargs"][
+                    data_idx
+                ]
             else:
                 _interaction_kwargs = {}
 
             if not isinstance(raw_prompt, list | np.ndarray):
-                raise TypeError(f"raw_prompt must be a list or numpy array, got {type(raw_prompt)}")
+                raise TypeError(
+                    f"raw_prompt must be a list or numpy array, got {type(raw_prompt)}"
+                )
 
             req = AsyncRolloutRequest(
                 batch_data_id=data_idx,
@@ -1321,7 +1551,10 @@ class SGLangRollout(BaseRollout):
                 reward_scores={},
                 max_prompt_len=self.config.prompt_length,
                 max_response_len=self.config.response_length,
-                max_model_len=min(self.config.max_model_len, self.config.prompt_length + self.config.response_length),
+                max_model_len=min(
+                    self.config.max_model_len,
+                    self.config.prompt_length + self.config.response_length,
+                ),
                 use_inference_chat_template=self.config.multi_turn.use_inference_chat_template,
                 tokenization_sanity_check_mode=self.config.multi_turn.tokenization_sanity_check_mode,
                 processing_class=self.processing_class,
@@ -1370,7 +1603,10 @@ class SGLangRollout(BaseRollout):
             reward_scores={},
             max_prompt_len=self.config.prompt_length,
             max_response_len=self.config.response_length,
-            max_model_len=min(self.config.max_model_len, self.config.prompt_length + self.config.response_length),
+            max_model_len=min(
+                self.config.max_model_len,
+                self.config.prompt_length + self.config.response_length,
+            ),
             use_inference_chat_template=self.config.multi_turn.use_inference_chat_template,
             tokenization_sanity_check_mode=self.config.multi_turn.tokenization_sanity_check_mode,
             processing_class=self.processing_class,
@@ -1379,9 +1615,13 @@ class SGLangRollout(BaseRollout):
         # json_request already contains sampling_params
         # Filter only valid SamplingParams arguments
         valid_sampling_params = {}
-        temp_sampling_params = SamplingParams()  # Create temporary instance to check valid attributes
+        temp_sampling_params = (
+            SamplingParams()
+        )  # Create temporary instance to check valid attributes
         for k, v in json_request.items():
-            if k not in ["messages", "model", "tools"] and hasattr(temp_sampling_params, k):
+            if k not in ["messages", "model", "tools"] and hasattr(
+                temp_sampling_params, k
+            ):
                 valid_sampling_params[k] = v
         output = await self._handle_engine_call(req, valid_sampling_params)
         # it can be Dict or AsyncIterator[Dict]

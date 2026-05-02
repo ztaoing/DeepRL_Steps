@@ -121,10 +121,36 @@ def get_sharding_strategy(device_mesh):
     return sharding_strategy
 
 
+"""
+TaskRunner 的初始化中引入 ActorRolloutRefWorker 和 RayWorkerGroup 的相关代码：
+
+RayWorkerGroup 的核心作用是资源调度的核心中间层，统一了各种 RL worker（比如 ActorRolloutRefWorker、CriticWorker）的接口，进行统一管理。
+
+ActorRolloutRefWorker 委托给 RayWorkerGroup 进行初始化。
+RayWorkerGroup 这个类就是专门用于资源调度的。
+
+
+
+"""
+
+
 class ActorRolloutRefWorker(Worker, DistProfilerExtension):
     """
     This worker can be instantiated as a standalone actor or a standalone rollout or a standalone reference policy
     or a hybrid engine based on the config.rollout
+
+    根据 config.rollout 的配置，该 Worker 可以被实例化为独立的 Actor、独立的 Rollout、独立的参考策略（Reference Policy），或者一个混合引擎（Hybrid Engine）
+    """
+
+    """
+     1.调用 Worker 基类的构造函数，并保存配置。
+     2.如果 PyTorch 分布式环境尚未初始化，则进行初始化，包括设置通信后端和进程组。
+     3.为 FSDP 创建设备网格，用于模型参数的分片。
+     4.如果启用 Ulysses 序列并行，则初始化其设备网格。
+     5.根据传入的 role 参数设置 Worker 的具体角色（actor, rollout, ref）。
+     6.根据 Worker 角色配置 profiler，用于性能分析。
+     7.配置 parameter offload 和 optimizer offload。
+     8.为 Actor，Rollout 和 Reference 分别 normalize batch size。   
     """
 
     def __init__(self, config: DictConfig, role: str, **kwargs):
@@ -288,6 +314,14 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
             self.config.ref.log_prob_micro_batch_size_per_gpu = (
                 self.config.ref.log_prob_micro_batch_size
             )
+
+    """
+    1.初始化 Hugging Face 配置，获取 Generation Config，并设置模型的数据类型（Actor 使用 fp32，Reference 使用 bf16）。
+    2.使用 Hugging Face 的 AutoModelForCausalLM 或 AutoModelForVision2Seq 从预训练模型加载基础模型。
+    3.应用各种优化技术，包括 Liger kernel、融合 kernel、梯度检查点、LoRA 等。
+    4.根据配置选择 FSDP 或 FSDP2 策略，将模型封装到分布式训练框架中，支持参数分片和混合精度训练。
+    5.如果当前 Worker 是 Actor 角色，则初始化 AdamW 优化器和学习率调度器。
+    """
 
     def _build_model_optimizer(
         self,
@@ -596,6 +630,12 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
             actor_lr_scheduler,
             actor_model_config,
         )
+
+    """
+    1.备网格创建：为 Rollout 创建推理张量并行（infer_tp）设备网格。
+    2.SGLang Rollout 构建：导入并实例化 SGLangRollout 和 FSDPSGLangShardingManager。FSDPSGLangShardingManager 负责在 FSDP 训练格式和 SGLang 推理格式之间转换模型权重。
+    
+    """
 
     def _build_rollout(self, trust_remote_code=False):
         from torch.distributed.device_mesh import init_device_mesh
