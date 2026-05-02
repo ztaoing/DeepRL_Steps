@@ -419,7 +419,6 @@ Megatron-LM/
 * [verl-装饰器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E8%A3%85%E9%A5%B0%E5%99%A8.ipynb)
 * [verl-上下文管理器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8.ipynb)
 ### verl设计
-![verl](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/ray.png?v=1)
 
 <div align="center">
   <img src="https://github.com/ztaoing/DeepRL_Steps/blob/main/image/ray.png?v=1"  />
