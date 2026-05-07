@@ -407,6 +407,15 @@ Megatron-LM/
 * [睡眠模式](https://github.com/vllm-project/vllm/blob/main/docs/features/sleep_mode.md)
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
+## Ray
+* [ppo-ray(猛猿)]()
+* [openrlhf-_initiate_actors ](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/openrlhf-_initiate_actors%20Ray%20%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E5%90%AF%E5%8A%A8%E5%99%A8%EF%BC%88Launcher%EF%BC%89%20%E7%9A%84%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91.ipynb)
+    - 这段代码展示了如何利用 Ray 的 Placement Group (资源组) 来实现严格的资源隔离和分布式训练环境的搭建。
+    - 创建 Master Actor (Rank 0)
+    - 创建 Worker Actors (Rank 1 to N)
+    - placement_group放置组
+        - 资源束 (Bundle)
+    - options()
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
