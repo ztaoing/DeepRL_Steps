@@ -415,7 +415,10 @@ Megatron-LM/
     - 创建 Worker Actors (Rank 1 to N)
     - placement_group放置组
         - 资源束 (Bundle)
-    - options()
+    - options() 动态配置任务所需的资源
+* [ray-driver](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray-driver%E8%BF%9B%E7%A8%8B.ipynb)
+* [ray核心api](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/Ray%E6%A0%B8%E5%BF%83API%E5%85%A8%E5%AE%B6%E6%A1%B6.ipynb)
+    - [ray.put()]()
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
