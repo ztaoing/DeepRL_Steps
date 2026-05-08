@@ -418,14 +418,15 @@ Megatron-LM/
     - options() 动态配置任务所需的资源
 * [ray-driver](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray-driver%E8%BF%9B%E7%A8%8B.ipynb)
 * [ray核心api](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/Ray%E6%A0%B8%E5%BF%83API%E5%85%A8%E5%AE%B6%E6%A1%B6.ipynb)
-    - [ray.put()]()
-    - [ray.wait()]()
-    - [ray.get_actor()]()
-    - [ray.shutdown()]()
-    - [ray.kill]()
-    - [ray.nodes()]()
-    - [ray.cluster_resources()]()
-    - [ray.timeline(filename)]()
+    - [ray.put()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.put().ipynb)
+    - [ray.wait()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.wait().ipynb)
+    - [ray.get_actor()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.get_actor().ipynb)
+    - [ray.shutdown()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.shutdown().ipynb)
+    - [ray.kill](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.kill(actor).ipynb)
+    - [ray.nodes()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
+    - [ray.cluster_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
+    - [ray.available_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
+    - [ray.timeline(filename)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
