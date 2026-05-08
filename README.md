@@ -416,6 +416,9 @@ Megatron-LM/
     - placement_group放置组
         - 资源束 (Bundle)
     - options() 动态配置任务所需的资源
+* [openrlhf-LLMRayActor]()
+    - 旨在利用 Ray 框架对 vLLM进行分布式推理封装
+    - init_process_group()它是连接 Ray 分布式框架与 PyTorch 分布式通信 (NCCL) 的关键桥梁。
 * [ray-driver](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray-driver%E8%BF%9B%E7%A8%8B.ipynb)
 * [ray核心api](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/Ray%E6%A0%B8%E5%BF%83API%E5%85%A8%E5%AE%B6%E6%A1%B6.ipynb)
     - [ray.put()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.put().ipynb)
