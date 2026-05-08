@@ -419,6 +419,13 @@ Megatron-LM/
 * [ray-driver](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray-driver%E8%BF%9B%E7%A8%8B.ipynb)
 * [ray核心api](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/Ray%E6%A0%B8%E5%BF%83API%E5%85%A8%E5%AE%B6%E6%A1%B6.ipynb)
     - [ray.put()]()
+    - [ray.wait()]()
+    - [ray.get_actor()]()
+    - [ray.shutdown()]()
+    - [ray.kill]()
+    - [ray.nodes()]()
+    - [ray.cluster_resources()]()
+    - [ray.timeline(filename)]()
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
