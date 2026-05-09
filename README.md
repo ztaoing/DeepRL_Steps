@@ -430,6 +430,7 @@ Megatron-LM/
     - _broadcast_to_vllm() 方法的作用就是在这两个进程组之间搭建一座桥梁，将 DeepSpeed 侧更新后的权重“广播”给 vLLM 侧的所有进程
     - update_weight() 方法就是 vLLM 进程中的“接收器”，它监听来自 DeepSpeed 主进程的广播，并将接收到的权重加载到自己的模型中
 * [openrlhf.utils.distributed_util]()
+* [torch.distributed.broadcast]()
 
 * [ray-driver](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray-driver%E8%BF%9B%E7%A8%8B.ipynb)
 * [ray核心api](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/Ray%E6%A0%B8%E5%BF%83API%E5%85%A8%E5%AE%B6%E6%A1%B6.ipynb)
