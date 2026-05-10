@@ -431,6 +431,11 @@ Megatron-LM/
     - update_weight() 方法就是 vLLM 进程中的“接收器”，它监听来自 DeepSpeed 主进程的广播，并将接收到的权重加载到自己的模型中
 * [openrlhf.utils.distributed_util]()
 * [torch.distributed.broadcast]()
+* [PPO-Actor/Critic Training]()
+    - Step1：发送prompts，并从vllm_engine上收集(prompt, response)
+    - Step2：从Ref/Reward/Critic上收集并处理exps
+    - Step3: 确保将处理后的exps传送给Critic，并行执行Actor和Critic的训练
+    - Step4：vllm_engine权重更新
 
 * [ray-driver](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray-driver%E8%BF%9B%E7%A8%8B.ipynb)
 * [ray核心api](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/Ray%E6%A0%B8%E5%BF%83API%E5%85%A8%E5%AE%B6%E6%A1%B6.ipynb)
