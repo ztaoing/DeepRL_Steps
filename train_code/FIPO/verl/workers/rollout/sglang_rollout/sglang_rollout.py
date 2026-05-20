@@ -287,6 +287,7 @@ def get_tool_call_parser_type(
 5.通过 _init_inference_engine() 初始化 SGLang 推理引擎。
 6.通过 _init_sampling_params() 初始化生成序列的采样参数。
 7.设置 Tokenizer 和 padding token ID。
+
 """
 
 
@@ -555,6 +556,17 @@ class SGLangRollout(BaseRollout):
                 kwargs[k] = self.config.get(k)
         kwargs["n"] = 1  # already repeat in ray_trainer
         self.sampling_params = kwargs
+
+    """
+    SGLangRollout._initialize_tools() 函数用于初始化 Multi-turn 对话中的工具。
+
+    1.如果没有工具配置路径，则返回空列表和字典。
+    2.从配置文件加载工具并初始化工具列表。
+    3.创建 OpenAI 格式的工具 schema 和工具名称到工具对象的映射。
+    4.根据 Tokenizer 类型确定工具调用解析器。
+    5.为 SGLang 创建 Tool 对象。
+    6.实例化 FunctionCallParser。
+    """
 
     def _initialize_tools(self, config, processing_class):
         """Initialize tools from configuration.
