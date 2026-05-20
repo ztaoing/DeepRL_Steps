@@ -407,6 +407,8 @@ Megatron-LM/
 * [睡眠模式](https://github.com/vllm-project/vllm/blob/main/docs/features/sleep_mode.md)
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
+## megatron
+* [DistributedOptimizer]()
 ## vllm
 * [vllm.llm_engine.model_executor]()
     - 是 vLLM 架构中连接“大脑”（调度与逻辑）与“肌肉”（实际计算）的关键组件
@@ -455,6 +457,9 @@ Megatron-LM/
     - [ray.cluster_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.available_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.timeline(filename)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
+## megatron
+* [parallel_state](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/Megatron-LM/mpu.ipynb)
+
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
@@ -462,7 +467,9 @@ Megatron-LM/
 * [verl.trainer](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.trainer.ipynb)
 * [verl.utils](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.utils.ipynb)
 * [verl.workers](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/%20verl.workers.ipynb)
-    - [verl.workers.megatron_workers]()
+    - BaseEngine 派生出针对不同后端的实现，如 FSDPEngine 和 MegatronEngine
+    - 动态加载 Rollout（推理/采样）引擎
+    - async def async_send_weights(self, weights)
 * [DataProto统一数据协议](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/DataProto%E7%BB%9F%E4%B8%80%E6%95%B0%E6%8D%AE%E5%8D%8F%E8%AE%AE(Data%20Protocol).ipynb)
 * [self.actor_rollout_wg](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/self.actor_rollout_wg.ipynb)
 * [verl-装饰器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E8%A3%85%E9%A5%B0%E5%99%A8.ipynb)
