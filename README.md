@@ -345,6 +345,7 @@
 * [数据并行上篇(DP, DDP与ZeRO)](https://zhuanlan.zhihu.com/p/617133971)
 * [数据并行下篇( DeepSpeed ZeRO，零冗余优化)](https://zhuanlan.zhihu.com/p/618865052)
 * [张量模型并行(TP)，Megatron-LM](https://zhuanlan.zhihu.com/p/622212228)
+
 ## megatron (猛猿)
 ![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/mengyuan_megatron.png?v=4)
 ```
@@ -407,8 +408,7 @@ Megatron-LM/
 * [睡眠模式](https://github.com/vllm-project/vllm/blob/main/docs/features/sleep_mode.md)
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
-## megatron
-* [DistributedOptimizer]()
+
 ## vllm
 * [vllm.llm_engine.model_executor]()
     - 是 vLLM 架构中连接“大脑”（调度与逻辑）与“肌肉”（实际计算）的关键组件
@@ -458,8 +458,9 @@ Megatron-LM/
     - [ray.available_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.timeline(filename)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
 ## megatron
-* [parallel_state](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/Megatron-LM/mpu.ipynb)
-
+* [parallel_state(mpu)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/Megatron-LM/mpu.ipynb)
+    在底层的 torch.distributed 让所有 GPU 连上网之后，mpu 负责根据你设定的策略，给每张 GPU 划分具体的“管辖区域”和“沟通渠道”
+* [DistributedOptimizer]()
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
@@ -484,7 +485,11 @@ Megatron-LM/
 * [深入浅出理解 verl 源码（Part 1）](https://zhuanlan.zhihu.com/p/1920751852749849692)
 * [深入浅出理解 verl 源码——Rollout](https://zhuanlan.zhihu.com/p/1923349757566388159)
 * [verl 参数速览](https://zhuanlan.zhihu.com/p/1925041836998783250)
-
+### 训练与推理
+* [generate_sequences]()
+    - megatron ->vllm/sglang
+    - fsdp -> vllm/sglang
+    - get_rng_state与set_rng_state
 ## pytorch
 * [pytorch官方手册](https://docs.pytorch.org/docs/stable/index.html)
 * [pytorch examples](https://github.com/pytorch/examples/tree/main)
