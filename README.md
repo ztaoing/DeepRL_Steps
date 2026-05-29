@@ -461,6 +461,7 @@ Megatron-LM/
 * [parallel_state(mpu)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/Megatron-LM/mpu.ipynb)
     在底层的 torch.distributed 让所有 GPU 连上网之后，mpu 负责根据你设定的策略，给每张 GPU 划分具体的“管辖区域”和“沟通渠道”
 * [DistributedOptimizer]()
+* [order-(tp-cp-ep-dp-pp)]
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
