@@ -382,7 +382,14 @@ Megatron-LM/
 * [【论文】Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)
 * [【论文】Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM](https://arxiv.org/abs/2104.04473 )
 * [【论文】Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198)
-
+### Megatron-LM
+* [pretrain()]()
+* [order 的默认顺序是 'tp-cp-ep-dp-pp']()
+* [ProcessGroupCollection 分布式通讯组的初始化]()
+* [p2p_communication]()
+* [计算与通信的重叠]()
+* [TP:tensor_parallel/layers]()
+* [PP:1F1B]()
 
 ## 《动手学大模型》 
 * [上海交大](https://github.com/Lordog/dive-into-llms)
