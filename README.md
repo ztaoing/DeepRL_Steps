@@ -346,6 +346,66 @@
 * [数据并行下篇( DeepSpeed ZeRO，零冗余优化)](https://zhuanlan.zhihu.com/p/618865052)
 * [张量模型并行(TP)，Megatron-LM](https://zhuanlan.zhihu.com/p/622212228)
 
+
+## 《动手学大模型》 
+* [上海交大](https://github.com/Lordog/dive-into-llms)
+* [昇腾开源文档中心](https://ascend.github.io/docs/index.html)
+* 
+### 大模型训练
+* [1、训练数据准备](https://www.hiascend.com/developer/courses/detail/1871373977722732546)
+* [2、大模型预训练](https://www.hiascend.com/developer/courses/detail/1872199134812995586)
+* [2.1、预训练](https://www.hiascend.com/developer/courses/detail/1915241801172033538)
+* [3、大模型推理](https://www.hiascend.com/developer/courses/detail/1872200627859406849)
+* [4、大模型性能评估](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
+### 大模型推理
+* [大模型微调-高级](https://www.hiascend.com/developer/courses/detail/1915246001570357250)
+### 大模型评估
+* [1-常用大模型评估指标](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
+* [2-基于C-Eval的大模型性能评估](https://www.hiascend.com/developer/courses/detail/1915237566367830017)
+
+##  训练与推理
+
+* [推理框架的切换成本,降低RL训推共卡开销：SGLang/vLLM的无缝切换实现与分析](https://zhuanlan.zhihu.com/p/2002748926185469778)
+* [VMM：虚拟地址与物理地址之间的映射](https://github.com/CalvinXKY/BasicCUDA/tree/master/memory_opt/vmm)
+* [训推角色切换与权重更新](https://github.com/CalvinXKY/InfraTech/blob/main/llm_infer/switch_role_update_weights.ipynb)
+* [睡眠模式](https://github.com/vllm-project/vllm/blob/main/docs/features/sleep_mode.md)
+* [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
+
+
+## vllm
+* [vllm.llm_engine.model_executor]()
+    - 是 vLLM 架构中连接“大脑”（调度与逻辑）与“肌肉”（实际计算）的关键组件
+
+## veRL
+
+* [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
+* [verl.single_controller.ray](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.single_controller.ray.ipynb)
+* [verl.trainer](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.trainer.ipynb)
+* [verl.utils](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.utils.ipynb)
+* [verl.workers](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/%20verl.workers.ipynb)
+    - BaseEngine 派生出针对不同后端的实现，如 FSDPEngine 和 MegatronEngine
+    - 动态加载 Rollout（推理/采样）引擎
+    - async def async_send_weights(self, weights)
+* [DataProto统一数据协议](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/DataProto%E7%BB%9F%E4%B8%80%E6%95%B0%E6%8D%AE%E5%8D%8F%E8%AE%AE(Data%20Protocol).ipynb)
+* [self.actor_rollout_wg](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/self.actor_rollout_wg.ipynb)
+* [verl-装饰器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E8%A3%85%E9%A5%B0%E5%99%A8.ipynb)
+* [verl-上下文管理器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8.ipynb)
+### verl设计
+
+<div align="center">
+  <img src="https://github.com/ztaoing/DeepRL_Steps/blob/main/image/ray.png?v=1"  />
+</div>
+
+[Awesome-ML-SYS-Tutorial](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
+* [深入浅出理解 verl 源码（Part 1）](https://zhuanlan.zhihu.com/p/1920751852749849692)
+* [深入浅出理解 verl 源码——Rollout](https://zhuanlan.zhihu.com/p/1923349757566388159)
+* [verl 参数速览](https://zhuanlan.zhihu.com/p/1925041836998783250)
+### 训练与推理
+* [generate_sequences]()
+    - megatron ->vllm/sglang
+    - fsdp -> vllm/sglang
+    - get_rng_state与set_rng_state
+
 ## megatron (猛猿)
 ![mengyuan-megatron](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/mengyuan_megatron.png?v=4)
 ```
@@ -401,34 +461,6 @@ Megatron-LM/
 * * [parallel_state(mpu)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/Megatron-LM/mpu.ipynb)
     在底层的 torch.distributed 让所有 GPU 连上网之后，mpu 负责根据你设定的策略，给每张 GPU 划分具体的“管辖区域”和“沟通渠道”
 
-## 《动手学大模型》 
-* [上海交大](https://github.com/Lordog/dive-into-llms)
-* [昇腾开源文档中心](https://ascend.github.io/docs/index.html)
-* 
-### 大模型训练
-* [1、训练数据准备](https://www.hiascend.com/developer/courses/detail/1871373977722732546)
-* [2、大模型预训练](https://www.hiascend.com/developer/courses/detail/1872199134812995586)
-* [2.1、预训练](https://www.hiascend.com/developer/courses/detail/1915241801172033538)
-* [3、大模型推理](https://www.hiascend.com/developer/courses/detail/1872200627859406849)
-* [4、大模型性能评估](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
-### 大模型推理
-* [大模型微调-高级](https://www.hiascend.com/developer/courses/detail/1915246001570357250)
-### 大模型评估
-* [1-常用大模型评估指标](https://www.hiascend.com/developer/courses/detail/1872202813553147905)
-* [2-基于C-Eval的大模型性能评估](https://www.hiascend.com/developer/courses/detail/1915237566367830017)
-
-##  训练与推理
-
-* [推理框架的切换成本,降低RL训推共卡开销：SGLang/vLLM的无缝切换实现与分析](https://zhuanlan.zhihu.com/p/2002748926185469778)
-* [VMM：虚拟地址与物理地址之间的映射](https://github.com/CalvinXKY/BasicCUDA/tree/master/memory_opt/vmm)
-* [训推角色切换与权重更新](https://github.com/CalvinXKY/InfraTech/blob/main/llm_infer/switch_role_update_weights.ipynb)
-* [睡眠模式](https://github.com/vllm-project/vllm/blob/main/docs/features/sleep_mode.md)
-* [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
-
-
-## vllm
-* [vllm.llm_engine.model_executor]()
-    - 是 vLLM 架构中连接“大脑”（调度与逻辑）与“肌肉”（实际计算）的关键组件
 ## Ray
 * [ppo-ray(猛猿)]()
 * [openrlhf-_initiate_actors ](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/openrlhf-_initiate_actors%20Ray%20%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E5%90%AF%E5%8A%A8%E5%99%A8%EF%BC%88Launcher%EF%BC%89%20%E7%9A%84%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91.ipynb)
@@ -475,35 +507,6 @@ Megatron-LM/
     - [ray.available_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.timeline(filename)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
 
-## veRL
-
-* [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
-* [verl.single_controller.ray](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.single_controller.ray.ipynb)
-* [verl.trainer](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.trainer.ipynb)
-* [verl.utils](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl.utils.ipynb)
-* [verl.workers](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/%20verl.workers.ipynb)
-    - BaseEngine 派生出针对不同后端的实现，如 FSDPEngine 和 MegatronEngine
-    - 动态加载 Rollout（推理/采样）引擎
-    - async def async_send_weights(self, weights)
-* [DataProto统一数据协议](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/DataProto%E7%BB%9F%E4%B8%80%E6%95%B0%E6%8D%AE%E5%8D%8F%E8%AE%AE(Data%20Protocol).ipynb)
-* [self.actor_rollout_wg](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/self.actor_rollout_wg.ipynb)
-* [verl-装饰器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E8%A3%85%E9%A5%B0%E5%99%A8.ipynb)
-* [verl-上下文管理器](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/verl%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8.ipynb)
-### verl设计
-
-<div align="center">
-  <img src="https://github.com/ztaoing/DeepRL_Steps/blob/main/image/ray.png?v=1"  />
-</div>
-
-[Awesome-ML-SYS-Tutorial](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
-* [深入浅出理解 verl 源码（Part 1）](https://zhuanlan.zhihu.com/p/1920751852749849692)
-* [深入浅出理解 verl 源码——Rollout](https://zhuanlan.zhihu.com/p/1923349757566388159)
-* [verl 参数速览](https://zhuanlan.zhihu.com/p/1925041836998783250)
-### 训练与推理
-* [generate_sequences]()
-    - megatron ->vllm/sglang
-    - fsdp -> vllm/sglang
-    - get_rng_state与set_rng_state
 ## pytorch
 * [pytorch官方手册](https://docs.pytorch.org/docs/stable/index.html)
 * [pytorch examples](https://github.com/pytorch/examples/tree/main)
