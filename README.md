@@ -327,11 +327,8 @@
 * Ray-利用Ray进行大模型的数据处理、训练、推理和部署 [Ray rllib github地址](https://github.com/ray-project/ray/tree/master/rllib)
 * [图解OpenRLHF中基于Ray的分布式训练流程](https://zhuanlan.zhihu.com/p/12871616401)
 
-## vLLM
-* [图解Vllm V1系列1：整体流程](https://zhuanlan.zhihu.com/p/1900126076279160869)
 
-## Transformer 架构
-* [Self-Attention（自注意力机制）](https://zhuanlan.zhihu.com/p/455399791)
+
 
 ## 流水线并行，数据并行和张量并行 (猛猿)
 
@@ -372,9 +369,6 @@
 * [一文读懂vLLM显存管理：技术细节+优化思路](https://mp.weixin.qq.com/s?__biz=MzYyMjA5NzMwOQ==&mid=2247483759&idx=1&sn=419dcd4a4b0504a2dd6d1b1abf4f830a&scene=21&poc_token=HGF2lmmjrqicKBuswG6j7MhDdAJr1D9tO3loIbWq)
 
 
-## vllm
-* [vllm.llm_engine.model_executor]()
-    - 是 vLLM 架构中连接“大脑”（调度与逻辑）与“肌肉”（实际计算）的关键组件
 
 ## veRL
 
@@ -444,10 +438,12 @@ Megatron-LM/
 * [【论文】Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198)
 
 
+
 ### transformer
 * [1-transformer核心基础组件](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/Megatron-LM/transformer/1-transformer%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6.ipynb)
 * [1.1-自注意力机制（Self-Attention Multi-Head Attention）](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/Megatron-LM/transformer/1.1-%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%EF%BC%88Self-Attention%20Multi-Head%20Attention%EF%BC%89.ipynb)
 * [1.2-前馈神经网络（Feed-Forward Network, FFN）](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/Megatron-LM/transformer/1.2-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88Feed-Forward%20Network%2C%20FFN%EF%BC%89.ipynb)
+*  [Self-Attention（自注意力机制）](https://zhuanlan.zhihu.com/p/455399791)
 
 ### Megatron-LM
 * [pretrain()]()
@@ -506,6 +502,11 @@ Megatron-LM/
     - [ray.cluster_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.available_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.timeline(filename)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
+
+## vLLM
+* [图解Vllm V1系列1：整体流程](https://zhuanlan.zhihu.com/p/1900126076279160869)
+* [vllm.llm_engine.model_executor]()
+    - 是 vLLM 架构中连接“大脑”（调度与逻辑）与“肌肉”（实际计算）的关键组件
 
 ## pytorch
 * [pytorch官方手册](https://docs.pytorch.org/docs/stable/index.html)
