@@ -382,14 +382,24 @@ Megatron-LM/
 * [【论文】Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)
 * [【论文】Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM](https://arxiv.org/abs/2104.04473 )
 * [【论文】Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198)
+
+
+### transformer
+* [1-transformer核心基础组件](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/Megatron-LM/transformer/1-transformer%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6.ipynb)
+* [1.1-自注意力机制（Self-Attention Multi-Head Attention）](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/Megatron-LM/transformer/1.1-%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%EF%BC%88Self-Attention%20Multi-Head%20Attention%EF%BC%89.ipynb)
+* [1.2-前馈神经网络（Feed-Forward Network, FFN）](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/Megatron-LM/transformer/1.2-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88Feed-Forward%20Network%2C%20FFN%EF%BC%89.ipynb)
+
 ### Megatron-LM
 * [pretrain()]()
+    入口
 * [order 的默认顺序是 'tp-cp-ep-dp-pp']()
 * [ProcessGroupCollection 分布式通讯组的初始化]()
 * [p2p_communication]()
 * [计算与通信的重叠]()
 * [TP:tensor_parallel/layers]()
 * [PP:1F1B]()
+* * [parallel_state(mpu)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/Megatron-LM/mpu.ipynb)
+    在底层的 torch.distributed 让所有 GPU 连上网之后，mpu 负责根据你设定的策略，给每张 GPU 划分具体的“管辖区域”和“沟通渠道”
 
 ## 《动手学大模型》 
 * [上海交大](https://github.com/Lordog/dive-into-llms)
@@ -464,11 +474,7 @@ Megatron-LM/
     - [ray.cluster_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.available_resources()](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
     - [ray.timeline(filename)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/ray/ray.nodes()%20ray.cluster_resources()%20%20ray.timeline(filename).ipynb)
-## megatron
-* [parallel_state(mpu)](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/Megatron-LM/mpu.ipynb)
-    在底层的 torch.distributed 让所有 GPU 连上网之后，mpu 负责根据你设定的策略，给每张 GPU 划分具体的“管辖区域”和“沟通渠道”
-* [DistributedOptimizer]()
-* [order-(tp-cp-ep-dp-pp)]
+
 ## veRL
 
 * [TaskRunner](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/VERL/TaskRunner.ipynb)
