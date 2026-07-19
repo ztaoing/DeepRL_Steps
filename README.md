@@ -126,6 +126,7 @@
   
 ## 稀疏性
 * [[推荐]Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
+    - [RL更新的‘稀疏性’是个假象](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/arxiv_train/2-RL's%20Razor%3A%20Why%20On-Policy%20Reinforcement%20Learning%20Forgets%20Less/1-%E6%A0%B8%E5%BF%83%E8%AE%BA%E7%82%B9%EF%BC%9ARL%E6%9B%B4%E6%96%B0%E7%9A%84%E2%80%9C%E7%A8%80%E7%96%8F%E6%80%A7%E2%80%9D%E6%98%AF%E4%B8%AA%E5%81%87%E8%B1%A1.ipynb)
     - 核心论点：RL更新的“稀疏性”是个假象
        - 这段话的核心发现是：人们之前认为 RL 的权重更新是稀疏的（即只有很少的参数被改变），但这其实是一个由训练精度设置引起的错觉。
 
