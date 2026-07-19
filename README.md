@@ -93,9 +93,7 @@
 
 ## (显示/隐式)KL散度
 * [k3估计器：Approximating KL Divergence](http://joschu.net/blog/kl-approx.html)
-* [[推荐]Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
 
-  为何在线强化学习能有效缓解灾难性遗忘？
   
   [Retaining by Doing: The Role of On-Policy Data in Mitigating Forgetting]()
   - 支持“on-policy SFT 可减轻遗忘”的观点
@@ -127,7 +125,11 @@
 * [deepseek-math-V1]()
   
 ## 稀疏性
+* [[推荐]Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
+    - 核心论点：RL更新的“稀疏性”是个假象
+       - 这段话的核心发现是：人们之前认为 RL 的权重更新是稀疏的（即只有很少的参数被改变），但这其实是一个由训练精度设置引起的错觉。
 
+    - 为何在线强化学习能有效缓解灾难性遗忘？
 * [TODO-Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
     - RL引起的参数更新稀疏性
     - 这种稀疏性主要源于强化学习微调的数据特性
@@ -236,7 +238,10 @@
 ## RL 与 SFT
 * [[推荐]Why Online Reinforcement Learning Forgets Less](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E4%B8%BA%E4%BD%95%E5%9C%A8%E7%BA%BF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%83%BD%E6%9C%89%E6%95%88%E7%BC%93%E8%A7%A3%E7%81%BE%E9%9A%BE%E6%80%A7%E9%81%97%E5%BF%98%EF%BC%9FWhy%20Online%20Reinforcement%20Learning%20Forgets%20Less.pdf)
 
-  为何在线强化学习能有效缓解灾难性遗忘？
+  - 核心论点：RL更新的“稀疏性”是个假象
+       - 这段话的核心发现是：人们之前认为 RL 的权重更新是稀疏的（即只有很少的参数被改变），但这其实是一个由训练精度设置引起的错觉。
+
+    - 为何在线强化学习能有效缓解灾难性遗忘？
   
 * [The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
 
