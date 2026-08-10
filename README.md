@@ -82,6 +82,9 @@
 * [Understanding R1-Zero-Like Training: A Critical Perspective](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/Understanding%20R1-Zero-Like%20Training%20A%20Critical%20Perspective.pdf)
 * [FIPO（Future-KL Influenced Policy Optimization）]()
     - FIPO 追踪的是每个Token引发的概率偏移(实时追踪每一个Token对后续推理轨迹的实际影响)
+    - 解决：同一个轨迹中所有 token 的优势值（advantage）均匀分配
+    - <font color='green'>将稀疏的结果奖励</font>-->转化为--><font color='red'>密集的 token 级监督信号</font>，**通过衡量每个 token 对其后续轨迹的因果影响力来重新加权优势值。**
+    - 推理是一个序列过程，单个 token 的真正重要性取决于它引发的后续轨迹
 
 
 
@@ -155,7 +158,8 @@
 
 
 
-## 从幅度到方向
+## 从幅度(永远 ≥ 0)到方向（带正负号）
+- 方向信息就藏在正负号里
 ### reasoning direction: pointing from base to RLVR distribution
 * [On the Direction of RLVR Updates for LLM Reasoning: Identification and Exploitation]()
     - 大小度量(熵和KL散度)的分布直方图在Base和RLVR模型之间几乎一模一样
