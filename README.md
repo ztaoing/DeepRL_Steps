@@ -36,13 +36,13 @@
 
 
 ![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/rl_ai.png?v=9)
-# RL知识点整理 🔍
+# RL知识点整理 
 * [KL散度](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/4-kl%E6%95%A3%E5%BA%A6)
 * [熵](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/5-%E7%86%B5)
 * [over_base_model](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/6-over_base_model)
 * [损失计算](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/7-%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97)
 * [ScalingLaws](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/8-ScalingLaws)
-* [监控指标](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/9-%E7%9B%91%E6%8E%A7%E6%8C%87%E6%A0%87)
+* [监控指标🔍](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/9-%E7%9B%91%E6%8E%A7%E6%8C%87%E6%A0%87)
 * [凸](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/10-%E5%87%B8)
 * [梯度爆炸](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/11-%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8)
 * [模式崩溃](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/12-%E6%A8%A1%E5%BC%8F%E5%B4%A9%E6%BA%83)
