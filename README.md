@@ -36,7 +36,7 @@
 
 
 ![论文关联1](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/rl_ai.png?v=9)
-# RL知识点整理
+# RL知识点整理 🔍
 * [KL散度](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/4-kl%E6%95%A3%E5%BA%A6)
 * [熵](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/5-%E7%86%B5)
 * [over_base_model](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/6-over_base_model)
