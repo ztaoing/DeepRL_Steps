@@ -336,9 +336,10 @@
   策略空间非凸是训练不稳定的内在数学根源，而训练不稳定是非凸性在动态优化过程中的外在表现。
 * [Benign Nonconvex Landscapes in Optimal and Robust Control, Part II: Extended Convex Lifting]()
   - 该论文提出了扩展凸提升（Extended Convex Lifting, ECL）框架，这是一个统一的新型理论工具，旨在从现代优化视角揭示经典最优与鲁棒控制问题中"隐藏的凸性"
+  
 ## 训练推理的不一致
 * [Score Centering Stabilizes Off-policy Reinforcement Learning]()
-  - 
+  
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
 * [浅析以 OpenRLHF 为代表的 post-training 系统的计算流程](https://zhuanlan.zhihu.com/p/16370000391)
