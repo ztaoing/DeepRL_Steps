@@ -46,6 +46,7 @@
 * [凸](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/10-%E5%87%B8)
 * [梯度爆炸](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/11-%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8)
 * [模式崩溃](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/12-%E6%A8%A1%E5%BC%8F%E5%B4%A9%E6%BA%83)
+* [训推不一致](https://github.com/ztaoing/DeepRL_Steps/tree/main/train_code/arxiv_train/13-%E8%AE%AD%E6%8E%A8%E4%B8%8D%E4%B8%80%E8%87%B4)
 
 # 强化学习论文
 * [TODOStatistical Reinforcement Learning in the Real World: A Survey of  Challenges and Future Directions]()
