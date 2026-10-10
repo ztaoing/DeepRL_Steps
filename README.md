@@ -339,6 +339,7 @@
   - 该论文提出了扩展凸提升（Extended Convex Lifting, ECL）框架，这是一个统一的新型理论工具，旨在从现代优化视角揭示经典最优与鲁棒控制问题中"隐藏的凸性"
   
 ## 训练推理的不一致
+![RL-tools](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/train.png?v=1)
 * [Score Centering Stabilizes Off-policy Reinforcement Learning]()
   
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
