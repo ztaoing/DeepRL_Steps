@@ -346,7 +346,7 @@
 ## 训练推理的不一致
 
 ![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/train.png?v=2)
-* [Score Centering Stabilizes Off-policy Reinforcement Learning]()
+* [TODO Score Centering Stabilizes Off-policy Reinforcement Learning]()
   
 ## Awesome-ML-SYS-Tutorial（RLHF System 开发笔记）
 * [RLHF System 开发笔记](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/README-cn.md)
