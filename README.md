@@ -1,6 +1,6 @@
 
 
-# 等到合适的时机的时候，花已经谢了。
+
 # 观察结果 ≠ 客观事实，而是「观察方式」的产物。
 ## 强化学习-原理
 
@@ -125,11 +125,12 @@
 ## 熵（探索）
 * [[熵]1-The Entropy Mechanism of Reinforcement Learning for Reasoning Language Model](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/1-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%AE%8F%E8%A7%82%E7%9A%84%E3%80%81%E5%85%A8%E5%B1%80%E7%9A%84%E2%80%9C%E7%AD%96%E7%95%A5%E7%86%B5%E2%80%9DThe%20Entropy%20Mechanism%20of%20Reinforcement%20Learning%20for%20Reasoning%20Language%20Model.pdf)
   
-  关注的是宏观的、全局的“策略熵”
+  - 关注的是宏观的、全局的“策略熵”
   
 * [[熵]2-Beyond the 80,20 Rule- High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/2-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E5%BE%AE%E8%A7%82%E7%9A%84%E3%80%81%E5%B1%80%E9%83%A8%E7%9A%84%E2%80%9CToken%20%E7%BA%A7%E7%86%B5%E2%80%9DBeyond%20the%2080%2C20%20Rule-%20High-Entropy%20Minority%20Tokens%20Drive%20Effective%20Reinforcement%20Learning%20for%20LLM%20Reasoning.pdf)
  
   - 关注的是微观的、局部的“Token 级熵”
+  
 *  [Harnessing Uncertainty  Entropy Modulated Policy Gradients for Long-Horizon LLM Agents](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/%E5%88%A9%E7%94%A8%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%9D%A2%E5%90%91%E9%95%BF%E5%BA%8F%E5%88%97LLM%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%86%B5%E8%B0%83%E5%88%B6%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6Harnessing%20Uncertainty%20%20Entropy%20Modulated%20Policy%20Gradients%20for%20Long-Horizon%20LLM%20Agents.pdf)
 
    - 利用不确定性面向长序列LLM智能体的熵调制策略梯度
@@ -148,6 +149,8 @@
        - 这段话的核心发现是：人们之前认为 RL 的权重更新是稀疏的（即只有很少的参数被改变），但这其实是一个由训练精度设置引起的错觉。
 
     - 为何在线强化学习能有效缓解灾难性遗忘？
+      - 在线强化学习每一步都从当前策略采样做更新，天然把策略变化限制在“离原模型不远”的范围内，所以不容易把旧能力覆盖掉。
+      - 遗忘程度由“新任务上的 KL 偏移”决定
 * [TODO-Reinforcement Learning Finetunes Small Subnetworks in Large Language Models]()
     - RL引起的参数更新稀疏性
     - 这种稀疏性主要源于强化学习微调的数据特性
@@ -260,7 +263,7 @@
   - 核心论点：RL更新的“稀疏性”是个假象
        - 这段话的核心发现是：人们之前认为 RL 的权重更新是稀疏的（即只有很少的参数被改变），但这其实是一个由训练精度设置引起的错觉。
 
-    - 为何在线强化学习能有效缓解灾难性遗忘？
+  
   
 * [The Path Not Taken: RLVR Provably Learns Off the Principals](https://github.com/ztaoing/DeepRL_Steps/blob/main/arxiv/The%20Path%20Not%20Taken%20RLVR%20Provably%20Learns%20Off%20the%20Principals.pdf)
 
