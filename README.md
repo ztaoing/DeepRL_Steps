@@ -345,7 +345,7 @@
   
 ## 训练推理的不一致
 
-![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/train.png?v=2)
+![On-Policy-Distillation](https://github.com/ztaoing/DeepRL_Steps/blob/main/image/rollout_train.png?v=2)
 * [TODO Score Centering Stabilizes Off-policy Reinforcement Learning]()
 * [verl处理“训练”与“推理”底层引擎不同，导致的logprob 口径不一致](https://github.com/ztaoing/DeepRL_Steps/blob/main/train_code/arxiv_train/13-%E8%AE%AD%E6%8E%A8%E4%B8%8D%E4%B8%80%E8%87%B4/2-%20verl%E5%A4%84%E7%90%86%E2%80%9C%E8%AE%AD%E7%BB%83%E2%80%9D%E4%B8%8E%E2%80%9C%E6%8E%A8%E7%90%86%E2%80%9D%E5%BA%95%E5%B1%82%E5%BC%95%E6%93%8E%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%AF%BC%E8%87%B4%E7%9A%84logprob%20%E5%8F%A3%E5%BE%84%E4%B8%8D%E4%B8%80%E8%87%B4.ipynb)
   
